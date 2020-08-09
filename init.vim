@@ -61,6 +61,8 @@ set encoding=UTF-8
 set scrolloff=2
 set clipboard=unnamedplus
 set updatetime=100
+set splitbelow
+set splitright
 
 colorscheme onedark
 
@@ -75,20 +77,24 @@ nnoremap <a-k> <c-y>
 nnoremap <a-j> <c-e>
 nnoremap <c-a> :bprevious<cr>
 nnoremap <c-x> :bnext<cr>
-nnoremap <c-w> :bd<cr>
-nnoremap <c-f> :vsplit<cr>
-nnoremap <leader>yy <esc>yyp
+nnoremap <c-z> :enew<cr>
+nnoremap <c-d> :bd!<cr>
+noremap <silent> <c-right> :vertical resize +1<CR>
+noremap <silent> <c-left> :vertical resize -1<CR>
 
-inoremap <leader>yy <esc>yyp
 inoremap <c-s> <esc>:w<cr>
 inoremap <c-j> <esc>:m .+1<CR>==gi
 inoremap <c-k> <esc>:m .-2<CR>==gi
 inoremap <a-j> <esc>ja
 inoremap <a-l> <esc>la
-inoremap <a-h> <esc>hd
+inoremap <a-h> <esc>ha
 inoremap <a-k> <esc>ka
 inoremap <leader>gg <esc><s-I>
 inoremap <leader>G <esc><s-A>
+
+" Remap caps to esc
+au VimEnter * silent! !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Caps_Lock' <cr>
+au VimLeave * silent! !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape' <cr>
 
 " Fzf
 let $FZF_DEFAULT_COMMAND = 'ag -g ""'
