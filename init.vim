@@ -124,12 +124,14 @@ tnoremap <F4> <C-\><C-n>:Nuake<CR>
 " Ale
 let g:ale_fix_on_save = 1
 let g:ale_linters = {
-\   'python': ['flake8 --max-line-length=120', 'pylint --max-line-length=120'],
+\   'python': ['flake8', 'pylint'],
 \}
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'python': ['isort', 'autopep8']
 \}
+let g:ale_python_flake8_options = '--ignore=E501'
+let g:ale_python_pylint_options = '--ignore=E501'
 
 " Deoplete
 let g:deoplete#enable_at_startup = 1
