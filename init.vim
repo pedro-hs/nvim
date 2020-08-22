@@ -69,7 +69,7 @@ colorscheme onedark
 nnoremap <bs> X
 nnoremap <c-p> :Files<cr>
 nnoremap <c-l> :Ag<cr>
-nnoremap <c-s> :w<cr>
+nnoremap <c-y> :w<cr>
 nnoremap <esc> :noh<cr>
 nnoremap <c-j> :m .+1<cr>==
 nnoremap <c-k> :m .-2<cr>==
@@ -78,21 +78,21 @@ nnoremap <a-j> <c-e>
 nnoremap <c-a> :bprevious<cr>
 nnoremap <c-x> :bnext<cr>
 nnoremap <c-z> :enew<cr>
-nnoremap <c-d> :bd!<cr>
+nnoremap <c-s> :bd!<cr>
 noremap <silent> <c-right> :vertical resize +1<CR>
 noremap <silent> <c-left> :vertical resize -1<CR>
 nnoremap <leader>j :noh<cr>
 
-inoremap <leader>j :noh<cr>
-inoremap <c-s> <esc>:w<cr>
+inoremap <leader>j <esc>:noh<cr>
+inoremap <c-y> <esc>:w<cr>
 inoremap <c-j> <esc>:m .+1<CR>==gi
 inoremap <c-k> <esc>:m .-2<CR>==gi
 inoremap <a-j> <esc>ja
 inoremap <a-l> <esc>la
 inoremap <a-h> <esc>ha
 inoremap <a-k> <esc>ka
-inoremap <leader>gg <esc><s-I>
-inoremap <leader>G <esc><s-A>
+inoremap <leader>[ <esc><s-I>
+inoremap <leader>] <esc><s-A>
 
 " Fzf
 let $FZF_DEFAULT_COMMAND = 'ag -g ""'
