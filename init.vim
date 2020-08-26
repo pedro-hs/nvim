@@ -82,6 +82,8 @@ nnoremap <c-s> :bd!<cr>
 noremap <silent> <c-right> :vertical resize +1<CR>
 noremap <silent> <c-left> :vertical resize -1<CR>
 nnoremap <leader>j :noh<cr>
+nnoremap ss :%s///g<left><left>
+nnoremap <c-u> :set ignorecase!<cr>
 
 inoremap <leader>j <esc>:noh<cr>
 inoremap <c-y> <esc>:w<cr>
@@ -130,6 +132,7 @@ let g:ale_fixers = {
 \}
 let g:ale_python_flake8_options = '--ignore=E501'
 let g:ale_python_pylint_options = '--ignore=E501'
+let g:ale_python_autopep8_options = '--max-line-length 120'
 
 " Deoplete
 let g:deoplete#enable_at_startup = 1
