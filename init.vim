@@ -1,7 +1,7 @@
 " curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 "
 " TERMINATOR
-" apt install terminator
+" aptinstall terminator
 " disable ctrl f
 " disable ctrl tab
 " change colors
@@ -79,13 +79,14 @@ nnoremap <c-a> :bprevious<cr>
 nnoremap <c-x> :bnext<cr>
 nnoremap <c-z> :enew<cr>
 nnoremap <c-s> :bd!<cr>
-noremap <silent> <c-right> :vertical resize +1<CR>
-noremap <silent> <c-left> :vertical resize -1<CR>
+nnoremap <silent> <c-right> :vertical resize +3<CR>
+nnoremap <silent> <c-left> :vertical resize -3<CR>
 nnoremap <leader>j :noh<cr>
 nnoremap ss :%s///g<left><left>
 nnoremap <c-u> :set ignorecase!<cr>
+nnoremap çç <esc>:noh<cr>
 
-inoremap <leader>j <esc>:noh<cr>
+inoremap çç <esc>:noh<cr>
 inoremap <c-y> <esc>:w<cr>
 inoremap <c-j> <esc>:m .+1<CR>==gi
 inoremap <c-k> <esc>:m .-2<CR>==gi
@@ -95,6 +96,8 @@ inoremap <a-h> <esc>ha
 inoremap <a-k> <esc>ka
 inoremap <leader>[ <esc><s-I>
 inoremap <leader>] <esc><s-A>
+
+vnoremap çç <esc>:noh<cr>
 
 " Fzf
 let $FZF_DEFAULT_COMMAND = 'ag -g ""'
@@ -114,7 +117,7 @@ nnoremap <F3> :NERDTreeToggle<CR>
 
 " Blamer
 let g:blamer_enabled = 1
-let g:blamer_delay = 500
+let g:blamer_delay = 200
 
 " Quake
 nnoremap <F4> :Nuake<CR>
