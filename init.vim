@@ -1,10 +1,8 @@
+" Plug vim
 " curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 "
 " TERMINATOR
-" aptinstall terminator
-" disable ctrl f
-" disable ctrl tab
-" change colors
+" apt install terminator
 "
 " ICONS
 " wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/DroidSansMono.zip
@@ -18,11 +16,19 @@
 "
 " RANGER
 " apt install ranger
-" .bashrc -> alias rg=ranger
+"
+" BASHRC
+" alias rg=ranger
+" alias bashrc="cd ~ && nvim .bashrc"
+" alias evi="cd ~/.config/nvim && nvim init.vim"
+" alias cvi="rm -rf ~/.local/share/nvim/swap/" 
 "
 " COMFORTABLE MOTION VIM - change keymaps
 " nnoremap <silent> <s-a-j> :call comfortable_motion#flick(100)<cr>
 " nnoremap <silent> <s-a-k> :call comfortable_motion#flick(-100)<cr>
+"
+" SILVER SEARCH
+" apt install silversearcher-ag
 
 " Plugins
 call plug#begin()
