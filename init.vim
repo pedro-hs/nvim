@@ -21,6 +21,8 @@
 " export EDITOR=nvim
 "
 " BASHRC
+" alias pip=pip3
+" alias python=python3
 " alias rg=ranger
 " alias bashrc="cd ~ && nvim .bashrc"
 " alias evi="cd ~/.config/nvim && nvim init.vim"
