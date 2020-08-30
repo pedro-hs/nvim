@@ -2,7 +2,7 @@
 " curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 "
 " TERMINATOR
-" apt install terminator
+" apt install terminator  # remove titlebar and window border
 "
 " ICONS
 " wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/DroidSansMono.zip
@@ -21,7 +21,7 @@
 " alias rg=ranger
 " alias bashrc="cd ~ && nvim .bashrc"
 " alias evi="cd ~/.config/nvim && nvim init.vim"
-" alias cvi="rm -rf ~/.local/share/nvim/swap/" 
+" alias cvi="rm -rf ~/.local/share/nvim/swap/"
 "
 " COMFORTABLE MOTION VIM - change keymaps
 " nnoremap <silent> <s-a-j> :call comfortable_motion#flick(100)<cr>
