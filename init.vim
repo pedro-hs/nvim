@@ -1,8 +1,14 @@
-" Plug vim
+" PLUG VIM
 " curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 "
 " TERMINATOR
 " apt install terminator  # remove titlebar and window border
+"
+" SILVER SEARCH
+" apt install silversearcher-ag
+"
+" RANGER
+" apt install ranger
 "
 " ICONS
 " wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/DroidSansMono.zip
@@ -14,9 +20,6 @@
 " git config --global mergetool.path nvim
 " export EDITOR=nvim
 "
-" RANGER
-" apt install ranger
-"
 " BASHRC
 " alias rg=ranger
 " alias bashrc="cd ~ && nvim .bashrc"
@@ -26,9 +29,6 @@
 " COMFORTABLE MOTION VIM - change keymaps
 " nnoremap <silent> <s-a-j> :call comfortable_motion#flick(100)<cr>
 " nnoremap <silent> <s-a-k> :call comfortable_motion#flick(-100)<cr>
-"
-" SILVER SEARCH
-" apt install silversearcher-ag
 
 " Plugins
 call plug#begin()
@@ -145,7 +145,7 @@ let g:ale_python_flake8_options = '--ignore=E501'
 let g:ale_python_pylint_options = '--ignore=E501'
 let g:ale_python_autopep8_options = '--max-line-length 120'
 
-" Deop " Python
+" Deoplete " Python
 let g:deoplete#enable_at_startup = 1
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
