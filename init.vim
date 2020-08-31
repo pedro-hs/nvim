@@ -125,7 +125,7 @@ let g:jedi#use_splits_not_buffers = "right"
 
 
 
-ç
+
 " INSTALL BEFORE
 " NVIM
 " apt install nvim
