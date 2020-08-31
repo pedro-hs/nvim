@@ -1,37 +1,3 @@
-" PLUG VIM
-" curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-"
-" TERMINATOR
-" apt install terminator  # remove titlebar and window border
-"
-" SILVER SEARCH
-" apt install silversearcher-ag
-"
-" RANGER
-" apt install ranger
-"
-" ICONS
-" wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/DroidSansMono.zip
-" unzip DroidSansMono.zip -d ~/.fonts
-" fc-cache -fv
-"
-" GIT
-" git config --global merge.tool vimdiff
-" git config --global mergetool.path nvim
-" export EDITOR=nvim
-"
-" BASHRC
-" alias pip=pip3
-" alias python=python3
-" alias rg=ranger
-" alias bashrc="cd ~ && nvim .bashrc"
-" alias evi="cd ~/.config/nvim && nvim init.vim"
-" alias cvi="rm -rf ~/.local/share/nvim/swap/"
-"
-" COMFORTABLE MOTION VIM - change keymaps
-" nnoremap <silent> <s-a-j> :call comfortable_motion#flick(100)<cr>
-" nnoremap <silent> <s-a-k> :call comfortable_motion#flick(-100)<cr>
-
 " Plugins
 call plug#begin()
 Plug 'w0rp/ale', { 'do': 'pip3 install flake8 isort pylint autopep8' } " Python
@@ -47,6 +13,7 @@ Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'Lenovsky/nuake'
 Plug 'joshdick/onedark.vim'
+Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'} " Python
 Plug 'vim-airline/vim-airline'
 Plug 'tpope/vim-commentary'
 Plug 'ryanoasis/vim-devicons'
@@ -155,3 +122,44 @@ inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 " Jedi " Python
 let g:jedi#completions_enabled = 0
 let g:jedi#use_splits_not_buffers = "right"
+
+
+
+ç
+" INSTALL BEFORE
+" NVIM
+" apt install nvim
+"
+" PLUG VIM
+" curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+"
+" TERMINATOR
+" apt install terminator  # remove titlebar and window border
+"
+" SILVER SEARCH
+" apt install silversearcher-ag
+"
+" RANGER
+" apt install ranger
+"
+" ICONS
+" wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/DroidSansMono.zip
+" unzip DroidSansMono.zip -d ~/.fonts
+" fc-cache -fv
+"
+" GIT
+" git config --global merge.tool vimdiff
+" git config --global mergetool.path nvim
+" export EDITOR=nvim
+"
+" BASHRC
+" alias pip=pip3
+" alias python=python3
+" alias rg=ranger
+" alias bashrc="cd ~ && nvim .bashrc"
+" alias evi="cd ~/.config/nvim && nvim init.vim"
+" alias cvi="rm -rf ~/.local/share/nvim/swap/"
+"
+" COMFORTABLE MOTION VIM - change keymaps
+" nnoremap <silent> <s-a-j> :call comfortable_motion#flick(100)<cr>
+" nnoremap <silent> <s-a-k> :call comfortable_motion#flick(-100)<cr>
