@@ -33,7 +33,7 @@ set cursorcolumn
 set cursorline
 set colorcolumn=80,120
 set encoding=UTF-8
-set scrolloff=2
+set scrolloff=3
 set clipboard=unnamedplus
 set updatetime=100
 set splitbelow
@@ -58,9 +58,9 @@ nnoremap <silent> <c-s-right> :resize +3<cr>
 nnoremap <silent> <c-s-left> :resize -3<cr>
 nnoremap <c-u> <c-r>
 nnoremap ss :%s///g<left><left>
-nnoremap <silent> çç <esc>:noh<cr>
+nnoremap <silent> ç <esc>:noh<cr>
 
-inoremap <silent> çç <esc>:noh<cr>
+inoremap <silent> ç <esc>:noh<cr>
 inoremap <c-y> <esc>:w<cr>
 inoremap <c-j> <esc>:m .+1<cr>==gi
 inoremap <c-k> <esc>:m .-2<cr>==gi
@@ -71,7 +71,7 @@ inoremap <a-k> <esc>ka
 inoremap <leader>[ <esc><s-I>
 inoremap <leader>] <esc><s-A>
 
-vnoremap <silent> çç <esc>:noh<cr>
+vnoremap <silent> ç <esc>:noh<cr>
 
 cnoremap <c-p> <c-r>"<cr>
 
@@ -122,6 +122,7 @@ inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 " Jedi " Python
 let g:jedi#completions_enabled = 0
 let g:jedi#use_splits_not_buffers = "right"
+let g:jedi#usages_command = ""
 
 
 
@@ -146,11 +147,6 @@ let g:jedi#use_splits_not_buffers = "right"
 " wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/DroidSansMono.zip
 " unzip DroidSansMono.zip -d ~/.fonts
 " fc-cache -fv
-"
-" GIT
-" git config --global merge.tool vimdiff
-" git config --global mergetool.path nvim
-" export EDITOR=nvim
 "
 " BASHRC
 " alias pip=pip3
