@@ -76,9 +76,6 @@ vnoremap <silent> ç <esc>:noh<cr>
 cnoremap <c-p> <c-r>"<cr>
 
 colorscheme onedark
-hi Directory ctermfg=blue
-hi NERDTreeCWD ctermfg=grey
-let g:DevIconsEnableFoldersOpenClose = 1
 
 " Fzf
 let $FZF_DEFAULT_COMMAND = 'ag -g ""'
@@ -89,6 +86,9 @@ let g:airline#extensions#tabline#buffer_nr_show = 1
 
 " NerdTree
 let g:NERDTreeMinimalUI = 1
+let g:DevIconsEnableFoldersOpenClose = 1
+hi Directory ctermfg=blue
+hi NERDTreeCWD ctermfg=grey
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 nnoremap <silent> <leader>n :NERDTreeToggle<cr>
 
@@ -108,7 +108,7 @@ let g:ale_linters = {
 \}
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
-\   'python': ['isort', 'autopep8']
+\   'python': ['isort', 'autopep8'],
 \}
 let g:ale_python_flake8_options = '--ignore=E501'
 let g:ale_python_pylint_options = '--ignore=E501'
