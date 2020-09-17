@@ -1,24 +1,24 @@
-" Plugins
 call plug#begin()
-Plug 'w0rp/ale', { 'do': 'pip3 install flake8 isort pylint autopep8' } " Python
+Plug 'w0rp/ale'
 Plug 'jiangmiao/auto-pairs'
 Plug 'APZelos/blamer.nvim'
 Plug 'yuttie/comfortable-motion.vim'
-Plug 'zchee/deoplete-jedi', { 'do': 'pip3 install pynvim jedi' } " Python
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' } " Python
+Plug 'zchee/deoplete-jedi'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'davidhalter/jedi-vim' " Python
+Plug 'davidhalter/jedi-vim'
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'Lenovsky/nuake'
 Plug 'joshdick/onedark.vim'
-Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'} " Python
+Plug 'lervag/vimtex'
 Plug 'vim-airline/vim-airline'
 Plug 'tpope/vim-commentary'
 Plug 'ryanoasis/vim-devicons'
 Plug 'airblade/vim-gitgutter'
 Plug 'sheerun/vim-polyglot'
+Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 Plug 'tpope/vim-surround'
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 call plug#end()
@@ -38,6 +38,13 @@ set clipboard=unnamedplus
 set updatetime=100
 set splitbelow
 set splitright
+set virtualedit=block
+
+colorscheme onedark
+
+vnoremap <silent> ç <esc>:noh<cr>
+
+cnoremap <c-p> <c-r>"<cr>
 
 nnoremap <bs> X
 nnoremap <c-p> :Files<cr>
@@ -71,12 +78,6 @@ inoremap <a-k> <esc>ka
 inoremap <leader>[ <esc><s-I>
 inoremap <leader>] <esc><s-A>
 
-vnoremap <silent> ç <esc>:noh<cr>
-
-cnoremap <c-p> <c-r>"<cr>
-
-colorscheme onedark
-
 " Fzf
 let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 
@@ -101,28 +102,35 @@ nnoremap <silent> <leader>j :Nuake<cr>
 inoremap <silent> <leader>j <C-\><C-n>:Nuake<cr>
 tnoremap <silent> <leader>j <C-\><C-n>:Nuake<cr>
 
-" Ale " Python
-let g:ale_fix_on_save = 1
+" Ale
 let g:ale_linters = {
-\   'python': ['flake8', 'pylint'],
+\	'python': ['flake8', 'pylint'],
 \}
 let g:ale_fixers = {
-\   '*': ['remove_trailing_lines', 'trim_whitespace'],
-\   'python': ['isort', 'autopep8'],
+\	'*': ['remove_trailing_lines', 'trim_whitespace'],
+\	'python': ['isort', 'autopep8'],
 \}
+let g:ale_fix_on_save = 1
 let g:ale_python_flake8_options = '--ignore=E501'
 let g:ale_python_pylint_options = '--ignore=E501'
 let g:ale_python_autopep8_options = '--max-line-length 120'
 
-" Deoplete " Python
+" Deoplete
 let g:deoplete#enable_at_startup = 1
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+call deoplete#custom#var('omni', 'input_patterns', {
+\	'tex': g:vimtex#re#deoplete
+\})
 
-" Jedi " Python
+" Jedi
 let g:jedi#completions_enabled = 0
 let g:jedi#use_splits_not_buffers = "right"
 let g:jedi#usages_command = ""
+
+" Vimtex
+let g:tex_flavor = 'latex'
+
 
 
 
@@ -131,8 +139,14 @@ let g:jedi#usages_command = ""
 " NVIM
 " apt install nvim
 "
+" Pip
+" pip3 install flake8 isort pylint autopep8 pynvim jedi
+"
 " PLUG VIM
 " curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+"
+" LATEXMK
+" apt install latexmk
 "
 " TERMINATOR
 " apt install terminator  # remove titlebar and window border
