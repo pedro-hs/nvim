@@ -11,18 +11,19 @@ Plug 'davidhalter/jedi-vim'
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'Lenovsky/nuake'
-Plug 'joshdick/onedark.vim'
 Plug 'lervag/vimtex'
 Plug 'vim-airline/vim-airline'
 Plug 'tpope/vim-commentary'
 Plug 'ryanoasis/vim-devicons'
 Plug 'airblade/vim-gitgutter'
 Plug 'sheerun/vim-polyglot'
+Plug 'tyrannicaltoucan/vim-quantum'
 Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 Plug 'tpope/vim-surround'
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 call plug#end()
 
+set expandtab
 set hidden
 set number
 set mouse=a
@@ -39,8 +40,7 @@ set updatetime=100
 set splitbelow
 set splitright
 set virtualedit=block
-
-colorscheme onedark
+set cmdheight=2
 
 vnoremap <silent> ç <esc>:noh<cr>
 
@@ -78,6 +78,11 @@ inoremap <a-k> <esc>ka
 inoremap <leader>[ <esc><s-I>
 inoremap <leader>] <esc><s-A>
 
+" Quantum
+set termguicolors
+colorscheme quantum
+let g:quantum_black=1
+
 " Fzf
 let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 
@@ -88,6 +93,7 @@ let g:airline#extensions#tabline#buffer_nr_show = 1
 " NerdTree
 let g:NERDTreeMinimalUI = 1
 let g:DevIconsEnableFoldersOpenClose = 1
+let g:NERDTreeWinPos = "right"
 hi Directory ctermfg=blue
 hi NERDTreeCWD ctermfg=grey
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
@@ -114,6 +120,8 @@ let g:ale_fix_on_save = 1
 let g:ale_python_flake8_options = '--ignore=E501'
 let g:ale_python_pylint_options = '--ignore=E501'
 let g:ale_python_autopep8_options = '--max-line-length 120'
+let g:ale_sign_error = '✘'
+let g:ale_sign_warning = '●'
 
 " Deoplete
 let g:deoplete#enable_at_startup = 1
@@ -125,8 +133,10 @@ call deoplete#custom#var('omni', 'input_patterns', {
 
 " Jedi
 let g:jedi#completions_enabled = 0
-let g:jedi#use_splits_not_buffers = "right"
 let g:jedi#usages_command = ""
+
+" Semshi
+hi semshiSelected        ctermfg=161 guifg=#d7005f "rgb=215,0,95
 
 " Vimtex
 let g:tex_flavor = 'latex'
