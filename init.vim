@@ -1,14 +1,11 @@
 call plug#begin()
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'w0rp/ale'
 Plug 'jiangmiao/auto-pairs'
 Plug 'APZelos/blamer.nvim'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'yuttie/comfortable-motion.vim'
-" Plug 'zchee/deoplete-jedi'
-" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-" Plug 'davidhalter/jedi-vim'
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'Lenovsky/nuake'
@@ -37,7 +34,7 @@ set colorcolumn=80,120
 set encoding=UTF-8
 set scrolloff=3
 set clipboard=unnamedplus
-set updatetime=100
+set updatetime=50
 set splitbelow
 set splitright
 set virtualedit=block
@@ -59,7 +56,7 @@ nnoremap <a-j> <c-e>
 nnoremap <silent> <c-a> :bprevious<cr>
 nnoremap <silent> <c-x> :bnext<cr>
 nnoremap <silent> <c-z> :enew<cr>
-nnoremap <silent> <c-s> :bd!<cr>
+nnoremap <silent> <c-s> :bwipeout!<cr>
 nnoremap <silent> <c-right> :vertical resize +3<cr>
 nnoremap <silent> <c-left> :vertical resize -3<cr>
 nnoremap <silent> <c-s-right> :resize +3<cr>
@@ -95,7 +92,6 @@ let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:NERDTreeMinimalUI = 1
 let g:DevIconsEnableFoldersOpenClose = 1
 let g:NERDTreeWinPos = "right"
-hi Directory ctermfg=blue
 hi NERDTreeCWD ctermfg=grey
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 nnoremap <silent> <leader>n :NERDTreeToggle<cr>
@@ -111,11 +107,11 @@ tnoremap <silent> <leader>j <C-\><C-n>:Nuake<cr>
 
 " Ale
 let g:ale_linters = {
-\	'python': ['flake8', 'pylint'],
+\       'python': ['flake8', 'pylint'],
 \}
 let g:ale_fixers = {
-\	'*': ['remove_trailing_lines', 'trim_whitespace'],
-\	'python': ['isort', 'autopep8'],
+\       '*': ['remove_trailing_lines', 'trim_whitespace'],
+\       'python': ['isort', 'autopep8'],
 \}
 let g:ale_fix_on_save = 1
 let g:ale_python_flake8_options = '--ignore=E501'
@@ -124,30 +120,25 @@ let g:ale_python_autopep8_options = '--max-line-length 120'
 let g:ale_sign_error = '✘'
 let g:ale_sign_warning = '⚬'
 
-" Deoplete
-" let g:deoplete#enable_at_startup = 1
-" autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
-" inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-" call deoplete#custom#var('omni', 'input_patterns', {
-" \	'tex': g:vimtex#re#deoplete
-" \})
-
-" " Jedi
-" let g:jedi#completions_enabled = 0
-" let g:jedi#usages_command = ""
-
 " Semshi
-hi semshiSelected        ctermfg=161 guifg=#d7005f "rgb=215,0,95
+hi semshiSelected ctermbg=242 guifg=#b7bdc0 guibg=#474646
 
 " Vimtex
 let g:tex_flavor = 'latex'
 
+" Coc
 let g:coc_global_extensions = [
   \ 'coc-tsserver',
   \ 'coc-python',
+  \ 'coc-vimtex',
 \]
-
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+nnoremap <silent> coc :CocCommand<cr>
 nnoremap <silent> K :call <SID>show_documentation()<CR>
+inoremap <silent><expr> <c-space> coc#refresh()
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
@@ -156,6 +147,22 @@ function! s:show_documentation()
     call CocAction('doHover')
   endif
 endfunction
+hi Pmenu guibg=#292929
+if exists('*complete_info')
+  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+else
+  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+endif
+
+
+
+
+
+
+
+
+
+
 
 " INSTALL BEFORE
 " NVIM
