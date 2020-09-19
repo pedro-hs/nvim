@@ -192,12 +192,15 @@ endif
 " fc-cache -fv
 "
 " BASHRC
+" alias python=python3.6
 " alias pip=pip3
-" alias python=python3
 " alias rg=ranger
 " alias bashrc="cd ~ && nvim .bashrc"
 " alias evi="cd ~/.config/nvim && nvim init.vim"
 " alias cvi="rm -rf ~/.local/share/nvim/swap/"
+" alias env="source env/bin/activate"
+" alias venv="source venv/bin/activate"
+" PS1='\w\[\033[32m\]$(__git_ps1)\n \$\[\033[0m\] '
 "
 " COMFORTABLE MOTION VIM - change keymaps
 " nnoremap <silent> <s-a-j> :call comfortable_motion#flick(100)<cr>
