@@ -14,6 +14,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'tpope/vim-commentary'
 Plug 'ryanoasis/vim-devicons'
 Plug 'airblade/vim-gitgutter'
+Plug 'unkiwii/vim-nerdtree-sync'
 Plug 'sheerun/vim-polyglot'
 Plug 'tyrannicaltoucan/vim-quantum'
 Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
@@ -21,6 +22,7 @@ Plug 'tpope/vim-surround'
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 call plug#end()
 
+set relativenumber
 set expandtab
 set hidden
 set number
@@ -51,8 +53,8 @@ nnoremap <c-y> :w<cr>
 nnoremap <silent> <esc> :noh<cr>
 nnoremap <silent> <c-j> :m .+1<cr>==
 nnoremap <silent> <c-k> :m .-2<cr>==
-nnoremap <a-k> <c-y>
-nnoremap <a-j> <c-e>
+nnoremap <s-a-k> <c-y>
+nnoremap <s-a-j> <c-e>
 nnoremap <silent> <c-a> :bprevious<cr>
 nnoremap <silent> <c-x> :bnext<cr>
 nnoremap <silent> <c-z> :enew<cr>
@@ -64,7 +66,9 @@ nnoremap <silent> <c-s-left> :resize -3<cr>
 nnoremap <c-u> <c-r>
 nnoremap ss :%s///g<left><left>
 nnoremap <silent> ç <esc>:noh<cr>
+nnoremap <leader>x :set relativenumber!<cr>
 
+inoremap <leader>x :set relativenumber!<cr>
 inoremap <silent> ç <esc>:noh<cr>
 inoremap <c-y> <esc>:w<cr>
 inoremap <c-j> <esc>:m .+1<cr>==gi
@@ -95,6 +99,7 @@ let g:NERDTreeWinPos = "right"
 hi NERDTreeCWD ctermfg=grey
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 nnoremap <silent> <leader>n :NERDTreeToggle<cr>
+let g:nerdtree_sync_cursorline = 1
 
 " Blamer
 let g:blamer_enabled = 1
@@ -112,13 +117,16 @@ let g:ale_linters = {
 let g:ale_fixers = {
 \       '*': ['remove_trailing_lines', 'trim_whitespace'],
 \       'python': ['isort', 'autopep8'],
+\       'typescript': ['prettier'],
+\       'typescriptreact': ['prettier'],
 \}
 let g:ale_fix_on_save = 1
+let g:ale_sign_error = '✘'
+let g:ale_sign_warning = '⚬'
 let g:ale_python_flake8_options = '--ignore=E501'
 let g:ale_python_pylint_options = '--ignore=E501'
 let g:ale_python_autopep8_options = '--max-line-length 120'
-let g:ale_sign_error = '✘'
-let g:ale_sign_warning = '⚬'
+let g:ale_javascript_prettier_options = '--single-quote --print-width=120'
 
 " Semshi
 hi semshiSelected ctermbg=242 guifg=#b7bdc0 guibg=#474646
@@ -133,11 +141,9 @@ let g:coc_global_extensions = [
   \ 'coc-vimtex',
 \]
 nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
+nmap <leader>rn <Plug>(coc-rename)
 nnoremap <silent> coc :CocCommand<cr>
-nnoremap <silent> K :call <SID>show_documentation()<CR>
+nnoremap <silent> K :call <SID>show_documentation()<cr>
 inoremap <silent><expr> <c-space> coc#refresh()
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 function! s:show_documentation()
@@ -149,9 +155,9 @@ function! s:show_documentation()
 endfunction
 hi Pmenu guibg=#292929
 if exists('*complete_info')
-  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<cr>"
 else
-  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<cr>"
 endif
 
 
@@ -164,11 +170,14 @@ endif
 
 
 
-" INSTALL BEFORE
 " NVIM
 " apt install nvim
 "
-" Pip
+" GOOGLE CHROME VIMIUM
+"
+" VSCODE VIM
+"
+" PIP
 " pip3 install flake8 isort pylint autopep8 pynvim jedi
 "
 " PLUG VIM
@@ -203,5 +212,5 @@ endif
 " PS1='\w\[\033[32m\]$(__git_ps1)\n \$\[\033[0m\] '
 "
 " COMFORTABLE MOTION VIM - change keymaps
-" nnoremap <silent> <s-a-j> :call comfortable_motion#flick(100)<cr>
-" nnoremap <silent> <s-a-k> :call comfortable_motion#flick(-100)<cr>
+" nnoremap <silent> <a-j> :call comfortable_motion#flick(100)<cr>
+" nnoremap <silent> <a-k> :call comfortable_motion#flick(-100)<cr>
