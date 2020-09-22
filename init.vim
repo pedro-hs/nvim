@@ -119,6 +119,7 @@ let g:ale_fixers = {
 \       'python': ['isort', 'autopep8'],
 \       'typescript': ['prettier'],
 \       'typescriptreact': ['prettier'],
+\       'sql': ['sqlformat'],
 \}
 let g:ale_fix_on_save = 1
 let g:ale_sign_error = '✘'
@@ -127,6 +128,7 @@ let g:ale_python_flake8_options = '--ignore=E501'
 let g:ale_python_pylint_options = '--ignore=E501'
 let g:ale_python_autopep8_options = '--max-line-length 120'
 let g:ale_javascript_prettier_options = '--single-quote --print-width=120'
+let g:ale_sql_sqlformat_options = '--reindent --keywords upper --identifiers lower'
 
 " Semshi
 hi semshiSelected ctermbg=242 guifg=#b7bdc0 guibg=#474646
@@ -185,6 +187,9 @@ endif
 "
 " LATEXMK
 " apt install latexmk
+"
+" SQLFORMAT
+" apt install sqlformat
 "
 " TERMINATOR
 " apt install terminator  # remove titlebar and window border
