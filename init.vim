@@ -22,6 +22,7 @@ Plug 'tpope/vim-surround'
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 call plug#end()
 
+set nowrap
 set relativenumber
 set expandtab
 set hidden
@@ -36,7 +37,7 @@ set colorcolumn=80,120
 set encoding=UTF-8
 set scrolloff=3
 set clipboard=unnamedplus
-set updatetime=50
+set updatetime=100
 set splitbelow
 set splitright
 set virtualedit=block
@@ -115,10 +116,7 @@ tnoremap <silent> <leader>j <C-\><C-n>:Nuake<cr>
 let g:ale_sign_error = '✘'
 let g:ale_sign_warning = '⚬'
 hi ALEWarning guifg=#d5b875 guibg=#474646
-hi ALEStyleWarning guifg=#d5b875 guibg=#474646
-hi ALEInfo guifg=#d5b875 guibg=#474646
 hi ALEError ctermfg=0 ctermbg=11 guifg=#212121 guibg=#d5b875
-hi ALEStyleError ctermfg=0 ctermbg=11 guifg=#212121 guibg=#d5b875
 let g:ale_fix_on_save = 1
 let g:ale_linters = {
 \       'python': ['flake8', 'pylint'],
