@@ -103,6 +103,7 @@ let g:nerdtree_sync_cursorline = 1
 
 " Blamer
 let g:blamer_enabled = 1
+let g:blamer_show_in_visual_modes = 0
 let g:blamer_delay = 200
 
 " Quake
@@ -111,6 +112,14 @@ inoremap <silent> <leader>j <C-\><C-n>:Nuake<cr>
 tnoremap <silent> <leader>j <C-\><C-n>:Nuake<cr>
 
 " Ale
+let g:ale_sign_error = '✘'
+let g:ale_sign_warning = '⚬'
+hi ALEWarning guifg=#d5b875 guibg=#474646
+hi ALEStyleWarning guifg=#d5b875 guibg=#474646
+hi ALEInfo guifg=#d5b875 guibg=#474646
+hi ALEError ctermfg=0 ctermbg=11 guifg=#212121 guibg=#d5b875
+hi ALEStyleError ctermfg=0 ctermbg=11 guifg=#212121 guibg=#d5b875
+let g:ale_fix_on_save = 1
 let g:ale_linters = {
 \       'python': ['flake8', 'pylint'],
 \}
@@ -121,13 +130,10 @@ let g:ale_fixers = {
 \       'typescriptreact': ['prettier'],
 \       'sql': ['sqlformat'],
 \}
-let g:ale_fix_on_save = 1
-let g:ale_sign_error = '✘'
-let g:ale_sign_warning = '⚬'
 let g:ale_python_flake8_options = '--ignore=E501'
 let g:ale_python_pylint_options = '--ignore=E501'
 let g:ale_python_autopep8_options = '--max-line-length 120'
-let g:ale_javascript_prettier_options = '--single-quote --print-width=120'
+let g:ale_javascript_prettier_options = '--single-quote --print-width=120 --arrow-parens=always --trailing-comma=es5 --implicit-arrow-linebreak=beside'
 let g:ale_sql_sqlformat_options = '--reindent --keywords upper --identifiers lower'
 
 " Semshi
@@ -161,8 +167,6 @@ if exists('*complete_info')
 else
   inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<cr>"
 endif
-
-
 
 
 
