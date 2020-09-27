@@ -2,5 +2,4 @@ plugged
 .netrwhist
 autoload/
 node_modules/
-ftplugin/
 package-lock.json

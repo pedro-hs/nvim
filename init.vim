@@ -66,9 +66,9 @@ nnoremap <silent> <c-s-left> :resize -3<cr>
 nnoremap <c-u> <c-r>
 nnoremap ss :%s///g<left><left>
 nnoremap <silent> ç <esc>:noh<cr>
-nnoremap <leader>x :set relativenumber!<cr>
+nnoremap <silent> <leader>x :set relativenumber!<cr>
 
-inoremap <leader>x :set relativenumber!<cr>
+inoremap <silent> <leader>x :set relativenumber!<cr>
 inoremap <silent> ç <esc>:noh<cr>
 inoremap <c-y> <esc>:w<cr>
 inoremap <c-j> <esc>:m .+1<cr>==gi
@@ -128,7 +128,7 @@ let g:ale_python_flake8_options = '--ignore=E501'
 let g:ale_python_pylint_options = '--ignore=E501'
 let g:ale_python_autopep8_options = '--max-line-length 120'
 let g:ale_javascript_prettier_options = '--single-quote --print-width=120'
-let g:ale_sql_sqlformat_options = '--reindent --keywords upper --identifiers lower'
+let g:ale_sql_sqlformat_options = '--reindent --keywords upper'
 
 " Semshi
 hi semshiSelected ctermbg=242 guifg=#b7bdc0 guibg=#474646
