@@ -181,6 +181,11 @@ endif
 "
 " VSCODE VIM
 "
+" SUBLIME
+" Preferences > Settings
+" 'ignored_packages': [],
+" 'vintage_start_in_command_mode': true
+"
 " PIP
 " pip3 install flake8 isort pylint autopep8 pynvim jedi
 "
