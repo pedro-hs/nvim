@@ -33,7 +33,7 @@ set list
 set listchars=tab:--,space:.
 set cursorcolumn
 set cursorline
-set colorcolumn=80,120
+set colorcolumn=80,120,140
 set encoding=UTF-8
 set scrolloff=3
 set clipboard=unnamedplus
@@ -45,7 +45,8 @@ set cmdheight=2
 
 vnoremap <silent> ç <esc>:noh<cr>
 
-cnoremap <c-p> <c-r>"<cr>
+cnoremap <c-p> \<c-r>"<cr>
+cnoremap <c-o> <c-r>"<cr>
 
 nnoremap <bs> X
 nnoremap <c-p> :Files<cr>
@@ -116,7 +117,7 @@ tnoremap <silent> <leader>j <C-\><C-n>:Nuake<cr>
 let g:ale_sign_error = '✘'
 let g:ale_sign_warning = '⚬'
 hi ALEWarning guifg=#d5b875 guibg=#474646
-hi ALEError ctermfg=0 ctermbg=11 guifg=#212121 guibg=#d5b875
+hi ALEError guifg=#292929 guibg=#b7bdc0
 let g:ale_fix_on_save = 1
 let g:ale_linters = {
 \       'python': ['flake8', 'pylint'],
@@ -136,6 +137,7 @@ let g:ale_javascript_prettier_options = '--single-quote --print-width=140 --arro
 
 " Semshi
 hi semshiSelected ctermbg=242 guifg=#b7bdc0 guibg=#474646
+hi link semshiUnresolved ALEError
 
 " Vimtex
 let g:tex_flavor = 'latex'
@@ -174,43 +176,29 @@ endif
 
 
 
-" NVIM
-" apt install nvim
+" TODO
+" Global search and replace
+" Git diff
+" Git selection for checkout [fileName] e branch -D [branchName]
+" Autoimport
 "
-" GOOGLE CHROME VIMIUM
-"
-" VSCODE VIM
-"
-" SUBLIME
-" Preferences > Settings
-" 'ignored_packages': [],
-" 'vintage_start_in_command_mode': true
-"
-" PIP
-" pip3 install flake8 isort pylint autopep8 pynvim jedi
+" INSTALL
+" apt install silversearcher-ag ranger sqlformat latexmk terminator nvim
 "
 " PLUG VIM
 " curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 "
-" LATEXMK
-" apt install latexmk
-"
-" SQLFORMAT
-" apt install sqlformat
-"
-" TERMINATOR
-" apt install terminator  # remove titlebar and window border
-"
-" SILVER SEARCH
-" apt install silversearcher-ag
-"
-" RANGER
-" apt install ranger
+" PIP
+" pip3 install flake8 isort pylint autopep8 pynvim jedi
 "
 " ICONS
 " wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/DroidSansMono.zip
 " unzip DroidSansMono.zip -d ~/.fonts
 " fc-cache -fv
+"
+" COMFORTABLE MOTION VIM
+" nnoremap <silent> <a-j> :call comfortable_motion#flick(100)<cr>
+" nnoremap <silent> <a-k> :call comfortable_motion#flick(-100)<cr>
 "
 " BASHRC
 " alias python=python3.6
@@ -221,8 +209,9 @@ endif
 " alias cvi="rm -rf ~/.local/share/nvim/swap/"
 " alias env="source env/bin/activate"
 " alias venv="source venv/bin/activate"
+" alias src="cd ~/Documents/src"
 " PS1='\w\[\033[32m\]$(__git_ps1)\n \$\[\033[0m\] '
 "
-" COMFORTABLE MOTION VIM - change keymaps
-" nnoremap <silent> <a-j> :call comfortable_motion#flick(100)<cr>
-" nnoremap <silent> <a-k> :call comfortable_motion#flick(-100)<cr>
+" GOOGLE CHROME VIMIUM
+" VSCODE VIM
+" SUBLIME VINTAGE
