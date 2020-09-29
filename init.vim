@@ -132,7 +132,7 @@ let g:ale_python_flake8_options = '--ignore=E501'
 let g:ale_python_pylint_options = '--ignore=E501'
 let g:ale_python_autopep8_options = '--max-line-length 120'
 let g:ale_sql_sqlformat_options = '--reindent --keywords upper'
-let g:ale_javascript_prettier_options = '--single-quote --print-width=120 --arrow-parens=always --trailing-comma=es5 --implicit-arrow-linebreak=beside'
+let g:ale_javascript_prettier_options = '--single-quote --print-width=140 --arrow-parens=always --trailing-comma=es5 --implicit-arrow-linebreak=beside'
 
 " Semshi
 hi semshiSelected ctermbg=242 guifg=#b7bdc0 guibg=#474646
