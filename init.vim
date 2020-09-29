@@ -57,9 +57,8 @@ nnoremap <silent> <c-k> :m .-2<cr>==
 nnoremap <s-a-k> <c-y>
 nnoremap <s-a-j> <c-e>
 nnoremap <silent> <c-a> :bprevious<cr>
-nnoremap <silent> <c-x> :bnext<cr>
-nnoremap <silent> <c-z> :enew<cr>
-nnoremap <silent> <c-s> :bwipeout!<cr>
+nnoremap <silent> <c-s> :bnext<cr>
+nnoremap <silent> <c-x> :bwipeout!<cr>
 nnoremap <silent> <c-right> :vertical resize +3<cr>
 nnoremap <silent> <c-left> :vertical resize -3<cr>
 nnoremap <silent> <c-s-right> :resize +3<cr>
@@ -68,6 +67,7 @@ nnoremap <c-u> <c-r>
 nnoremap ss :%s///g<left><left>
 nnoremap <silent> ç <esc>:noh<cr>
 nnoremap <silent> <leader>x :set relativenumber!<cr>
+nnoremap <silent> <leader>c :set ignorecase!<cr>
 
 inoremap <silent> <leader>x :set relativenumber!<cr>
 inoremap <silent> ç <esc>:noh<cr>
