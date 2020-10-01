@@ -44,6 +44,10 @@ set virtualedit=block
 set cmdheight=2
 
 vnoremap <silent> ç <esc>:noh<cr>
+vnoremap - ~
+vnoremap 9 ^
+vnoremap ^ 0
+vnoremap 0 $
 
 cnoremap <c-p> \<c-r>"<cr>
 cnoremap <c-o> <c-r>"<cr>
@@ -69,6 +73,10 @@ nnoremap ss :%s///g<left><left>
 nnoremap <silent> ç <esc>:noh<cr>
 nnoremap <silent> <leader>x :set relativenumber!<cr>
 nnoremap <silent> <leader>c :set ignorecase!<cr>
+nnoremap - ~
+nnoremap 9 ^
+nnoremap ^ 0
+nnoremap 0 $
 
 inoremap <silent> <leader>x :set relativenumber!<cr>
 inoremap <silent> ç <esc>:noh<cr>
@@ -79,8 +87,8 @@ inoremap <a-j> <esc>ja
 inoremap <a-l> <esc>la
 inoremap <a-h> <esc>ha
 inoremap <a-k> <esc>ka
-inoremap <leader>[ <esc><s-I>
-inoremap <leader>] <esc><s-A>
+inoremap <leader>0 <esc><s-A>
+inoremap <leader>9 <esc><s-I>
 
 " Quantum
 set termguicolors
@@ -179,8 +187,9 @@ endif
 " TODO
 " Global search and replace
 " Git diff
-" Git selection for checkout [fileName] e branch -D [branchName]
 " Autoimport
+" Configure set space size and replace tabs by spaces
+" config mg979/vim-visual-multi
 "
 " INSTALL
 " apt install silversearcher-ag ranger sqlformat latexmk terminator nvim
@@ -207,8 +216,8 @@ endif
 " alias bashrc="cd ~ && nvim .bashrc"
 " alias evi="cd ~/.config/nvim && nvim init.vim"
 " alias cvi="rm -rf ~/.local/share/nvim/swap/"
-" alias env="source env/bin/activate"
-" alias venv="source venv/bin/activate"
+" alias penv="source env/bin/activate"
+" alias pvenv="source venv/bin/activate"
 " alias src="cd ~/Documents/src"
 " PS1='\w\[\033[32m\]$(__git_ps1)\n \$\[\033[0m\] '
 "
