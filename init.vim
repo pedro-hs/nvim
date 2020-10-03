@@ -22,9 +22,13 @@ Plug 'tpope/vim-surround'
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 call plug#end()
 
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+set autoindent
+set expandtab
 set nowrap
 set relativenumber
-set expandtab
 set hidden
 set number
 set mouse=a
@@ -44,6 +48,7 @@ set virtualedit=block
 set cmdheight=2
 
 vnoremap <silent> ç <esc>:noh<cr>
+vnoremap <silent> Ç <esc>:noh<cr>
 vnoremap - ~
 vnoremap 9 ^
 vnoremap ^ 0
@@ -71,6 +76,7 @@ nnoremap <silent> <c-s-left> :resize -3<cr>
 nnoremap <c-u> <c-r>
 nnoremap ss :%s///g<left><left>
 nnoremap <silent> ç <esc>:noh<cr>
+nnoremap <silent> Ç <esc>:noh<cr>
 nnoremap <silent> <leader>x :set relativenumber!<cr>
 nnoremap <silent> <leader>c :set ignorecase!<cr>
 nnoremap - ~
@@ -80,6 +86,7 @@ nnoremap 0 $
 
 inoremap <silent> <leader>x :set relativenumber!<cr>
 inoremap <silent> ç <esc>:noh<cr>
+inoremap <silent> Ç <esc>:noh<cr>
 inoremap <c-y> <esc>:w<cr>
 inoremap <c-j> <esc>:m .+1<cr>==gi
 inoremap <c-k> <esc>:m .-2<cr>==gi
@@ -171,9 +178,9 @@ function! s:show_documentation()
 endfunction
 hi Pmenu guibg=#292929
 if exists('*complete_info')
-  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<cr>"
+  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<c-y>" : "\<c-g>u\<cr>"
 else
-  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<cr>"
+  inoremap <expr> <cr> pumvisible() ? "\<c-y>" : "\<c-g>u\<cr>"
 endif
 
 
@@ -185,10 +192,9 @@ endif
 
 
 " TODO
-" Global search and replace
+" Global search and replace with on and off case in fzf
 " Git diff
 " Autoimport
-" Configure set space size and replace tabs by spaces
 " config mg979/vim-visual-multi
 "
 " INSTALL
