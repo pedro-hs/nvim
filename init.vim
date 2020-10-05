@@ -50,9 +50,9 @@ set cmdheight=2
 vnoremap <silent> ç <esc>:noh<cr>
 vnoremap <silent> Ç <esc>:noh<cr>
 vnoremap - ~
-vnoremap 9 ^
+vnoremap 99 ^
 vnoremap ^ 0
-vnoremap 0 $
+vnoremap 00 $h
 
 cnoremap <c-p> \<c-r>"<cr>
 cnoremap <c-o> <c-r>"<cr>
@@ -80,9 +80,9 @@ nnoremap <silent> Ç <esc>:noh<cr>
 nnoremap <silent> <leader>x :set relativenumber!<cr>
 nnoremap <silent> <leader>c :set ignorecase!<cr>
 nnoremap - ~
-nnoremap 9 ^
+nnoremap 99 ^
 nnoremap ^ 0
-nnoremap 0 $
+nnoremap 00 $
 
 inoremap <silent> <leader>x :set relativenumber!<cr>
 inoremap <silent> ç <esc>:noh<cr>
@@ -103,7 +103,7 @@ let g:quantum_black=1
 colorscheme quantum
 
 " Fzf
-let $FZF_DEFAULT_COMMAND = 'ag -g ""'
+let $FZF_DEFAULT_COMMAND = 'ag -g'
 
 " Airline
 let g:airline#extensions#tabline#enabled = 1
@@ -226,6 +226,7 @@ endif
 " alias pvenv="source venv/bin/activate"
 " alias src="cd ~/Documents/src"
 " PS1='\w\[\033[32m\]$(__git_ps1)\n \$\[\033[0m\] '
+" alias gis="git status -su"
 "
 " GOOGLE CHROME VIMIUM
 " VSCODE VIM
