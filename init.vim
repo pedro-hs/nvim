@@ -103,7 +103,7 @@ let g:quantum_black=1
 colorscheme quantum
 
 " Fzf
-let $FZF_DEFAULT_COMMAND = 'ag -g'
+let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 
 " Airline
 let g:airline#extensions#tabline#enabled = 1
@@ -113,7 +113,22 @@ let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:NERDTreeMinimalUI = 1
 let g:DevIconsEnableFoldersOpenClose = 1
 let g:NERDTreeWinPos = "right"
-hi NERDTreeCWD ctermfg=grey
+hi NERDTreeCWD ctermfg=white
+hi NERDTreeDir ctermfg=white
+hi NERDTreeExecFile ctermfg=white
+hi NERDTreeOpenable ctermfg=white
+hi NERDTreeClosable ctermfg=white
+hi NERDTreeFlags ctermfg=12 guifg=#6a6c6c
+hi NERDTreeDirSlash guifg=#df5f00 guibg=#292929
+let g:NERDTreeGitStatusIndicatorMapCustom = {
+\  'Modified'  :'M',
+\  'Staged'    :'S',
+\  'Untracked' :'U',
+\  'Renamed'   :'R',
+\  'Deleted'   :'D',
+\  'Dirty'     :'*',
+\}
+
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 nnoremap <silent> <leader>n :NERDTreeToggle<cr>
 let g:nerdtree_sync_cursorline = 1
@@ -135,19 +150,17 @@ hi ALEWarning guifg=#d5b875 guibg=#474646
 hi ALEError guifg=#292929 guibg=#b7bdc0
 let g:ale_fix_on_save = 1
 let g:ale_linters = {
-\       'python': ['flake8', 'pylint'],
+\  'python': ['flake8', 'pylint'],
 \}
 let g:ale_fixers = {
-\       '*': ['remove_trailing_lines', 'trim_whitespace'],
-\       'python': ['isort', 'autopep8'],
-\       'typescript': ['prettier'],
-\       'typescriptreact': ['prettier'],
-\       'sql': ['sqlformat'],
+\  '*': ['remove_trailing_lines', 'trim_whitespace'],
+\  'python': ['isort', 'autopep8'],
+\  'typescript': ['prettier'],
+\  'typescriptreact': ['prettier'],
 \}
 let g:ale_python_flake8_options = '--ignore=E501'
 let g:ale_python_pylint_options = '--ignore=E501'
 let g:ale_python_autopep8_options = '--max-line-length 120'
-let g:ale_sql_sqlformat_options = '--reindent --keywords upper'
 let g:ale_javascript_prettier_options = '--single-quote --print-width=140 --arrow-parens=always --trailing-comma=es5 --implicit-arrow-linebreak=beside'
 
 " Semshi
@@ -159,9 +172,9 @@ let g:tex_flavor = 'latex'
 
 " Coc
 let g:coc_global_extensions = [
-  \ 'coc-tsserver',
-  \ 'coc-python',
-  \ 'coc-vimtex',
+\  'coc-tsserver',
+\  'coc-python',
+\  'coc-vimtex',
 \]
 nmap <silent> gd <Plug>(coc-definition)
 nmap <leader>rn <Plug>(coc-rename)
@@ -169,6 +182,7 @@ nnoremap <silent> coc :CocCommand<cr>
 nnoremap <silent> K :call <SID>show_documentation()<cr>
 inoremap <silent><expr> <c-space> coc#refresh()
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+hi Pmenu guibg=#292929
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
     execute 'h '.expand('<cword>')
@@ -176,7 +190,6 @@ function! s:show_documentation()
     call CocAction('doHover')
   endif
 endfunction
-hi Pmenu guibg=#292929
 if exists('*complete_info')
   inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<c-y>" : "\<c-g>u\<cr>"
 else
@@ -198,7 +211,7 @@ endif
 " config mg979/vim-visual-multi
 "
 " INSTALL
-" apt install silversearcher-ag ranger sqlformat latexmk terminator nvim
+" apt install silversearcher-ag ranger latexmk terminator nvim
 "
 " PLUG VIM
 " curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
