@@ -41,7 +41,7 @@ set colorcolumn=80,120,140
 set encoding=UTF-8
 set scrolloff=3
 set clipboard=unnamedplus
-set updatetime=100
+set updatetime=50
 set splitbelow
 set splitright
 set virtualedit=block
@@ -74,7 +74,7 @@ nnoremap <silent> <c-left> :vertical resize -3<cr>
 nnoremap <silent> <c-s-right> :resize +3<cr>
 nnoremap <silent> <c-s-left> :resize -3<cr>
 nnoremap <c-u> <c-r>
-nnoremap ss :%s///g<left><left>
+nnoremap <c-r> :%s///g<left><left>
 nnoremap <silent> ç <esc>:noh<cr>
 nnoremap <silent> Ç <esc>:noh<cr>
 nnoremap <silent> <leader>x :set relativenumber!<cr>
@@ -108,6 +108,7 @@ let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 " Airline
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
+let g:airline#extensions#tabline#formatter = 'unique_tail'
 
 " NerdTree
 let g:NERDTreeMinimalUI = 1
@@ -119,7 +120,6 @@ hi NERDTreeExecFile ctermfg=white
 hi NERDTreeOpenable ctermfg=white
 hi NERDTreeClosable ctermfg=white
 hi NERDTreeFlags ctermfg=12 guifg=#6a6c6c
-hi NERDTreeDirSlash guifg=#df5f00 guibg=#292929
 let g:NERDTreeGitStatusIndicatorMapCustom = {
 \  'Modified'  :'M',
 \  'Staged'    :'S',
@@ -128,7 +128,6 @@ let g:NERDTreeGitStatusIndicatorMapCustom = {
 \  'Deleted'   :'D',
 \  'Dirty'     :'*',
 \}
-
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 nnoremap <silent> <leader>n :NERDTreeToggle<cr>
 let g:nerdtree_sync_cursorline = 1
@@ -146,7 +145,7 @@ tnoremap <silent> <leader>j <C-\><C-n>:Nuake<cr>
 " Ale
 let g:ale_sign_error = '✘'
 let g:ale_sign_warning = '⚬'
-hi ALEWarning guifg=#d5b875 guibg=#474646
+hi ALEWarning guifg=#b7bdc0 guibg=#474646
 hi ALEError guifg=#292929 guibg=#b7bdc0
 let g:ale_fix_on_save = 1
 let g:ale_linters = {
@@ -179,7 +178,6 @@ let g:coc_global_extensions = [
 nmap <silent> gd <Plug>(coc-definition)
 nmap <leader>rn <Plug>(coc-rename)
 nnoremap <silent> coc :CocCommand<cr>
-nnoremap <silent> K :call <SID>show_documentation()<cr>
 inoremap <silent><expr> <c-space> coc#refresh()
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 hi Pmenu guibg=#292929
@@ -243,4 +241,4 @@ endif
 "
 " GOOGLE CHROME VIMIUM
 " VSCODE VIM
-" SUBLIME VINTAGE
+ " SUBLIME VINTAGE
