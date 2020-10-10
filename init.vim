@@ -82,6 +82,9 @@ nnoremap * *N
 nnoremap 99 ^
 nnoremap 00 $
 nnoremap <silent> ç <esc>:noh<cr>
+nnoremap <silent> <leader>z :execute 'topleft' ((&columns - &textwidth) / 5 - 2) . 'vsplit *.' \| let &l:statusline='%1*%{getline(line("w$")+1)}' \| wincmd p "\<cr>\<cr>"
+nnoremap <silent> <leader>Z :only<cr>
+nnoremap <c-u> <c-i>
 
 inoremap <silent> ç <esc>:noh<cr>
 inoremap <c-y> <esc>:w<cr>
@@ -174,7 +177,9 @@ let g:ale_sign_error = '✘'
 let g:ale_sign_warning = '⚬'
 let g:ale_fix_on_save = 1
 
-let g:ale_linters.python: ['flake8', 'pylint']
+let g:ale_linters = {
+\  'python': ['flake8', 'pylint']
+\}
 
 let g:ale_fixers = {
 \  '*': ['remove_trailing_lines', 'trim_whitespace'],
@@ -202,11 +207,14 @@ let g:coc_global_extensions = [
 \  'coc-tsserver',
 \  'coc-python',
 \]
-nmap <silent> gd <Plug>(coc-definition)
+
+nmap gd <Plug>(coc-definition)
 nmap <leader>rr <Plug>(coc-rename)
-nnoremap <silent> coc :CocCommand<cr>
+nmap <silent> coc :CocCommand<cr>
+
 inoremap <silent><expr> <c-space> coc#refresh()
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
     execute 'h '.expand('<cword>')
@@ -214,6 +222,7 @@ function! s:show_documentation()
     call CocAction('doHover')
   endif
 endfunction
+
 if exists('*complete_info')
   inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<c-y>" : "\<c-g>u\<cr>"
 else
