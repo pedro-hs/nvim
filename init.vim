@@ -9,17 +9,15 @@ Plug 'junegunn/fzf.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'Lenovsky/nuake'
-Plug 'lervag/vimtex'
-Plug 'vim-airline/vim-airline'
+Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'} " Python
+Plug 'ap/vim-buftabline'
 Plug 'tpope/vim-commentary'
 Plug 'ryanoasis/vim-devicons'
 Plug 'airblade/vim-gitgutter'
 Plug 'unkiwii/vim-nerdtree-sync'
+Plug 'rakr/vim-one'
 Plug 'sheerun/vim-polyglot'
-Plug 'tyrannicaltoucan/vim-quantum'
-Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 Plug 'tpope/vim-surround'
-Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 call plug#end()
 
 set tabstop=4
@@ -35,37 +33,39 @@ set mouse=a
 set inccommand=split
 set list
 set listchars=tab:--,space:.
+set foldcolumn=12
 set cursorcolumn
 set cursorline
-set colorcolumn=80,120,140
+set colorcolumn=80,120
 set encoding=UTF-8
 set scrolloff=3
 set clipboard=unnamedplus
 set updatetime=50
 set splitbelow
 set splitright
-set virtualedit=block
 set cmdheight=2
 
-vnoremap <silent> ç <esc>:noh<cr>
-vnoremap <silent> Ç <esc>:noh<cr>
-vnoremap - ~
-vnoremap 99 ^
-vnoremap ^ 0
-vnoremap 00 $h
+autocmd VimEnter * hi VertSplit guifg=bg guibg=bg
 
-cnoremap <c-p> \<c-r>"<cr>
-cnoremap <c-o> <c-r>"<cr>
+vnoremap <silent> ç <esc>:noh<cr>
+vnoremap 99 ^
+vnoremap 00 $
+
+cnoremap <c-p> \<c-r>"
+cnoremap <c-o> <c-r>"
 
 nnoremap <bs> X
-nnoremap <c-p> :Files<cr>
-nnoremap <c-l> :Ag<cr>
-nnoremap <c-y> :w<cr>
-nnoremap <silent> <esc> :noh<cr>
+nnoremap <space> i<space><esc>l
+nnoremap <c-m> i<cr><esc>
+nnoremap <tab> >>
+nnoremap <s-tab> <<
+nnoremap <s-a-j> <c-e>
+nnoremap <s-a-k> <c-y>
+nnoremap <silent> <c-y> :w<cr>
 nnoremap <silent> <c-j> :m .+1<cr>==
 nnoremap <silent> <c-k> :m .-2<cr>==
-nnoremap <s-a-k> <c-y>
-nnoremap <s-a-j> <c-e>
+nnoremap <silent> <c-p> :Files<cr>
+nnoremap <silent> <c-l> yiw:Ag<cr>
 nnoremap <silent> <c-a> :bprevious<cr>
 nnoremap <silent> <c-s> :bnext<cr>
 nnoremap <silent> <c-x> :bwipeout!<cr>
@@ -73,20 +73,17 @@ nnoremap <silent> <c-right> :vertical resize +3<cr>
 nnoremap <silent> <c-left> :vertical resize -3<cr>
 nnoremap <silent> <c-s-right> :resize +3<cr>
 nnoremap <silent> <c-s-left> :resize -3<cr>
-nnoremap <c-u> <c-r>
-nnoremap <c-r> :%s///g<left><left>
-nnoremap <silent> ç <esc>:noh<cr>
-nnoremap <silent> Ç <esc>:noh<cr>
-nnoremap <silent> <leader>x :set relativenumber!<cr>
-nnoremap <silent> <leader>c :set ignorecase!<cr>
-nnoremap - ~
+nnoremap <silent> <leader>ic :set ignorecase!<cr>
+nnoremap <silent> <leader>rn :set relativenumber!<cr>
+nnoremap <leader>r :%s///g<left><left>
+nnoremap <leader>c ~
+nnoremap U <c-r>
+nnoremap * *N
 nnoremap 99 ^
-nnoremap ^ 0
 nnoremap 00 $
+nnoremap <silent> ç <esc>:noh<cr>
 
-inoremap <silent> <leader>x :set relativenumber!<cr>
 inoremap <silent> ç <esc>:noh<cr>
-inoremap <silent> Ç <esc>:noh<cr>
 inoremap <c-y> <esc>:w<cr>
 inoremap <c-j> <esc>:m .+1<cr>==gi
 inoremap <c-k> <esc>:m .-2<cr>==gi
@@ -94,32 +91,58 @@ inoremap <a-j> <esc>ja
 inoremap <a-l> <esc>la
 inoremap <a-h> <esc>ha
 inoremap <a-k> <esc>ka
-inoremap <leader>0 <esc><s-A>
-inoremap <leader>9 <esc><s-I>
+inoremap 00 <esc><s-A>
+inoremap 99 <esc><s-I>
 
-" Quantum
+" Line
+function! GitBranch()
+  return system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
+endfunction
+
+function! StatuslineGit()
+  let l:branchname = GitBranch()
+  return strlen(l:branchname) > 0 ? ' ('.l:branchname.')' : ''
+endfunction
+
+let g:currentmode={
+\  'n':'Normal', 'no':'Pending', 'v':'Visual', 'V':'V·Line', "\<C-V>":'V·Block', 's':'Select', 'S':'S·Line',
+\  '^S':'S·Block', 'i':'Insert', 'R':'Replace', 'Rv':'V·Replace', 'c':'Command', 'cv':'Vim Ex',
+\  'ce':'Ex', 'r':'Prompt', 'rm':'More', 'r?':'Confirm', '!':'Shell', 't':'Terminal'
+\}
+
+set laststatus=2
+set statusline=%1*\ %{toupper(g:currentmode[mode()])}%=%<%m%r%h%w%f%5{StatuslineGit()}%5v%5l/%L%5p%%
+" end
+
+" One
 set termguicolors
-let g:quantum_black=1
-colorscheme quantum
+set background=dark
+
+let g:one_allow_italics = 1
+
+colorscheme one
+
+hi FoldColumn guifg=bg guibg=gb
+hi Pmenu guibg=bg
+" end
 
 " Fzf
 let $FZF_DEFAULT_COMMAND = 'ag -g ""'
-
-" Airline
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#buffer_nr_show = 1
-let g:airline#extensions#tabline#formatter = 'unique_tail'
+" end
 
 " NerdTree
 let g:NERDTreeMinimalUI = 1
 let g:DevIconsEnableFoldersOpenClose = 1
 let g:NERDTreeWinPos = "right"
+let g:nerdtree_sync_cursorline = 1
+
 hi NERDTreeCWD ctermfg=white
 hi NERDTreeDir ctermfg=white
 hi NERDTreeExecFile ctermfg=white
 hi NERDTreeOpenable ctermfg=white
 hi NERDTreeClosable ctermfg=white
 hi NERDTreeFlags ctermfg=12 guifg=#6a6c6c
+
 let g:NERDTreeGitStatusIndicatorMapCustom = {
 \  'Modified'  :'M',
 \  'Staged'    :'S',
@@ -128,59 +151,62 @@ let g:NERDTreeGitStatusIndicatorMapCustom = {
 \  'Deleted'   :'D',
 \  'Dirty'     :'*',
 \}
+
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
 nnoremap <silent> <leader>n :NERDTreeToggle<cr>
-let g:nerdtree_sync_cursorline = 1
+" end
 
 " Blamer
 let g:blamer_enabled = 1
 let g:blamer_show_in_visual_modes = 0
 let g:blamer_delay = 200
+" end
 
 " Quake
 nnoremap <silent> <leader>j :Nuake<cr>
 inoremap <silent> <leader>j <C-\><C-n>:Nuake<cr>
 tnoremap <silent> <leader>j <C-\><C-n>:Nuake<cr>
+" end
 
 " Ale
 let g:ale_sign_error = '✘'
 let g:ale_sign_warning = '⚬'
-hi ALEWarning guifg=#b7bdc0 guibg=#474646
-hi ALEError guifg=#292929 guibg=#b7bdc0
 let g:ale_fix_on_save = 1
-let g:ale_linters = {
-\  'python': ['flake8', 'pylint'],
-\}
+
+let g:ale_linters.python: ['flake8', 'pylint']
+
 let g:ale_fixers = {
 \  '*': ['remove_trailing_lines', 'trim_whitespace'],
 \  'python': ['isort', 'autopep8'],
 \  'typescript': ['prettier'],
 \  'typescriptreact': ['prettier'],
 \}
+
 let g:ale_python_flake8_options = '--ignore=E501'
 let g:ale_python_pylint_options = '--ignore=E501'
 let g:ale_python_autopep8_options = '--max-line-length 120'
 let g:ale_javascript_prettier_options = '--single-quote --print-width=140 --arrow-parens=always --trailing-comma=es5 --implicit-arrow-linebreak=beside'
 
+hi ALEWarning guifg=#b7bdc0 guibg=#474646
+hi ALEError guifg=#292929 guibg=#b7bdc0
+" end
+
 " Semshi
 hi semshiSelected ctermbg=242 guifg=#b7bdc0 guibg=#474646
 hi link semshiUnresolved ALEError
-
-" Vimtex
-let g:tex_flavor = 'latex'
+" end
 
 " Coc
 let g:coc_global_extensions = [
 \  'coc-tsserver',
 \  'coc-python',
-\  'coc-vimtex',
 \]
 nmap <silent> gd <Plug>(coc-definition)
-nmap <leader>rn <Plug>(coc-rename)
+nmap <leader>rr <Plug>(coc-rename)
 nnoremap <silent> coc :CocCommand<cr>
 inoremap <silent><expr> <c-space> coc#refresh()
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-hi Pmenu guibg=#292929
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
     execute 'h '.expand('<cword>')
@@ -193,6 +219,12 @@ if exists('*complete_info')
 else
   inoremap <expr> <cr> pumvisible() ? "\<c-y>" : "\<c-g>u\<cr>"
 endif
+" end
+
+" BufTabline
+let g:buftabline_indicators=1
+" end
+
 
 
 
@@ -203,13 +235,12 @@ endif
 
 
 " TODO
-" Global search and replace with on and off case in fzf
+" Global replace
 " Git diff
 " Autoimport
-" config mg979/vim-visual-multi
 "
 " INSTALL
-" apt install silversearcher-ag ranger latexmk terminator nvim
+" apt install silversearcher-ag ranger terminator nvim
 "
 " PLUG VIM
 " curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -226,6 +257,9 @@ endif
 " nnoremap <silent> <a-j> :call comfortable_motion#flick(100)<cr>
 " nnoremap <silent> <a-k> :call comfortable_motion#flick(-100)<cr>
 "
+" BUFTABLINE + DEVICONS
+" let tab.label = tab.path[tab.sep + 1:] . ' ' . WebDevIconsGetFileTypeSymbol(tab.path)
+"
 " BASHRC
 " alias python=python3.6
 " alias pip=pip3
@@ -241,4 +275,4 @@ endif
 "
 " GOOGLE CHROME VIMIUM
 " VSCODE VIM
- " SUBLIME VINTAGE
+" SUBLIME VINTAGE
