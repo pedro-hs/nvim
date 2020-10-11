@@ -6,6 +6,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'yuttie/comfortable-motion.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'Lenovsky/nuake'
@@ -18,6 +19,7 @@ Plug 'unkiwii/vim-nerdtree-sync'
 Plug 'rakr/vim-one'
 Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-surround'
+Plug 'mg979/vim-visual-multi'
 call plug#end()
 
 set tabstop=4
@@ -33,7 +35,6 @@ set mouse=a
 set inccommand=split
 set list
 set listchars=tab:--,space:.
-set foldcolumn=12
 set cursorcolumn
 set cursorline
 set colorcolumn=80,120
@@ -44,12 +45,15 @@ set updatetime=50
 set splitbelow
 set splitright
 set cmdheight=2
+set virtualedit=block
 
 autocmd VimEnter * hi VertSplit guifg=bg guibg=bg
 
 vnoremap <silent> ç <esc>:noh<cr>
 vnoremap 99 ^
-vnoremap 00 $
+vnoremap 00 $h
+vnoremap zz <esc>:wq<cr>
+vnoremap zx <esc>:q!<cr>
 
 cnoremap <c-p> \<c-r>"
 cnoremap <c-o> <c-r>"
@@ -57,7 +61,7 @@ cnoremap <c-o> <c-r>"
 nnoremap <bs> X
 nnoremap <space> i<space><esc>l
 nnoremap <c-m> i<cr><esc>
-nnoremap <tab> >>
+nnoremap <tab> i<tab><esc>
 nnoremap <s-tab> <<
 nnoremap <s-a-j> <c-e>
 nnoremap <s-a-k> <c-y>
@@ -81,8 +85,10 @@ nnoremap U <c-r>
 nnoremap * *N
 nnoremap 99 ^
 nnoremap 00 $
+nnoremap zz <esc>:wq<cr>
+nnoremap zx <esc>:q!<cr>
 nnoremap <silent> ç <esc>:noh<cr>
-nnoremap <silent> <leader>z :execute 'topleft' ((&columns - &textwidth) / 5 - 2) . 'vsplit *.' \| let &l:statusline='%1*%{getline(line("w$")+1)}' \| wincmd p "\<cr>\<cr>"
+nnoremap <silent> <leader>z :execute 'topleft' ((&columns - &textwidth) / 4) . 'vsplit *.' \| let &l:statusline='%1*%{getline(line("w$")+1)}' \| wincmd p "\<cr>\<cr>"
 nnoremap <silent> <leader>Z :only<cr>
 nnoremap <c-u> <c-i>
 
@@ -98,12 +104,8 @@ inoremap 00 <esc><s-A>
 inoremap 99 <esc><s-I>
 
 " Line
-function! GitBranch()
-  return system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
-endfunction
-
 function! StatuslineGit()
-  let l:branchname = GitBranch()
+  let l:branchname = system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
   return strlen(l:branchname) > 0 ? ' ('.l:branchname.')' : ''
 endfunction
 
@@ -166,7 +168,7 @@ let g:blamer_show_in_visual_modes = 0
 let g:blamer_delay = 200
 " end
 
-" Quake
+" Nuake
 nnoremap <silent> <leader>j :Nuake<cr>
 inoremap <silent> <leader>j <C-\><C-n>:Nuake<cr>
 tnoremap <silent> <leader>j <C-\><C-n>:Nuake<cr>
@@ -186,6 +188,7 @@ let g:ale_fixers = {
 \  'python': ['isort', 'autopep8'],
 \  'typescript': ['prettier'],
 \  'typescriptreact': ['prettier'],
+\  'markdown': ['prettier'],
 \}
 
 let g:ale_python_flake8_options = '--ignore=E501'
