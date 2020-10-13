@@ -6,7 +6,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'yuttie/comfortable-motion.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & npm install'  }
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'Lenovsky/nuake'
