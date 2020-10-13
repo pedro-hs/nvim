@@ -52,6 +52,7 @@ autocmd VimEnter * hi VertSplit guifg=bg guibg=bg
 vnoremap <silent> ç <esc>:noh<cr>
 vnoremap 99 ^
 vnoremap 00 $h
+vnoremap - ~
 vnoremap zz <esc>:wq<cr>
 vnoremap zx <esc>:q!<cr>
 
@@ -77,14 +78,14 @@ nnoremap <silent> <c-right> :vertical resize +3<cr>
 nnoremap <silent> <c-left> :vertical resize -3<cr>
 nnoremap <silent> <c-s-right> :resize +3<cr>
 nnoremap <silent> <c-s-left> :resize -3<cr>
-nnoremap <silent> <leader>ic :set ignorecase!<cr>
-nnoremap <silent> <leader>rn :set relativenumber!<cr>
+nnoremap <silent> <leader>c :set ignorecase!<cr>
+nnoremap <silent> <leader>x :set relativenumber!<cr>
 nnoremap <leader>r :%s///g<left><left>
-nnoremap <leader>c ~
 nnoremap U <c-r>
 nnoremap * *N
 nnoremap 99 ^
 nnoremap 00 $
+nnoremap - ~
 nnoremap zz <esc>:wq<cr>
 nnoremap zx <esc>:q!<cr>
 nnoremap <silent> ç <esc>:noh<cr>
