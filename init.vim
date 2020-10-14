@@ -49,29 +49,34 @@ set virtualedit=block
 
 autocmd VimEnter * hi VertSplit guifg=bg guibg=bg
 
-vnoremap <silent> ç <esc>:noh<cr>
-vnoremap 99 ^
-vnoremap 00 $h
-vnoremap - ~
+" Visual
+vnoremap <leader>hh ^
+vnoremap <leader>ll $h
+
 vnoremap zz <esc>:wq<cr>
 vnoremap zx <esc>:q!<cr>
-vnoremap <leader>sa <esc>ggVG
+vnoremap <silent> ç <esc>:noh<cr>
+" end
 
-cnoremap <c-p> \<c-r>"
-cnoremap <c-o> <c-r>"
+" Command
+cnoremap <c-p> <c-r>"
+cnoremap <c-o> \<c-r>"
+" end
 
+" Normal
 nnoremap <bs> X
 nnoremap <space> i<space><esc>l
 nnoremap <c-m> i<cr><esc>
-nnoremap <tab> i<tab><esc>
-nnoremap <s-tab> <<
+nnoremap <tab> i<tab><esc>l
+
 nnoremap <s-a-j> <c-e>
 nnoremap <s-a-k> <c-y>
-nnoremap <silent> <c-y> :w<cr>
+
+nnoremap <a-h> <c-o>
+nnoremap <a-l> <c-i>
+
 nnoremap <silent> <c-j> :m .+1<cr>==
 nnoremap <silent> <c-k> :m .-2<cr>==
-nnoremap <silent> <c-p> :Files<cr>
-nnoremap <silent> <c-l> yiw:Ag<cr>
 nnoremap <silent> <c-a> :bprevious<cr>
 nnoremap <silent> <c-s> :bnext<cr>
 nnoremap <silent> <c-x> :bwipeout!<cr>
@@ -79,32 +84,41 @@ nnoremap <silent> <c-right> :vertical resize +3<cr>
 nnoremap <silent> <c-left> :vertical resize -3<cr>
 nnoremap <silent> <c-s-right> :resize +3<cr>
 nnoremap <silent> <c-s-left> :resize -3<cr>
-nnoremap <silent> <leader>c :set ignorecase!<cr>
-nnoremap <silent> <leader>x :set relativenumber!<cr>
+
 nnoremap <leader>r :%s///g<left><left>
 nnoremap <leader>sa <esc>ggVG
+nnoremap <silent> <leader>w :w<cr>
+nnoremap <silent> <leader>c :set ignorecase!<cr>
+nnoremap <silent> <leader>x :set relativenumber!<cr>
+nnoremap <silent> <leader>z :execute 'topleft' ((&columns - &textwidth) / 4) . 'vsplit *.' \| let &l:statusline='%1*%{getline(line("w$")+1)}' \| wincmd p "\<cr>\<cr>"
+nnoremap <silent> <leader>Z :only<cr>
+nnoremap <silent> <leader>f :Files<cr>
+nnoremap <silent> <leader>sf yiw:Ag<cr>
+nnoremap <leader>hh ^
+nnoremap <leader>ll $
+
 nnoremap U <c-r>
 nnoremap * *N
-nnoremap 99 ^
-nnoremap 00 $
 nnoremap - ~
 nnoremap zz <esc>:wq<cr>
 nnoremap zx <esc>:q!<cr>
-nnoremap <silent> ç <esc>:noh<cr>
-nnoremap <silent> <leader>z :execute 'topleft' ((&columns - &textwidth) / 4) . 'vsplit *.' \| let &l:statusline='%1*%{getline(line("w$")+1)}' \| wincmd p "\<cr>\<cr>"
-nnoremap <silent> <leader>Z :only<cr>
-nnoremap <c-u> <c-i>
+nnoremap <silent> ç <esc>i<esc>:noh<cr>
+" end
 
-inoremap <silent> ç <esc>:noh<cr>
-inoremap <c-y> <esc>:w<cr>
+" Insert
 inoremap <c-j> <esc>:m .+1<cr>==gi
 inoremap <c-k> <esc>:m .-2<cr>==gi
 inoremap <a-j> <esc>ja
 inoremap <a-l> <esc>la
 inoremap <a-h> <esc>ha
 inoremap <a-k> <esc>ka
-inoremap 00 <esc><s-A>
-inoremap 99 <esc><s-I>
+
+inoremap <leader>w <esc>:w<cr>
+inoremap <leader>hh <esc><s-I>
+inoremap <leader>ll <esc><s-A>
+
+inoremap <silent> ç <esc>:noh<cr>
+" end
 
 " Line
 function! StatuslineGit()
@@ -113,9 +127,9 @@ function! StatuslineGit()
 endfunction
 
 let g:currentmode={
-\  'n':'Normal', 'no':'Pending', 'v':'Visual', 'V':'V·Line', "\<C-V>":'V·Block', 's':'Select', 'S':'S·Line',
-\  '^S':'S·Block', 'i':'Insert', 'R':'Replace', 'Rv':'V·Replace', 'c':'Command', 'cv':'Vim Ex',
-\  'ce':'Ex', 'r':'Prompt', 'rm':'More', 'r?':'Confirm', '!':'Shell', 't':'Terminal'
+\  'n':  'Normal',   'no': 'Pending',  'v':  'Visual',   'V':  'V·Line',     "\<C-V>": 'V·Block',  's':  'Select',  'S':'S·Line',
+\  '^S': 'S·Block',  'i':  'Insert',   'R':  'Replace',  'Rv': 'V·Replace',  'c':      'Command',  'cv': 'Vim Ex',
+\  'ce': 'Ex',       'r':  'Prompt',   'rm': 'More',     'r?': 'Confirm',    '!':      'Shell',    't':  'Terminal'
 \}
 
 set laststatus=2
