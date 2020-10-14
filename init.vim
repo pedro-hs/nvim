@@ -55,6 +55,7 @@ vnoremap 00 $h
 vnoremap - ~
 vnoremap zz <esc>:wq<cr>
 vnoremap zx <esc>:q!<cr>
+vnoremap <leader>sa <esc>ggVG
 
 cnoremap <c-p> \<c-r>"
 cnoremap <c-o> <c-r>"
@@ -81,6 +82,7 @@ nnoremap <silent> <c-s-left> :resize -3<cr>
 nnoremap <silent> <leader>c :set ignorecase!<cr>
 nnoremap <silent> <leader>x :set relativenumber!<cr>
 nnoremap <leader>r :%s///g<left><left>
+nnoremap <leader>sa <esc>ggVG
 nnoremap U <c-r>
 nnoremap * *N
 nnoremap 99 ^
