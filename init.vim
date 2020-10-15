@@ -35,17 +35,19 @@ set mouse=a
 set inccommand=split
 set list
 set listchars=tab:--,space:.
-set cursorcolumn
 set cursorline
 set colorcolumn=80,120
 set encoding=UTF-8
-set scrolloff=3
+set scrolloff=4
 set clipboard=unnamedplus
 set updatetime=50
 set splitbelow
 set splitright
 set cmdheight=2
 set virtualedit=block
+set nobackup
+set nowritebackup
+set noswapfile
 
 autocmd VimEnter * hi VertSplit guifg=bg guibg=bg
 
@@ -75,8 +77,6 @@ nnoremap <s-a-k> <c-y>
 nnoremap <a-h> <c-o>
 nnoremap <a-l> <c-i>
 
-nnoremap <silent> <c-j> :m .+1<cr>==
-nnoremap <silent> <c-k> :m .-2<cr>==
 nnoremap <silent> <c-a> :bprevious<cr>
 nnoremap <silent> <c-s> :bnext<cr>
 nnoremap <silent> <c-x> :bwipeout!<cr>
@@ -90,8 +90,7 @@ nnoremap <leader>sa <esc>ggVG
 nnoremap <silent> <leader>w :w<cr>
 nnoremap <silent> <leader>c :set ignorecase!<cr>
 nnoremap <silent> <leader>x :set relativenumber!<cr>
-nnoremap <silent> <leader>z :execute 'topleft' ((&columns - &textwidth) / 4) . 'vsplit *.' \| let &l:statusline='%1*%{getline(line("w$")+1)}' \| wincmd p "\<cr>\<cr>"
-nnoremap <silent> <leader>Z :only<cr>
+
 nnoremap <silent> <leader>f :Files<cr>
 nnoremap <silent> <leader>sf yiw:Ag<cr>
 nnoremap <leader>hh ^
@@ -134,6 +133,21 @@ let g:currentmode={
 
 set laststatus=2
 set statusline=%1*\ %{toupper(g:currentmode[mode()])}%=%<%m%r%h%w%f%5{StatuslineGit()}%5v%5l/%L%5p%%
+" end
+
+" Zen mode
+function! ToggleZenMode()
+  let l:name = '_zen_'
+  if bufwinnr(l:name) > 0
+    wincmd o
+    set noequalalways!
+  else
+    execute 'topleft' ((&columns - &textwidth) / 4) . 'vsplit +setlocal\ nobuflisted' l:name | let &l:statusline='%1*%{getline(line("w$")+1)}' | wincmd p
+    set noequalalways
+  endif
+endfunction
+
+nnoremap <silent> <leader>z :call ToggleZenMode()<cr>
 " end
 
 " One
@@ -254,7 +268,11 @@ endif
 let g:buftabline_indicators=1
 " end
 
-
+" Visual Multi
+let g:VM_maps = {}
+let g:VM_maps["Select Cursor Down"] = '<C-j>'
+let g:VM_maps["Select Cursor Up"]   = '<C-k>'
+" end
 
 
 
@@ -295,7 +313,6 @@ let g:buftabline_indicators=1
 " alias rg=ranger
 " alias bashrc="cd ~ && nvim .bashrc"
 " alias evi="cd ~/.config/nvim && nvim init.vim"
-" alias cvi="rm -rf ~/.local/share/nvim/swap/"
 " alias penv="source env/bin/activate"
 " alias pvenv="source venv/bin/activate"
 " alias src="cd ~/Documents/src"
