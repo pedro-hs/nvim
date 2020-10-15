@@ -38,7 +38,8 @@ set listchars=tab:--,space:.
 set cursorline
 set colorcolumn=80,120
 set encoding=UTF-8
-set scrolloff=4
+set scrolloff=5
+set sidescrolloff=10
 set clipboard=unnamedplus
 set updatetime=50
 set splitbelow
@@ -48,8 +49,6 @@ set virtualedit=block
 set nobackup
 set nowritebackup
 set noswapfile
-
-autocmd VimEnter * hi VertSplit guifg=bg guibg=bg
 
 " Visual
 vnoremap <leader>hh ^
@@ -85,7 +84,7 @@ nnoremap <silent> <c-left> :vertical resize -3<cr>
 nnoremap <silent> <c-s-right> :resize +3<cr>
 nnoremap <silent> <c-s-left> :resize -3<cr>
 
-nnoremap <leader>r :%s///g<left><left>
+nnoremap <leader>rr :%s///g<left><left>
 nnoremap <leader>sa <esc>ggVG
 nnoremap <silent> <leader>w :w<cr>
 nnoremap <silent> <leader>c :set ignorecase!<cr>
@@ -146,6 +145,8 @@ function! ToggleZenMode()
     set noequalalways
   endif
 endfunction
+
+autocmd VimEnter * hi VertSplit guifg=bg guibg=bg
 
 nnoremap <silent> <leader>z :call ToggleZenMode()<cr>
 " end
@@ -243,7 +244,7 @@ let g:coc_global_extensions = [
 \]
 
 nmap gd <Plug>(coc-definition)
-nmap <leader>rr <Plug>(coc-rename)
+nmap <leader>rn <Plug>(coc-rename)
 nmap <silent> coc :CocCommand<cr>
 
 inoremap <silent><expr> <c-space> coc#refresh()
@@ -284,7 +285,7 @@ let g:VM_maps["Select Cursor Up"]   = '<C-k>'
 " TODO
 " Global replace
 " Git diff
-" Autoimport
+" Git merge
 "
 " INSTALL
 " apt install silversearcher-ag ranger terminator nvim
