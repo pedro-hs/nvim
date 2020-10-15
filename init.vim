@@ -202,7 +202,7 @@ let g:blamer_delay = 200
 " Nuake
 nnoremap <silent> <leader>j :Nuake<cr>
 inoremap <silent> <leader>j <C-\><C-n>:Nuake<cr>
-tnoremap <silent> <leader>j <C-\><C-n>:Nuake<cr>
+tnoremap <silent> <leader>j <C-\><C-n>:Nuake<cr><c-w>w
 " end
 
 " Ale
