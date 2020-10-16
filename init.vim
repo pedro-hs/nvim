@@ -10,16 +10,16 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & npm install'  }
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'Lenovsky/nuake'
-Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'} " Python
+Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 Plug 'ap/vim-buftabline'
 Plug 'tpope/vim-commentary'
 Plug 'ryanoasis/vim-devicons'
 Plug 'airblade/vim-gitgutter'
+Plug 'tommcdo/vim-lion'
 Plug 'unkiwii/vim-nerdtree-sync'
 Plug 'rakr/vim-one'
 Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-surround'
-Plug 'mg979/vim-visual-multi'
 call plug#end()
 
 set tabstop=4
@@ -51,8 +51,10 @@ set nowritebackup
 set noswapfile
 
 " Visual
-vnoremap <leader>hh ^
-vnoremap <leader>ll $h
+vnoremap 99 ^
+vnoremap 00 $h
+vnoremap <leader>a $A
+vnoremap <leader>i 0I
 
 vnoremap zz <esc>:wq<cr>
 vnoremap zx <esc>:q!<cr>
@@ -92,9 +94,9 @@ nnoremap <silent> <leader>x :set relativenumber!<cr>
 
 nnoremap <silent> <leader>f :Files<cr>
 nnoremap <silent> <leader>sf yiw:Ag<cr>
-nnoremap <leader>hh ^
-nnoremap <leader>ll $
 
+nnoremap 99 ^
+nnoremap 00 $
 nnoremap U <c-r>
 nnoremap * *N
 nnoremap - ~
@@ -112,8 +114,8 @@ inoremap <a-h> <esc>ha
 inoremap <a-k> <esc>ka
 
 inoremap <leader>w <esc>:w<cr>
-inoremap <leader>hh <esc><s-I>
-inoremap <leader>ll <esc><s-A>
+inoremap <leader>9 <esc><s-I>
+inoremap <leader>0 <esc><s-A>
 
 inoremap <silent> ç <esc>:noh<cr>
 " end
@@ -269,11 +271,7 @@ endif
 let g:buftabline_indicators=1
 " end
 
-" Visual Multi
-let g:VM_maps = {}
-let g:VM_maps["Select Cursor Down"] = '<C-j>'
-let g:VM_maps["Select Cursor Up"]   = '<C-k>'
-" end
+
 
 
 
@@ -286,6 +284,9 @@ let g:VM_maps["Select Cursor Up"]   = '<C-k>'
 " Global replace
 " Git diff
 " Git merge
+" Create dotfiles (bash, git)
+" Add sql formatter
+" Fix js formatter
 "
 " INSTALL
 " apt install silversearcher-ag ranger terminator nvim
