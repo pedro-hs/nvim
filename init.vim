@@ -231,7 +231,7 @@ let g:ale_python_autopep8_options = '--max-line-length 120'
 let g:ale_javascript_prettier_options = '--single-quote --print-width=140 --arrow-parens=always --trailing-comma=es5 --implicit-arrow-linebreak=beside'
 
 hi ALEWarning guifg=#b7bdc0 guibg=#474646
-hi ALEError guifg=#292929 guibg=#b7bdc0
+hi link ALEError ALEWarning
 " end
 
 " Semshi
@@ -270,57 +270,3 @@ endif
 " BufTabline
 let g:buftabline_indicators=1
 " end
-
-
-
-
-
-
-
-
-
-
-" TODO
-" Global replace
-" Git diff
-" Git merge
-" Create dotfiles (bash, git)
-" Add sql formatter
-" Fix js formatter
-"
-" INSTALL
-" apt install silversearcher-ag ranger terminator nvim
-"
-" PLUG VIM
-" curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-"
-" PIP
-" pip3 install flake8 isort pylint autopep8 pynvim jedi
-"
-" ICONS
-" wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/DroidSansMono.zip
-" unzip DroidSansMono.zip -d ~/.fonts
-" fc-cache -fv
-"
-" COMFORTABLE MOTION VIM
-" nnoremap <silent> <a-j> :call comfortable_motion#flick(100)<cr>
-" nnoremap <silent> <a-k> :call comfortable_motion#flick(-100)<cr>
-"
-" BUFTABLINE + DEVICONS
-" let tab.label = tab.path[tab.sep + 1:] . ' ' . WebDevIconsGetFileTypeSymbol(tab.path)
-"
-" BASHRC
-" alias python=python3.6
-" alias pip=pip3
-" alias rg=ranger
-" alias bashrc="cd ~ && nvim .bashrc"
-" alias evi="cd ~/.config/nvim && nvim init.vim"
-" alias penv="source env/bin/activate"
-" alias pvenv="source venv/bin/activate"
-" alias src="cd ~/Documents/src"
-" PS1='\w\[\033[32m\]$(__git_ps1)\n \$\[\033[0m\] '
-" alias gis="git status -su"
-"
-" GOOGLE CHROME VIMIUM
-" VSCODE VIM
-" SUBLIME VINTAGE
