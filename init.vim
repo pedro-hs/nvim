@@ -46,9 +46,12 @@ set splitbelow
 set splitright
 set cmdheight=2
 set virtualedit=block
+set ignorecase
 set nobackup
 set nowritebackup
 set noswapfile
+
+autocmd FileType html setlocal ts=2 sts=2 sw=2
 
 " Visual
 vnoremap 99 ^
@@ -92,9 +95,6 @@ nnoremap <silent> <c-k> <c-w>k
 
 nnoremap <leader>rr :%s///g<left><left>
 nnoremap <leader>sa <esc>ggVG
-nnoremap <silent> <leader>ss yiw:Ag <c-r>"<cr>
-nnoremap <silent> <leader>sd :Files<cr>
-nnoremap <silent> <leader>sf yiw:Ag<cr>
 nnoremap <silent> <leader>w :w<cr>
 nnoremap <silent> <leader>c :set ignorecase!<cr>
 nnoremap <silent> <leader>x :set relativenumber!<cr>
@@ -106,7 +106,7 @@ nnoremap * *N
 nnoremap - ~
 nnoremap zz <esc>:wq<cr>
 nnoremap zx <esc>:q!<cr>
-nnoremap ZQ <esc>:%bd!<cr><esc>:q!<cr>
+nnoremap zq <esc>:%bd!<cr><esc>:q!<cr>
 nnoremap <silent> ç <esc>i<esc>:noh<cr>
 " end
 
@@ -127,15 +127,15 @@ inoremap <silent> ç <esc>:noh<cr>
 
 " Line
 function! StatuslineGit()
-  let l:branchname = system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
-  return strlen(l:branchname) > 0 ? ' ('.l:branchname.')' : ''
+    let l:branchname = system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
+    return strlen(l:branchname) > 0 ? ' ('.l:branchname.')' : ''
 endfunction
 
 let g:currentmode={
-\  'n':  'Normal',   'no': 'Pending',  'v':  'Visual',   'V':  'V·Line',     "\<C-V>": 'V·Block',  's':  'Select',  'S':'S·Line',
-\  '^S': 'S·Block',  'i':  'Insert',   'R':  'Replace',  'Rv': 'V·Replace',  'c':      'Command',  'cv': 'Vim Ex',
-\  'ce': 'Ex',       'r':  'Prompt',   'rm': 'More',     'r?': 'Confirm',    '!':      'Shell',    't':  'Terminal'
-\}
+            \  'n':  'Normal',   'no': 'Pending',  'v':  'Visual',   'V':  'V·Line',     "\<C-V>": 'V·Block',  's':  'Select',  'S':'S·Line',
+            \  '^S': 'S·Block',  'i':  'Insert',   'R':  'Replace',  'Rv': 'V·Replace',  'c':      'Command',  'cv': 'Vim Ex',
+            \  'ce': 'Ex',       'r':  'Prompt',   'rm': 'More',     'r?': 'Confirm',    '!':      'Shell',    't':  'Terminal'
+            \}
 
 set laststatus=2
 set statusline=%1*\ %{toupper(g:currentmode[mode()])}%=%<%m%r%h%w%f%5{StatuslineGit()}%5v%5l/%L%5p%%
@@ -143,14 +143,14 @@ set statusline=%1*\ %{toupper(g:currentmode[mode()])}%=%<%m%r%h%w%f%5{Statusline
 
 " Zen mode
 function! ToggleZenMode()
-  let l:name = '_zen_'
-  if bufwinnr(l:name) > 0
-    wincmd o
-    set noequalalways!
-  else
-    execute 'topleft' ((&columns - &textwidth) / 4) . 'vsplit +setlocal\ nobuflisted' l:name | let &l:statusline='%1*%{getline(line("w$")+1)}' | wincmd p
-    set noequalalways
-  endif
+    let l:name = '_zen_'
+    if bufwinnr(l:name) > 0
+        wincmd o
+        set noequalalways!
+    else
+        execute 'topleft' ((&columns - &textwidth) / 4) . 'vsplit +setlocal\ nobuflisted' l:name | let &l:statusline='%1*%{getline(line("w$")+1)}' | wincmd p
+        set noequalalways
+    endif
 endfunction
 
 autocmd VimEnter * hi VertSplit guifg=bg guibg=bg
@@ -190,6 +190,10 @@ hi Pmenu guibg=bg
 " end
 
 " Fzf
+nnoremap <silent> <leader>ss yiw:Ag <c-r>"<cr>
+nnoremap <silent> <leader>sd :Files<cr>
+nnoremap <silent> <leader>sf yiw:Ag<cr>
+
 let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 let $FZF_DEFAULT_OPTS = '-m --bind ctrl-a:select-all,ctrl-d:deselect-all'
 " end
@@ -197,26 +201,22 @@ let $FZF_DEFAULT_OPTS = '-m --bind ctrl-a:select-all,ctrl-d:deselect-all'
 " NerdTree
 let g:NERDTreeMinimalUI = 1
 let g:DevIconsEnableFoldersOpenClose = 1
-let g:NERDTreeWinPos = "right"
+let g:NERDTreeWinPos = 'right'
 let g:nerdtree_sync_cursorline = 1
 
-hi NERDTreeCWD ctermfg=white
+let g:NERDTreeGitStatusIndicatorMapCustom = {
+            \  'Modified'  :'M', 'Staged'    :'S', 'Untracked' :'U',
+            \  'Deleted'   :'D', 'Dirty'     :'*', 'Renamed'   :'R'
+            \}
+
 hi NERDTreeDir ctermfg=white
 hi NERDTreeExecFile ctermfg=white
 hi NERDTreeOpenable ctermfg=white
 hi NERDTreeClosable ctermfg=white
 hi NERDTreeFlags ctermfg=12 guifg=#6a6c6c
 
-let g:NERDTreeGitStatusIndicatorMapCustom = {
-\  'Modified'  :'M',
-\  'Staged'    :'S',
-\  'Untracked' :'U',
-\  'Renamed'   :'R',
-\  'Deleted'   :'D',
-\  'Dirty'     :'*',
-\}
-
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+autocmd FileType nerdtree setlocal conceallevel=3 | syntax match NERDTreeHideCWD #^[</].*$# conceal | setlocal concealcursor=n
 
 nnoremap <silent> <leader>n :NERDTreeToggle<cr>
 " end
@@ -228,9 +228,18 @@ let g:blamer_delay = 200
 " end
 
 " Nuake
+function! ToggleNuake()
+    let l:name = '_zen_'
+    if bufwinnr(l:name) > 0
+        execute ':Nuake' | wincmd l
+    else
+        execute ':Nuake'
+    endif
+endfunction
+
 nnoremap <silent> <leader>j :Nuake<cr>
-inoremap <silent> <leader>j <C-\><C-n>:Nuake<cr>
-tnoremap <silent> <leader>j <C-\><C-n>:Nuake<cr><c-w>w
+inoremap <silent> <leader>j <C-\><C-n>:call ToggleNuake()<cr>
+tnoremap <silent> <leader>j <C-\><C-n>:call ToggleNuake()<cr>
 " end
 
 " Ale
@@ -239,16 +248,16 @@ let g:ale_sign_warning = '⚬'
 let g:ale_fix_on_save = 1
 
 let g:ale_linters = {
-\  'python': ['flake8', 'pylint']
-\}
+            \  'python': ['flake8', 'pylint']
+            \}
 
 let g:ale_fixers = {
-\  '*': ['remove_trailing_lines', 'trim_whitespace'],
-\  'python': ['isort', 'autopep8'],
-\  'typescript': ['prettier'],
-\  'typescriptreact': ['prettier'],
-\  'markdown': ['prettier'],
-\}
+            \  '*': ['remove_trailing_lines', 'trim_whitespace'],
+            \  'python': ['isort', 'autopep8'],
+            \  'typescript': ['prettier'],
+            \  'typescriptreact': ['prettier'],
+            \  'markdown': ['prettier'],
+            \}
 
 let g:ale_python_flake8_options = '--ignore=E501'
 let g:ale_python_pylint_options = '--ignore=E501'
@@ -261,14 +270,14 @@ hi link ALEError ALEWarning
 
 " Semshi
 hi semshiSelected ctermbg=242 guifg=#b7bdc0 guibg=#474646
-hi link semshiUnresolved ALEError
+hi link semshiUnresolved ALEWarning
 " end
 
 " Coc
 let g:coc_global_extensions = [
-\  'coc-tsserver',
-\  'coc-python',
-\]
+            \  'coc-tsserver',
+            \  'coc-python',
+            \]
 
 nmap gd <Plug>(coc-definition)
 nmap <leader>rn <Plug>(coc-rename)
@@ -278,17 +287,17 @@ inoremap <silent><expr> <c-space> coc#refresh()
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 
 function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
+    if (index(['vim','help'], &filetype) >= 0)
+        execute 'h '.expand('<cword>')
+    else
+        call CocAction('doHover')
+    endif
 endfunction
 
 if exists('*complete_info')
-  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<c-y>" : "\<c-g>u\<cr>"
+    inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<c-y>" : "\<c-g>u\<cr>"
 else
-  inoremap <expr> <cr> pumvisible() ? "\<c-y>" : "\<c-g>u\<cr>"
+    inoremap <expr> <cr> pumvisible() ? "\<c-y>" : "\<c-g>u\<cr>"
 endif
 " end
 
