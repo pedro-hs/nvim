@@ -11,6 +11,7 @@ Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'Lenovsky/nuake'
 Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
+Plug 'vim-scripts/vim-auto-save'
 Plug 'ap/vim-buftabline'
 Plug 'tpope/vim-commentary'
 Plug 'ryanoasis/vim-devicons'
@@ -88,10 +89,10 @@ nnoremap <silent> <c-right> :vertical resize +3<cr>
 nnoremap <silent> <c-left> :vertical resize -3<cr>
 nnoremap <silent> <c-s-right> :resize +3<cr>
 nnoremap <silent> <c-s-left> :resize -3<cr>
-nnoremap <silent> <c-h> <c-w>h
-nnoremap <silent> <c-l> <c-w>l
-nnoremap <silent> <c-j> <c-w>j
-nnoremap <silent> <c-k> <c-w>k
+nnoremap <silent> <c-h> :wincmd h<cr>
+nnoremap <silent> <c-l> :wincmd l<cr>
+nnoremap <silent> <c-j> :wincmd j<cr>
+nnoremap <silent> <c-k> :wincmd k<cr>
 
 nnoremap <leader>rr :%s///g<left><left>
 nnoremap <leader>sa <esc>ggVG
@@ -104,19 +105,18 @@ nnoremap 00 $
 nnoremap U <c-r>
 nnoremap * *N
 nnoremap - ~
-nnoremap zz <esc>:wq<cr>
-nnoremap zx <esc>:q!<cr>
-nnoremap zq <esc>:%bd!<cr><esc>:q!<cr>
+nnoremap zz <esc>:q!<cr>
+nnoremap zx <esc>:%bd!<cr><esc>:q!<cr>
 nnoremap <silent> ç <esc>i<esc>:noh<cr>
 " end
 
 " Insert
 inoremap <c-j> <esc>:m .+1<cr>==gi
 inoremap <c-k> <esc>:m .-2<cr>==gi
-inoremap <a-j> <esc>ja
-inoremap <a-l> <esc>la
-inoremap <a-h> <esc>ha
-inoremap <a-k> <esc>ka
+inoremap <a-j> <down>
+inoremap <a-l> <right>
+inoremap <a-h> <left>
+inoremap <a-k> <up>
 
 inoremap <leader>w <esc>:w<cr>
 inoremap <leader>9 <esc><s-I>
@@ -131,7 +131,7 @@ function! StatuslineGit()
     return strlen(l:branchname) > 0 ? ' ('.l:branchname.')' : ''
 endfunction
 
-let g:currentmode={
+let g:currentmode = {
             \  'n':  'Normal',   'no': 'Pending',  'v':  'Visual',   'V':  'V·Line',     "\<C-V>": 'V·Block',  's':  'Select',  'S':'S·Line',
             \  '^S': 'S·Block',  'i':  'Insert',   'R':  'Replace',  'Rv': 'V·Replace',  'c':      'Command',  'cv': 'Vim Ex',
             \  'ce': 'Ex',       'r':  'Prompt',   'rm': 'More',     'r?': 'Confirm',    '!':      'Shell',    't':  'Terminal'
@@ -199,10 +199,10 @@ let $FZF_DEFAULT_OPTS = '-m --bind ctrl-a:select-all,ctrl-d:deselect-all'
 " end
 
 " NerdTree
-let g:NERDTreeMinimalUI = 1
+let g:NERDTreeMinimalUI              = 1
 let g:DevIconsEnableFoldersOpenClose = 1
-let g:NERDTreeWinPos = 'right'
-let g:nerdtree_sync_cursorline = 1
+let g:NERDTreeWinPos                 = 'right'
+let g:nerdtree_sync_cursorline       = 1
 
 let g:NERDTreeGitStatusIndicatorMapCustom = {
             \  'Modified'  :'M', 'Staged'    :'S', 'Untracked' :'U',
@@ -222,9 +222,9 @@ nnoremap <silent> <leader>n :NERDTreeToggle<cr>
 " end
 
 " Blamer
-let g:blamer_enabled = 1
+let g:blamer_enabled              = 1
 let g:blamer_show_in_visual_modes = 0
-let g:blamer_delay = 200
+let g:blamer_delay                = 200
 " end
 
 " Nuake
@@ -243,9 +243,9 @@ tnoremap <silent> <leader>j <C-\><C-n>:call ToggleNuake()<cr>
 " end
 
 " Ale
-let g:ale_sign_error = '✘'
+let g:ale_sign_error   = '✘'
 let g:ale_sign_warning = '⚬'
-let g:ale_fix_on_save = 1
+let g:ale_fix_on_save  = 1
 
 let g:ale_linters = {
             \  'python': ['flake8', 'pylint']
@@ -259,9 +259,9 @@ let g:ale_fixers = {
             \  'markdown': ['prettier'],
             \}
 
-let g:ale_python_flake8_options = '--ignore=E501'
-let g:ale_python_pylint_options = '--ignore=E501'
-let g:ale_python_autopep8_options = '--max-line-length 120'
+let g:ale_python_flake8_options       = '--ignore=E501'
+let g:ale_python_pylint_options       = '--ignore=E501'
+let g:ale_python_autopep8_options     = '--max-line-length 120'
 let g:ale_javascript_prettier_options = '--single-quote --print-width=140 --arrow-parens=always --trailing-comma=es5 --implicit-arrow-linebreak=beside'
 
 hi ALEWarning guifg=#b7bdc0 guibg=#474646
@@ -277,6 +277,7 @@ hi link semshiUnresolved ALEWarning
 let g:coc_global_extensions = [
             \  'coc-tsserver',
             \  'coc-python',
+            \  'coc-sql',
             \]
 
 nmap gd <Plug>(coc-definition)
@@ -302,5 +303,15 @@ endif
 " end
 
 " BufTabline
-let g:buftabline_indicators=1
+let g:buftabline_indicators    = 1
+" end
+
+" Auto Save
+let g:auto_save                = 1
+let g:auto_save_in_insert_mode = 0
+let g:auto_save_silent         = 1
+" end
+
+" Auto Pairs
+let g:AutoPairsMultilineClose  = 0
 " end
