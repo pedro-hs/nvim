@@ -85,15 +85,19 @@ nnoremap <silent> <c-right> :vertical resize +3<cr>
 nnoremap <silent> <c-left> :vertical resize -3<cr>
 nnoremap <silent> <c-s-right> :resize +3<cr>
 nnoremap <silent> <c-s-left> :resize -3<cr>
+nnoremap <silent> <c-h> <c-w>h
+nnoremap <silent> <c-l> <c-w>l
+nnoremap <silent> <c-j> <c-w>j
+nnoremap <silent> <c-k> <c-w>k
 
 nnoremap <leader>rr :%s///g<left><left>
 nnoremap <leader>sa <esc>ggVG
+nnoremap <silent> <leader>ss yiw:Ag <c-r>"<cr>
+nnoremap <silent> <leader>sd :Files<cr>
+nnoremap <silent> <leader>sf yiw:Ag<cr>
 nnoremap <silent> <leader>w :w<cr>
 nnoremap <silent> <leader>c :set ignorecase!<cr>
 nnoremap <silent> <leader>x :set relativenumber!<cr>
-
-nnoremap <silent> <leader>f :Files<cr>
-nnoremap <silent> <leader>sf yiw:Ag<cr>
 
 nnoremap 99 ^
 nnoremap 00 $
@@ -102,6 +106,7 @@ nnoremap * *N
 nnoremap - ~
 nnoremap zz <esc>:wq<cr>
 nnoremap zx <esc>:q!<cr>
+nnoremap ZQ <esc>:%bd!<cr><esc>:q!<cr>
 nnoremap <silent> ç <esc>i<esc>:noh<cr>
 " end
 
@@ -153,6 +158,25 @@ autocmd VimEnter * hi VertSplit guifg=bg guibg=bg
 nnoremap <silent> <leader>z :call ToggleZenMode()<cr>
 " end
 
+" Replace All
+command! -nargs=+ QFDo call QFDo(<q-args>)
+
+function! QFDo(command)
+    let buffer_numbers = {}
+    for fixlist_entry in getqflist()
+        let buffer_numbers[fixlist_entry['bufnr']] = 1
+    endfor
+    let buffer_number_list = keys(buffer_numbers)
+    for num in buffer_number_list
+        exe 'buffer' num
+        exe a:command
+        update
+    endfor
+endfunction
+
+nnoremap <leader>ra :silent! QFDo %s///<left><left><c-r>"<right>
+" end
+
 " One
 set termguicolors
 set background=dark
@@ -167,6 +191,7 @@ hi Pmenu guibg=bg
 
 " Fzf
 let $FZF_DEFAULT_COMMAND = 'ag -g ""'
+let $FZF_DEFAULT_OPTS = '-m --bind ctrl-a:select-all,ctrl-d:deselect-all'
 " end
 
 " NerdTree
