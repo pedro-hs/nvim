@@ -10,7 +10,9 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & npm install'  }
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'Lenovsky/nuake'
+Plug 'joshdick/onedark.vim'
 Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
+Plug 'puremourning/vimspector'
 Plug 'vim-scripts/vim-auto-save'
 Plug 'ap/vim-buftabline'
 Plug 'tpope/vim-commentary'
@@ -18,7 +20,6 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'airblade/vim-gitgutter'
 Plug 'tommcdo/vim-lion'
 Plug 'unkiwii/vim-nerdtree-sync'
-Plug 'joshdick/onedark.vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-surround'
 call plug#end()
@@ -149,7 +150,7 @@ function! ToggleZenMode()
         wincmd o
         set noequalalways!
     else
-        execute 'topleft' ((&columns - &textwidth) / 4) . 'vsplit +setlocal\ nobuflisted' l:name | set cursorline! | set nonu | set nornu | let &l:statusline='%1*%{getline(line("w$")+1)}' | wincmd p
+        execute 'topleft' ((&columns - &textwidth) / 4) . 'vsplit +setlocal\ nobuflisted' l:name | set nocursorline | set nonu | set nornu | let &l:statusline='%1*%{getline(line("w$")+1)}' | wincmd p
         set noequalalways
     endif
 endfunction
@@ -338,4 +339,14 @@ let g:auto_save_silent         = 1
 
 " Auto Pairs
 let g:AutoPairsMultilineClose  = 0
+" end
+"
+" Vimspector
+let g:vimspector_enable_mappings = 'HUMAN'
+
+nmap <leader>vl :call vimspector#Launch()<cr>
+nmap <leader>vr :VimspectorReset<cr>
+nmap <leader>ve :VimspectorEval
+nmap <leader>vw :VimspectorWatch
+nmap <leader>vo :VimspectorShowOutput
 " end
