@@ -149,7 +149,7 @@ function! ToggleZenMode()
         wincmd o
         set noequalalways!
     else
-        execute 'topleft' ((&columns - &textwidth) / 4) . 'vsplit +setlocal\ nobuflisted' l:name | set nonu | set nornu | set cursorline! | let &l:statusline='%1*%{getline(line("w$")+1)}' | wincmd p
+        execute 'topleft' ((&columns - &textwidth) / 4) . 'vsplit +setlocal\ nobuflisted' l:name | set cursorline! | set nonu | set nornu | let &l:statusline='%1*%{getline(line("w$")+1)}' | wincmd p
         set noequalalways
     endif
 endfunction
