@@ -156,7 +156,7 @@ endfunction
 
 autocmd VimEnter * hi VertSplit guifg=bg guibg=bg
 
-nnoremap <silent> <leader>z :call ToggleZenMode()<cr>
+nnoremap <silent> m :call ToggleZenMode()<cr>
 " end
 
 " Replace All
