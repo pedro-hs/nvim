@@ -286,6 +286,7 @@ let g:ale_python_pylint_options       = '--ignore=E501'
 let g:ale_python_autopep8_options     = '--max-line-length 120'
 let g:ale_javascript_prettier_options = '--single-quote --print-width=140 --arrow-parens=always --trailing-comma=es5 --implicit-arrow-linebreak=beside'
 
+hi ALEWarning guifg=#b7bdc0 guibg=#474646
 hi link ALEError ALEWarning
 " end
 
