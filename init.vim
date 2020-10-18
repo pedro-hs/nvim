@@ -18,7 +18,7 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'airblade/vim-gitgutter'
 Plug 'tommcdo/vim-lion'
 Plug 'unkiwii/vim-nerdtree-sync'
-Plug 'rakr/vim-one'
+Plug 'joshdick/onedark.vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-surround'
 call plug#end()
@@ -99,6 +99,7 @@ nnoremap <leader>sa <esc>ggVG
 nnoremap <silent> <leader>w :w<cr>
 nnoremap <silent> <leader>c :set ignorecase!<cr>
 nnoremap <silent> <leader>x :set relativenumber!<cr>
+nnoremap <silent> <leader>p a *<esc>pF*x
 
 nnoremap 99 ^
 nnoremap 00 $
@@ -148,7 +149,7 @@ function! ToggleZenMode()
         wincmd o
         set noequalalways!
     else
-        execute 'topleft' ((&columns - &textwidth) / 4) . 'vsplit +setlocal\ nobuflisted' l:name | let &l:statusline='%1*%{getline(line("w$")+1)}' | wincmd p
+        execute 'topleft' ((&columns - &textwidth) / 4) . 'vsplit +setlocal\ nobuflisted' l:name | set nonu | set nornu | set cursorline! | let &l:statusline='%1*%{getline(line("w$")+1)}' | wincmd p
         set noequalalways
     endif
 endfunction
@@ -177,16 +178,37 @@ endfunction
 nnoremap <leader>ra :silent! QFDo %s///<left><left><c-r>"<right>
 " end
 
-" One
+" Onedark
 set termguicolors
-set background=dark
 
-let g:one_allow_italics = 1
+let g:onedark_terminal_italics   = 1
+let g:onedark_hide_endofbuffer   = 1
 
-colorscheme one
+colorscheme onedark
+" end
+
+" Git Diff
+hi DiffAdd ctermfg=16 ctermbg=65 guifg=#282c34 gui=bold guibg=#5f875f
+hi DiffChange ctermfg=59 ctermbg=17 guifg=#abb2bf guibg=#3e4452 cterm=none gui=none
+hi DiffText ctermfg=16 ctermbg=65 guifg=#282c34 gui=bold guibg=#5f875f
+hi DiffDelete ctermfg=131 ctermbg=131 guifg=#af5f5f guibg=#af5f5f
 
 hi FoldColumn guifg=bg guibg=gb
-hi Pmenu guibg=bg
+
+command! -nargs=? GitDiff diffthis |
+            \ set nornu |
+            \ vertical new |
+            \ set buftype=nofile |
+            \ set bufhidden |
+            \ set noswapfile |
+            \ execute "r!git show ".(!"<args>"?'HEAD~1':"<args>").":".expand('#') |
+            \ 1d_ |
+            \ let &filetype=getbufvar('#', '&filetype') |
+            \ execute 'autocmd BufWipeout <buffer> diffoff!' |
+            \ diffthis |
+            \ wincmd h
+
+nnoremap <leader>df :GitDiff<cr>
 " end
 
 " Fzf
@@ -264,7 +286,6 @@ let g:ale_python_pylint_options       = '--ignore=E501'
 let g:ale_python_autopep8_options     = '--max-line-length 120'
 let g:ale_javascript_prettier_options = '--single-quote --print-width=140 --arrow-parens=always --trailing-comma=es5 --implicit-arrow-linebreak=beside'
 
-hi ALEWarning guifg=#b7bdc0 guibg=#474646
 hi link ALEError ALEWarning
 " end
 
@@ -300,6 +321,8 @@ if exists('*complete_info')
 else
     inoremap <expr> <cr> pumvisible() ? "\<c-y>" : "\<c-g>u\<cr>"
 endif
+
+hi Pmenu guibg=bg
 " end
 
 " BufTabline
