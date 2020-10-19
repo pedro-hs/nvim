@@ -107,6 +107,7 @@ nnoremap 00 $
 nnoremap U <c-r>
 nnoremap * *N
 nnoremap - ~
+nnoremap zc zz
 nnoremap zz <esc>:q!<cr>
 nnoremap zx <esc>:%bd!<cr><esc>:q!<cr>
 nnoremap <silent> ç <esc>i<esc>:noh<cr>
@@ -144,20 +145,19 @@ set statusline=%1*\ %{toupper(g:currentmode[mode()])}%=%<%m%r%h%w%f%5{Statusline
 " end
 
 " Zen mode
-function! ToggleZenMode()
-    let l:name = '_zen_'
-    if bufwinnr(l:name) > 0
+function! CenterMode()
+    if bufwinnr('_center_') > 0
         wincmd o
         set noequalalways!
     else
-        execute 'topleft' ((&columns - &textwidth) / 4) . 'vsplit +setlocal\ nobuflisted' l:name | set nocursorline | set nonu | set nornu | let &l:statusline='%1*%{getline(line("w$")+1)}' | wincmd p
+        execute 'topleft' ((&columns - &textwidth) / 4) . 'vsplit +setlocal\ nobuflisted _center_' | set nocursorline | set nonu | set nornu | let &l:statusline='%1*%{getline(line("w$")+1)}' | wincmd p
         set noequalalways
     endif
 endfunction
 
 autocmd VimEnter * hi VertSplit guifg=bg guibg=bg
 
-nnoremap <silent> m :call ToggleZenMode()<cr>
+nnoremap <silent> m :call CenterMode()<cr>
 " end
 
 " Replace All
@@ -196,20 +196,31 @@ hi DiffDelete ctermfg=131 ctermbg=131 guifg=#af5f5f guibg=#af5f5f
 
 hi FoldColumn guifg=bg guibg=gb
 
-command! -nargs=? GitDiff diffthis |
-            \ set nornu |
-            \ vertical new |
-            \ set buftype=nofile |
-            \ set bufhidden |
-            \ set noswapfile |
-            \ execute "r!git show ".(!"<args>"?'HEAD~1':"<args>").":".expand('#') |
-            \ 1d_ |
-            \ let &filetype=getbufvar('#', '&filetype') |
-            \ execute 'autocmd BufWipeout <buffer> diffoff!' |
-            \ diffthis |
-            \ wincmd h
+function! ToggleGitDiff()
+    if bufwinnr('diff') > 0
+        bd 'diff'
+    endif
+    if (&diff)
+        set nodiff noscrollbind relativenumber nocursorbind
+        if bufwinnr('_center_') > 0
+            silent wincmd o
+            call CenterMode()
+        else
+            silent wincmd o
+        endif
+    else
+        diffthis
+        set norelativenumber
+        vsplit 'diff'
+        set buftype=nofile bufhidden
+        execute "r!git show ".(!"<args>"?'HEAD~1':"<args>").":".expand('#') | 1d_
+        let &filetype=getbufvar('#', '&filetype')
+        diffthis
+        wincmd h
+    endif
+endfunction
 
-nnoremap <leader>df :GitDiff<cr>
+nnoremap <silent> <leader>df :call ToggleGitDiff()<cr>
 " end
 
 " Fzf
@@ -241,7 +252,14 @@ hi NERDTreeFlags ctermfg=12 guifg=#6a6c6c
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 autocmd FileType nerdtree setlocal conceallevel=3 | syntax match NERDTreeHideCWD #^[</].*$# conceal | setlocal concealcursor=n
 
-nnoremap <silent> <leader>n :NERDTreeToggle<cr>
+function! ToggleNERDTreeWithRefresh()
+    :NERDTreeToggle
+    if(exists("b:NERDTreeType") == 1)
+        call feedkeys("R")
+    endif
+endf
+
+nnoremap <silent> <leader>n :call ToggleNERDTreeWithRefresh()<cr>
 " end
 
 " Blamer
@@ -252,9 +270,9 @@ let g:blamer_delay                = 200
 
 " Nuake
 function! ToggleNuake()
-    let l:name = '_zen_'
-    if bufwinnr(l:name) > 0
-        execute ':Nuake' | wincmd l
+    if bufwinnr('_center_') > 0
+        execute ':Nuake'
+        wincmd l
     else
         execute ':Nuake'
     endif
