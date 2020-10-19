@@ -146,6 +146,11 @@ set statusline=%1*\ %{toupper(g:currentmode[mode()])}%=%<%m%r%h%w%f%5{Statusline
 
 " Zen mode
 function! CenterMode()
+    if bufwinnr('diff') > 0
+        bd 'diff'
+        set nodiff noscrollbind relativenumber nocursorbind
+        set nodiff
+    endif
     if bufwinnr('_center_') > 0
         wincmd o
         set noequalalways!
