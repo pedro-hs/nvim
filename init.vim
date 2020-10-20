@@ -50,6 +50,7 @@ set nobackup
 set nowritebackup
 set noswapfile
 set foldmethod=marker
+set noshowmode
 
 autocmd FileType html setlocal ts=2 sts=2 sw=2
 autocmd BufReadPost quickfix nnoremap <buffer> <cr> <cr>
@@ -110,12 +111,12 @@ nnoremap - ~
 nnoremap zc zz
 nnoremap zz <esc>:q!<cr>
 nnoremap zx <esc>:%bd!<cr><esc>:q!<cr>
-nnoremap <silent> ç <esc>i<esc>:noh<cr>
+nnoremap <silent> ç <esc>:noh<cr>:echo ''<cr>
 " end
 
 " Insert
-inoremap <c-j> <esc>:m .+1<cr>==gi
-inoremap <c-k> <esc>:m .-2<cr>==gi
+inoremap <silent> <c-j> <esc>:m .+1<cr>==gi
+inoremap <silent> <c-k> <esc>:m .-2<cr>==gi
 inoremap <a-j> <down>
 inoremap <a-l> <right>
 inoremap <a-h> <left>
@@ -329,7 +330,6 @@ hi link semshiUnresolved ALEWarning
 let g:coc_global_extensions = [
             \  'coc-tsserver',
             \  'coc-python',
-            \  'coc-sql',
             \]
 
 nmap gd <Plug>(coc-definition)
@@ -362,8 +362,8 @@ hi Pmenu guibg=bg
 let g:buftabline_indicators    = 1
 
 hi TabLineSel         cterm=bold gui=bold guifg=#D8DEE9 ctermfg=none ctermbg=none guibg=bg
-hi TabLine            guifg=#D8DEE9 ctermfg=none ctermbg=none guibg=bg
-hi TabLineFill        guifg=#D8DEE9 ctermfg=none ctermbg=none guibg=bg
+hi TabLine            ctermbg=none guibg=bg ctermfg=8 guifg=#4C566A
+hi TabLineFill        ctermbg=none guibg=bg ctermfg=8 guifg=#4C566A
 " end
 
 " Auto Save
