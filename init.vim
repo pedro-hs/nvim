@@ -2,7 +2,7 @@ call plug#begin()
 Plug 'w0rp/ale'
 Plug 'jiangmiao/auto-pairs'
 Plug 'APZelos/blamer.nvim'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'yuttie/comfortable-motion.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
@@ -11,7 +11,7 @@ Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'Lenovsky/nuake'
 Plug 'joshdick/onedark.vim'
-Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
+Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins' }
 Plug 'puremourning/vimspector'
 Plug 'vim-scripts/vim-auto-save'
 Plug 'ap/vim-buftabline'
@@ -54,6 +54,7 @@ set nowritebackup
 set noswapfile
 
 autocmd FileType html setlocal ts=2 sts=2 sw=2
+autocmd BufReadPost quickfix nnoremap <buffer> <cr> <cr>
 
 " Visual
 vnoremap 99 ^
@@ -145,7 +146,7 @@ set statusline=%1*\ %{toupper(g:currentmode[mode()])}%=%<%m%r%h%w%f%5{Statusline
 " end
 
 " Zen mode
-function! CenterMode()
+function! ToggleCenterMode()
     if bufwinnr('diff') > 0
         bd 'diff'
         set nodiff noscrollbind relativenumber nocursorbind
@@ -162,7 +163,7 @@ endfunction
 
 autocmd VimEnter * hi VertSplit guifg=bg guibg=bg
 
-nnoremap <silent> m :call CenterMode()<cr>
+nnoremap <silent> m :call ToggleCenterMode()<cr>
 " end
 
 " Replace All
@@ -206,19 +207,20 @@ function! ToggleGitDiff()
         bd 'diff'
     endif
     if (&diff)
-        set nodiff noscrollbind relativenumber nocursorbind
+        set nodiff noscrollbind relativenumber nocursorbind listchars=tab:--,space:.
         if bufwinnr('_center_') > 0
             silent wincmd o
-            call CenterMode()
+            call ToggleCenterMode()
         else
             silent wincmd o
         endif
     else
         diffthis
         set norelativenumber
+        set listchars=
         vsplit 'diff'
         set buftype=nofile bufhidden
-        execute "r!git show ".(!"<args>"?'HEAD~1':"<args>").":".expand('#') | 1d_
+        execute "r!git show ".(!"<args>"?'HEAD':"<args>").":".expand('#') | 1d_
         let &filetype=getbufvar('#', '&filetype')
         diffthis
         wincmd h
@@ -231,6 +233,7 @@ nnoremap <silent> <leader>df :call ToggleGitDiff()<cr>
 " Fzf
 nnoremap <silent> <leader>ss yiw:Ag <c-r>"<cr>
 nnoremap <silent> <leader>sd :Files<cr>
+nnoremap <silent> <leader>sg :GFiles?<cr>
 nnoremap <silent> <leader>sf yiw:Ag<cr>
 
 let $FZF_DEFAULT_COMMAND = 'ag -g ""'
@@ -305,8 +308,7 @@ let g:ale_fixers = {
             \  'markdown': ['prettier'],
             \}
 
-let g:ale_python_flake8_options       = '--ignore=E501'
-let g:ale_python_pylint_options       = '--ignore=E501'
+let g:ale_python_flake8_options       = '--ignore=E501,W504'
 let g:ale_python_autopep8_options     = '--max-line-length 120'
 let g:ale_javascript_prettier_options = '--single-quote --print-width=140 --arrow-parens=always --trailing-comma=es5 --implicit-arrow-linebreak=beside'
 
