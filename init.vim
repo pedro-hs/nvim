@@ -9,8 +9,8 @@ Plug 'junegunn/fzf.vim'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & npm install'  }
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'arcticicestudio/nord-vim'
 Plug 'Lenovsky/nuake'
-Plug 'joshdick/onedark.vim'
 Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins' }
 Plug 'puremourning/vimspector'
 Plug 'vim-scripts/vim-auto-save'
@@ -18,7 +18,6 @@ Plug 'ap/vim-buftabline'
 Plug 'tpope/vim-commentary'
 Plug 'ryanoasis/vim-devicons'
 Plug 'airblade/vim-gitgutter'
-Plug 'tommcdo/vim-lion'
 Plug 'unkiwii/vim-nerdtree-sync'
 Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-surround'
@@ -36,9 +35,7 @@ set number
 set mouse=a
 set inccommand=split
 set list
-set listchars=tab:--,space:.
 set cursorline
-set colorcolumn=80,120
 set encoding=UTF-8
 set scrolloff=5
 set sidescrolloff=10
@@ -52,9 +49,12 @@ set ignorecase
 set nobackup
 set nowritebackup
 set noswapfile
+set foldmethod=marker
 
 autocmd FileType html setlocal ts=2 sts=2 sw=2
 autocmd BufReadPost quickfix nnoremap <buffer> <cr> <cr>
+autocmd InsertLeave * set listchars= colorcolumn= relativenumber
+autocmd InsertEnter * set listchars=tab:--,space:. colorcolumn=80,120 norelativenumber
 
 " Visual
 vnoremap 99 ^
@@ -100,7 +100,6 @@ nnoremap <leader>rr :%s///g<left><left>
 nnoremap <leader>sa <esc>ggVG
 nnoremap <silent> <leader>w :w<cr>
 nnoremap <silent> <leader>c :set ignorecase!<cr>
-nnoremap <silent> <leader>x :set relativenumber!<cr>
 nnoremap <silent> <leader>p a *<esc>pF*x
 
 nnoremap 99 ^
@@ -131,6 +130,7 @@ inoremap <silent> ç <esc>:noh<cr>
 
 " Line
 function! StatuslineGit()
+    " {{{
     let l:branchname = system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
     return strlen(l:branchname) > 0 ? ' ('.l:branchname.')' : ''
 endfunction
@@ -140,17 +140,18 @@ let g:currentmode = {
             \  '^S': 'S·Block',  'i':  'Insert',   'R':  'Replace',  'Rv': 'V·Replace',  'c':      'Command',  'cv': 'Vim Ex',
             \  'ce': 'Ex',       'r':  'Prompt',   'rm': 'More',     'r?': 'Confirm',    '!':      'Shell',    't':  'Terminal'
             \}
+" }}}
 
 set laststatus=2
 set statusline=%1*\ %{toupper(g:currentmode[mode()])}%=%<%m%r%h%w%f%5{StatuslineGit()}%5v%5l/%L%5p%%
 " end
 
-" Zen mode
+" Center mode
 function! ToggleCenterMode()
+    " {{{
     if bufwinnr('diff') > 0
         bd 'diff'
         set nodiff noscrollbind relativenumber nocursorbind
-        set nodiff
     endif
     if bufwinnr('_center_') > 0
         wincmd o
@@ -160,16 +161,18 @@ function! ToggleCenterMode()
         set noequalalways
     endif
 endfunction
+" }}}
 
 autocmd VimEnter * hi VertSplit guifg=bg guibg=bg
 
-nnoremap <silent> m :call ToggleCenterMode()<cr>
+nnoremap <silent> <leader>z :call ToggleCenterMode()<cr>
 " end
 
 " Replace All
 command! -nargs=+ QFDo call QFDo(<q-args>)
 
 function! QFDo(command)
+    " {{{
     let buffer_numbers = {}
     for fixlist_entry in getqflist()
         let buffer_numbers[fixlist_entry['bufnr']] = 1
@@ -181,33 +184,32 @@ function! QFDo(command)
         update
     endfor
 endfunction
+" }}}
 
 nnoremap <leader>ra :silent! QFDo %s///<left><left><c-r>"<right>
 " end
 
-" Onedark
+" Nord
 set termguicolors
+colorscheme nord
 
-let g:onedark_terminal_italics   = 1
-let g:onedark_hide_endofbuffer   = 1
-
-colorscheme onedark
 " end
 
-" Git Diff
-hi DiffAdd ctermfg=16 ctermbg=65 guifg=#282c34 gui=bold guibg=#5f875f
-hi DiffChange ctermfg=59 ctermbg=17 guifg=#abb2bf guibg=#3e4452 cterm=none gui=none
-hi DiffText ctermfg=16 ctermbg=65 guifg=#282c34 gui=bold guibg=#5f875f
-hi DiffDelete ctermfg=131 ctermbg=131 guifg=#af5f5f guibg=#af5f5f
-
-hi FoldColumn guifg=bg guibg=gb
+"  Git Diff
+hi DiffAdd      ctermfg=16   ctermbg=65      guifg=#282c34 gui=bold      guibg=#5f875f
+hi DiffChange   ctermfg=59   ctermbg=17      guifg=#abb2bf guibg=#3e4452 cterm=none   gui=none
+hi DiffText     ctermfg=16   ctermbg=65      guifg=#282c34 gui=bold      guibg=#5f875f
+hi DiffDelete   ctermfg=131  ctermbg=131     guifg=#af5f5f guibg=#af5f5f
+hi FoldColumn   guifg=bg     guibg=gb
+hi Folded       ctermfg=0    guifg=#3B4252   guibg=#2E3440 ctermfg=none  ctermbg=none guibg=bg
 
 function! ToggleGitDiff()
+    " {{{
     if bufwinnr('diff') > 0
         bd 'diff'
     endif
     if (&diff)
-        set nodiff noscrollbind relativenumber nocursorbind listchars=tab:--,space:.
+        set nodiff noscrollbind relativenumber nocursorbind
         if bufwinnr('_center_') > 0
             silent wincmd o
             call ToggleCenterMode()
@@ -217,7 +219,6 @@ function! ToggleGitDiff()
     else
         diffthis
         set norelativenumber
-        set listchars=
         vsplit 'diff'
         set buftype=nofile bufhidden
         execute "r!git show ".(!"<args>"?'HEAD':"<args>").":".expand('#') | 1d_
@@ -226,6 +227,7 @@ function! ToggleGitDiff()
         wincmd h
     endif
 endfunction
+" }}}
 
 nnoremap <silent> <leader>df :call ToggleGitDiff()<cr>
 " end
@@ -261,11 +263,13 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 autocmd FileType nerdtree setlocal conceallevel=3 | syntax match NERDTreeHideCWD #^[</].*$# conceal | setlocal concealcursor=n
 
 function! ToggleNERDTreeWithRefresh()
+    " {{{
     :NERDTreeToggle
     if(exists("b:NERDTreeType") == 1)
         call feedkeys("R")
     endif
-endf
+endfunction
+" }}}
 
 nnoremap <silent> <leader>n :call ToggleNERDTreeWithRefresh()<cr>
 " end
@@ -278,13 +282,13 @@ let g:blamer_delay                = 200
 
 " Nuake
 function! ToggleNuake()
+    " {{{
+    execute ':Nuake'
     if bufwinnr('_center_') > 0
-        execute ':Nuake'
         wincmd l
-    else
-        execute ':Nuake'
     endif
 endfunction
+" }}}
 
 nnoremap <silent> <leader>j :Nuake<cr>
 inoremap <silent> <leader>j <C-\><C-n>:call ToggleNuake()<cr>
@@ -336,12 +340,14 @@ inoremap <silent><expr> <c-space> coc#refresh()
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 
 function! s:show_documentation()
+    " {{{
     if (index(['vim','help'], &filetype) >= 0)
         execute 'h '.expand('<cword>')
     else
         call CocAction('doHover')
     endif
 endfunction
+" }}}
 
 if exists('*complete_info')
     inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<c-y>" : "\<c-g>u\<cr>"
@@ -354,6 +360,10 @@ hi Pmenu guibg=bg
 
 " BufTabline
 let g:buftabline_indicators    = 1
+
+hi TabLineSel         cterm=bold gui=bold guifg=#D8DEE9 ctermfg=none ctermbg=none guibg=bg
+hi TabLine            guifg=#D8DEE9 ctermfg=none ctermbg=none guibg=bg
+hi TabLineFill        guifg=#D8DEE9 ctermfg=none ctermbg=none guibg=bg
 " end
 
 " Auto Save
@@ -365,7 +375,7 @@ let g:auto_save_silent         = 1
 " Auto Pairs
 let g:AutoPairsMultilineClose  = 0
 " end
-"
+
 " Vimspector
 let g:vimspector_enable_mappings = 'HUMAN'
 
