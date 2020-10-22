@@ -150,16 +150,17 @@ set statusline=%1*\ %{toupper(g:currentmode[mode()])}%=%<%m%r%h%w%f%5{Statusline
 " Center mode
 function! ToggleCenterMode()
     " {{{
-    if bufwinnr('diff') > 0
-        bd 'diff'
-        set nodiff noscrollbind relativenumber nocursorbind
-    endif
-    if bufwinnr('_center_') > 0
-        wincmd o
-        set noequalalways!
-    else
-        execute 'topleft' ((&columns - &textwidth) / 4) . 'vsplit +setlocal\ nobuflisted _center_' | set nocursorline | set nonu | set nornu | let &l:statusline='%1*%{getline(line("w$")+1)}' | wincmd p
-        set noequalalways
+    if bufwinnr('diff') <= 0
+        if bufwinnr('_center_') > 0
+            wincmd o
+            set noequalalways!
+        else
+            execute 'topleft' ((&columns - &textwidth) / 4) . 'vsplit +setlocal\ nobuflisted _center_'
+            set nocursorline nonu nornu
+            let &l:statusline='%1*%{getline(line("w$")+1)}'
+            wincmd p
+            set noequalalways
+        endif
     endif
 endfunction
 " }}}
@@ -208,15 +209,7 @@ function! ToggleGitDiff()
     " {{{
     if bufwinnr('diff') > 0
         bd 'diff'
-    endif
-    if (&diff)
         set nodiff noscrollbind relativenumber nocursorbind
-        if bufwinnr('_center_') > 0
-            silent wincmd o
-            call ToggleCenterMode()
-        else
-            silent wincmd o
-        endif
     else
         diffthis
         set norelativenumber
