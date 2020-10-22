@@ -44,7 +44,6 @@ set updatetime=50
 set splitbelow
 set splitright
 set cmdheight=2
-set virtualedit=block
 set ignorecase
 set nobackup
 set nowritebackup
@@ -58,8 +57,8 @@ autocmd InsertLeave * set listchars= colorcolumn= relativenumber
 autocmd InsertEnter * set listchars=tab:--,space:. colorcolumn=80,120 norelativenumber
 
 " Visual
-vnoremap 99 ^
-vnoremap 00 $h
+vnoremap <leader>k ^
+vnoremap <leader>j $h
 vnoremap <leader>a $A
 vnoremap <leader>i 0I
 
@@ -85,13 +84,14 @@ nnoremap <s-a-k> <c-y>
 nnoremap <a-h> <c-o>
 nnoremap <a-l> <c-i>
 
+nnoremap <silent> <right> :vertical resize +3<cr>
+nnoremap <silent> <left> :vertical resize -3<cr>
+nnoremap <silent> <up> :resize +3<cr>
+nnoremap <silent> <down> :resize -3<cr>
+
 nnoremap <silent> <c-a> :bprevious<cr>
 nnoremap <silent> <c-s> :bnext<cr>
 nnoremap <silent> <c-x> :bwipeout!<cr>
-nnoremap <silent> <c-right> :vertical resize +3<cr>
-nnoremap <silent> <c-left> :vertical resize -3<cr>
-nnoremap <silent> <c-s-right> :resize +3<cr>
-nnoremap <silent> <c-s-left> :resize -3<cr>
 nnoremap <silent> <c-h> :wincmd h<cr>
 nnoremap <silent> <c-l> :wincmd l<cr>
 nnoremap <silent> <c-j> :wincmd j<cr>
@@ -103,8 +103,8 @@ nnoremap <silent> <leader>w :w<cr>
 nnoremap <silent> <leader>c :set ignorecase!<cr>
 nnoremap <silent> <leader>p a *<esc>pF*x
 
-nnoremap 99 ^
-nnoremap 00 $
+nnoremap <leader>k ^
+nnoremap <leader>j $
 nnoremap U <c-r>
 nnoremap * *N
 nnoremap - ~
@@ -123,8 +123,8 @@ inoremap <a-h> <left>
 inoremap <a-k> <up>
 
 inoremap <leader>w <esc>:w<cr>
-inoremap <leader>9 <esc><s-I>
-inoremap <leader>0 <esc><s-A>
+inoremap <leader>k <esc><s-I>
+inoremap <leader>j <esc><s-A>
 
 inoremap <silent> ç <esc>:noh<cr>
 " end
@@ -192,8 +192,8 @@ nnoremap <leader>ra :silent! QFDo %s///<left><left><c-r>"<right>
 
 " Nord
 set termguicolors
-colorscheme nord
 
+colorscheme nord
 " end
 
 "  Git Diff
@@ -291,9 +291,9 @@ function! ToggleNuake()
 endfunction
 " }}}
 
-nnoremap <silent> <leader>j :Nuake<cr>
-inoremap <silent> <leader>j <C-\><C-n>:call ToggleNuake()<cr>
-tnoremap <silent> <leader>j <C-\><C-n>:call ToggleNuake()<cr>
+nnoremap <silent> <leader>m :Nuake<cr>
+inoremap <silent> <leader>m <C-\><C-n>:call ToggleNuake()<cr>
+tnoremap <silent> <leader>m <C-\><C-n>:call ToggleNuake()<cr>
 " end
 
 " Ale
