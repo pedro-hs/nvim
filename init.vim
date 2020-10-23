@@ -53,8 +53,8 @@ set noshowmode
 
 autocmd FileType html setlocal ts=2 sts=2 sw=2
 autocmd BufReadPost quickfix nnoremap <buffer> <cr> <cr>
-autocmd InsertLeave * set listchars= colorcolumn= relativenumber
-autocmd InsertEnter * set listchars=tab:--,space:. colorcolumn=80,120 norelativenumber
+autocmd InsertLeave * set listchars= colorcolumn=
+autocmd InsertEnter * set listchars=tab:--,space:. colorcolumn=80,120
 
 " Visual
 vnoremap <leader>k ^
@@ -101,6 +101,7 @@ nnoremap <leader>rr :%s///g<left><left>
 nnoremap <leader>sa <esc>ggVG
 nnoremap <silent> <leader>w :w<cr>
 nnoremap <silent> <leader>c :set ignorecase!<cr>
+nnoremap <silent> <leader>x :set relativenumber!<cr>
 nnoremap <silent> <leader>p a *<esc>pF*x
 
 nnoremap <leader>k ^
@@ -201,7 +202,6 @@ colorscheme nord
 hi DiffAdd      ctermfg=16   ctermbg=65      guifg=#282c34 gui=bold      guibg=#5f875f
 hi DiffChange   ctermfg=59   ctermbg=17      guifg=#abb2bf guibg=#3e4452 cterm=none   gui=none
 hi DiffText     ctermfg=16   ctermbg=65      guifg=#282c34 gui=bold      guibg=#5f875f
-hi DiffDelete   ctermfg=131  ctermbg=131     guifg=#af5f5f guibg=#af5f5f
 hi FoldColumn   guifg=bg     guibg=gb
 hi Folded       ctermfg=0    guifg=#3B4252   guibg=#2E3440 ctermfg=none  ctermbg=none guibg=bg
 
@@ -241,6 +241,7 @@ let g:NERDTreeMinimalUI              = 1
 let g:DevIconsEnableFoldersOpenClose = 1
 let g:NERDTreeWinPos                 = 'right'
 let g:nerdtree_sync_cursorline       = 1
+let g:NERDTreeStatusline = '%#NonText#'
 
 let g:NERDTreeGitStatusIndicatorMapCustom = {
             \  'Modified'  :'M', 'Staged'    :'S', 'Untracked' :'U',
@@ -254,7 +255,6 @@ hi NERDTreeClosable ctermfg=white
 hi NERDTreeFlags ctermfg=12 guifg=#6a6c6c
 
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-autocmd FileType nerdtree setlocal conceallevel=3 | syntax match NERDTreeHideCWD #^[</].*$# conceal | setlocal concealcursor=n
 
 function! ToggleNERDTreeWithRefresh()
     " {{{
