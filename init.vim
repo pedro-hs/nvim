@@ -2,6 +2,7 @@ call plug#begin()
 Plug 'w0rp/ale'
 Plug 'jiangmiao/auto-pairs'
 Plug 'APZelos/blamer.nvim'
+Plug 'rhysd/clever-f.vim'
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'yuttie/comfortable-motion.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -18,8 +19,10 @@ Plug 'ap/vim-buftabline'
 Plug 'tpope/vim-commentary'
 Plug 'ryanoasis/vim-devicons'
 Plug 'airblade/vim-gitgutter'
+Plug 'tommcdo/vim-lion'
 Plug 'unkiwii/vim-nerdtree-sync'
 Plug 'sheerun/vim-polyglot'
+Plug 'mg979/vim-visual-multi'
 Plug 'tpope/vim-surround'
 call plug#end()
 
@@ -57,8 +60,8 @@ autocmd InsertLeave * set listchars= colorcolumn=
 autocmd InsertEnter * set listchars=tab:--,space:. colorcolumn=80,120
 
 " Visual
-vnoremap <leader>k ^
-vnoremap <leader>j $h
+vnoremap <leader>j ^
+vnoremap <leader>k $h
 vnoremap <leader>a $A
 vnoremap <leader>i 0I
 
@@ -103,9 +106,9 @@ nnoremap <silent> <leader>w :w<cr>
 nnoremap <silent> <leader>c :set ignorecase!<cr>
 nnoremap <silent> <leader>x :set relativenumber!<cr>
 nnoremap <silent> <leader>p a *<esc>pF*x
+nnoremap <leader>j ^
+nnoremap <leader>k $
 
-nnoremap <leader>k ^
-nnoremap <leader>j $
 nnoremap U <c-r>
 nnoremap * *N
 nnoremap - ~
@@ -229,7 +232,7 @@ nnoremap <silent> <leader>df :call ToggleGitDiff()<cr>
 " Fzf
 nnoremap <silent> <leader>ss yiw:Ag <c-r>"<cr>
 nnoremap <silent> <leader>sd :Files<cr>
-nnoremap <silent> <leader>sg :GFiles?<cr>
+nnoremap <silent> <leader>sc :GFiles?<cr>
 nnoremap <silent> <leader>sf yiw:Ag<cr>
 
 let $FZF_DEFAULT_COMMAND = 'ag -g ""'
@@ -241,7 +244,7 @@ let g:NERDTreeMinimalUI              = 1
 let g:DevIconsEnableFoldersOpenClose = 1
 let g:NERDTreeWinPos                 = 'right'
 let g:nerdtree_sync_cursorline       = 1
-let g:NERDTreeStatusline = '%#NonText#'
+let g:NERDTreeStatusline             = '%#NonText#'
 
 let g:NERDTreeGitStatusIndicatorMapCustom = {
             \  'Modified'  :'M', 'Staged'    :'S', 'Untracked' :'U',
@@ -377,4 +380,19 @@ nmap <leader>vr :VimspectorReset<cr>
 nmap <leader>ve :VimspectorEval
 nmap <leader>vw :VimspectorWatch
 nmap <leader>vo :VimspectorShowOutput
+" end
+
+" Visual Multi
+let g:VM_maps = {}
+let g:VM_maps["Select Cursor Down"] = '<C-s-j>'
+let g:VM_maps["Select Cursor Up"]   = '<C-s-k>'
+let g:VM_Mono_hl   = 'TermCursor'
+let g:VM_Cursor_hl = 'TermCursor'
+let g:VM_Extend_hl = 'TermCursor'
+let g:VM_Insert_hl = 'TermCursor'
+let g:VM_highlight_matches = ''
+" end
+
+" Clever F
+let g:clever_f_mark_char_color = 'IncSearch'
 " end

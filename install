@@ -25,3 +25,7 @@ let tab.label = tab.path[tab.sep + 1:] . ' ' . WebDevIconsGetFileTypeSymbol(tab.
 VIMSPECTOR
 :VimspectorInstall debugpy
 :VimspectorInstall debugger-for-chrome
+
+VIM VISUAL MULTI
+replace 'VM has started with warnings. :VMDebug for more info' to echo ''
+replace Exited Visual-Multi to echo ''
