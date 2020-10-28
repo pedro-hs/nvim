@@ -27,5 +27,9 @@ VIMSPECTOR
 :VimspectorInstall debugger-for-chrome
 
 VIM VISUAL MULTI
-replace 'VM has started with warnings. :VMDebug for more info' to echo ''
-replace Exited Visual-Multi to echo ''
+autoload/vm.vim
+    call s:V.Funcs.msg('Exited Visual-Multi.')
+autoload/vm/maps.vim
+    call s:V.Funcs.msg('VM has started with warnings. :VMDebug for more info')
+autoload/vm/funcs.vim
+    silent! noautocmd setlocal statusline=%!vm#themes#statusline()

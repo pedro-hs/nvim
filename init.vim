@@ -5,6 +5,7 @@ Plug 'APZelos/blamer.nvim'
 Plug 'rhysd/clever-f.vim'
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'yuttie/comfortable-motion.vim'
+Plug 'mattn/emmet-vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & npm install'  }
@@ -386,13 +387,25 @@ nmap <leader>vo :VimspectorShowOutput
 let g:VM_maps = {}
 let g:VM_maps["Select Cursor Down"] = '<C-s-j>'
 let g:VM_maps["Select Cursor Up"]   = '<C-s-k>'
-let g:VM_Mono_hl   = 'TermCursor'
-let g:VM_Cursor_hl = 'TermCursor'
-let g:VM_Extend_hl = 'TermCursor'
-let g:VM_Insert_hl = 'TermCursor'
+let g:VM_Mono_hl   = 'StatusLine'
+let g:VM_Cursor_hl = 'StatusLine'
+let g:VM_Extend_hl = 'StatusLine'
+let g:VM_Insert_hl = 'StatusLine'
 let g:VM_highlight_matches = ''
 " end
 
 " Clever F
 let g:clever_f_mark_char_color = 'IncSearch'
+" end
+
+" Emmet
+let g:user_emmet_leader_key='\'
+" end
+
+" Git Gutter
+let g:gitgutter_sign_added = '▌'
+let g:gitgutter_sign_modified = '▌'
+let g:gitgutter_sign_removed = '▁'
+let g:gitgutter_sign_removed_first_line = '▌'
+let g:gitgutter_sign_modified_removed = '▌'
 " end
