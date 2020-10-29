@@ -12,9 +12,8 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & npm install'  }
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'arcticicestudio/nord-vim'
-Plug 'Lenovsky/nuake'
 Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins' }
-Plug 'puremourning/vimspector'
+" Plug 'puremourning/vimspector'
 Plug 'vim-scripts/vim-auto-save'
 Plug 'ap/vim-buftabline'
 Plug 'tpope/vim-commentary'
@@ -65,6 +64,7 @@ vnoremap <leader>j ^
 vnoremap <leader>k $h
 vnoremap <leader>a $A
 vnoremap <leader>i 0I
+vnoremap <leader>y y/<c-r>"<cr>
 
 vnoremap zz <esc>:wq<cr>
 vnoremap zx <esc>:q!<cr>
@@ -81,9 +81,6 @@ nnoremap <bs> X
 nnoremap <space> i<space><esc>l
 nnoremap <c-m> i<cr><esc>
 nnoremap <tab> i<tab><esc>l
-
-nnoremap <s-a-j> <c-e>
-nnoremap <s-a-k> <c-y>
 
 nnoremap <a-h> <c-o>
 nnoremap <a-l> <c-i>
@@ -128,14 +125,20 @@ inoremap <a-h> <left>
 inoremap <a-k> <up>
 
 inoremap <leader>w <esc>:w<cr>
-inoremap <leader>k <esc><s-I>
-inoremap <leader>j <esc><s-A>
+inoremap <leader>j <esc><s-I>
+inoremap <leader>k <esc><s-A>
 
 inoremap <silent> ç <esc>:noh<cr>
 " end
 
-" Line
-function! StatuslineGit()
+" Nord
+set termguicolors
+
+colorscheme nord
+" end
+
+" Status Line
+function! StatusLineGit()
     " {{{
     let l:branchname = system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
     return strlen(l:branchname) > 0 ? ' ('.l:branchname.')' : ''
@@ -149,7 +152,7 @@ let g:currentmode = {
 " }}}
 
 set laststatus=2
-set statusline=%1*\ %{toupper(g:currentmode[mode()])}%=%<%m%r%h%w%f%5{StatuslineGit()}%5v%5l/%L%5p%%
+set statusline=%1*\ %{toupper(g:currentmode[mode()])}%=%<%m%r%h%w%f%5{StatusLineGit()}%5v%5l/%L%5p%%
 " end
 
 " Center mode
@@ -196,10 +199,38 @@ endfunction
 nnoremap <leader>ra :silent! QFDo %s///<left><left><c-r>"<right>
 " end
 
-" Nord
-set termguicolors
+" Terminal
+let g:term_win = 0
+let g:term_buf = 0
 
-colorscheme nord
+function! ToggleTerminal() abort
+    " {{{
+    if win_gotoid(g:term_win)
+        hide
+        set laststatus=2
+    else
+        if !g:term_buf
+            split | term
+            let g:term_buf = bufnr("$")
+        else
+            execute 'sbuffer' . g:term_buf
+        endif
+        resize 10
+        setlocal laststatus=0 noruler nonumber norelativenumber nobuflisted
+        let g:term_win = win_getid()
+        startinsert!
+    endif
+    if bufwinnr('_center_') > 0
+        wincmd l
+    endif
+endfunction
+" }}}
+
+nnoremap <silent><leader>m :call ToggleTerminal()<cr>
+inoremap <silent><leader>m <c-\><c-n>:call ToggleTerminal()<cr>
+tnoremap <silent><leader>m <c-\><c-n>:call ToggleTerminal()<cr>
+tnoremap <silent><leader>k <c-\><c-n>:execute 'wincmd k'<cr>
+tnoremap <silent><leader>n <c-\><c-n>
 " end
 
 "  Git Diff
@@ -276,21 +307,6 @@ nnoremap <silent> <leader>n :call ToggleNERDTreeWithRefresh()<cr>
 let g:blamer_enabled              = 1
 let g:blamer_show_in_visual_modes = 0
 let g:blamer_delay                = 200
-" end
-
-" Nuake
-function! ToggleNuake()
-    " {{{
-    execute ':Nuake'
-    if bufwinnr('_center_') > 0
-        wincmd l
-    endif
-endfunction
-" }}}
-
-nnoremap <silent> <leader>m :Nuake<cr>
-inoremap <silent> <leader>m <C-\><C-n>:call ToggleNuake()<cr>
-tnoremap <silent> <leader>m <C-\><C-n>:call ToggleNuake()<cr>
 " end
 
 " Ale
@@ -373,20 +389,10 @@ let g:auto_save_silent         = 1
 let g:AutoPairsMultilineClose  = 0
 " end
 
-" Vimspector
-let g:vimspector_enable_mappings = 'HUMAN'
-
-nmap <leader>vl :call vimspector#Launch()<cr>
-nmap <leader>vr :VimspectorReset<cr>
-nmap <leader>ve :VimspectorEval
-nmap <leader>vw :VimspectorWatch
-nmap <leader>vo :VimspectorShowOutput
-" end
-
 " Visual Multi
 let g:VM_maps = {}
-let g:VM_maps["Select Cursor Down"] = '<C-s-j>'
-let g:VM_maps["Select Cursor Up"]   = '<C-s-k>'
+let g:VM_maps["Select Cursor Down"] = '<a-s-j>'
+let g:VM_maps["Select Cursor Up"]   = '<a-s-k>'
 let g:VM_Mono_hl   = 'StatusLine'
 let g:VM_Cursor_hl = 'StatusLine'
 let g:VM_Extend_hl = 'StatusLine'
@@ -408,4 +414,14 @@ let g:gitgutter_sign_modified = '▌'
 let g:gitgutter_sign_removed = '▁'
 let g:gitgutter_sign_removed_first_line = '▌'
 let g:gitgutter_sign_modified_removed = '▌'
+" end
+
+" Vimspector
+" let g:vimspector_enable_mappings = 'HUMAN'
+
+" nmap <leader>vl :call vimspector#Launch()<cr>
+" nmap <leader>vr :VimspectorReset<cr>
+" nmap <leader>ve :VimspectorEval
+" nmap <leader>vw :VimspectorWatch
+" nmap <leader>vo :VimspectorShowOutput
 " end
