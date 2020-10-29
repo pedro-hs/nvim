@@ -64,7 +64,8 @@ vnoremap <leader>j ^
 vnoremap <leader>k $h
 vnoremap <leader>a $A
 vnoremap <leader>i 0I
-vnoremap <leader>y y/<c-r>"<cr>
+vnoremap <leader>f y/<c-r>"<cr>
+vnoremap <leader>F y/\<<c-r>"\><cr>
 
 vnoremap zz <esc>:wq<cr>
 vnoremap zx <esc>:q!<cr>
@@ -84,11 +85,13 @@ nnoremap <tab> i<tab><esc>l
 
 nnoremap <a-h> <c-o>
 nnoremap <a-l> <c-i>
+nnoremap <a-M> <c-y>
+nnoremap <a-m> <c-e>
 
 nnoremap <silent> <right> :vertical resize +3<cr>
-nnoremap <silent> <left> :vertical resize -3<cr>
-nnoremap <silent> <up> :resize +3<cr>
-nnoremap <silent> <down> :resize -3<cr>
+nnoremap <silent> <left>  :vertical resize -3<cr>
+nnoremap <silent> <up>    :resize +3<cr>
+nnoremap <silent> <down>  :resize -3<cr>
 
 nnoremap <silent> <c-a> :bprevious<cr>
 nnoremap <silent> <c-s> :bnext<cr>
