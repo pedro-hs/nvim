@@ -14,7 +14,6 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'arcticicestudio/nord-vim'
 Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins' }
 " Plug 'puremourning/vimspector'
-Plug 'vim-scripts/vim-auto-save'
 Plug 'ap/vim-buftabline'
 Plug 'tpope/vim-commentary'
 Plug 'ryanoasis/vim-devicons'
@@ -56,8 +55,9 @@ set noshowmode
 
 autocmd FileType html setlocal ts=2 sts=2 sw=2
 autocmd BufReadPost quickfix nnoremap <buffer> <cr> <cr>
-autocmd InsertLeave * set listchars= colorcolumn=
+autocmd InsertLeave * set listchars= colorcolumn= | silent ALEFix
 autocmd InsertEnter * set listchars=tab:--,space:. colorcolumn=80,120
+autocmd CursorHold,CursorHoldI * silent update
 
 " Visual
 vnoremap <leader>j ^
@@ -78,15 +78,15 @@ cnoremap <c-o> \<c-r>"
 " end
 
 " Normal
-nnoremap <bs> X
+nnoremap <bs> i<bs><esc>
 nnoremap <space> i<space><esc>l
 nnoremap <c-m> i<cr><esc>
 nnoremap <tab> i<tab><esc>l
 
 nnoremap <a-h> <c-o>
 nnoremap <a-l> <c-i>
-nnoremap <a-M> <c-y>
-nnoremap <a-m> <c-e>
+nnoremap <a-s-k> <c-y>
+nnoremap <a-s-j> <c-e>
 
 nnoremap <silent> <right> :vertical resize +3<cr>
 nnoremap <silent> <left>  :vertical resize -3<cr>
@@ -111,7 +111,7 @@ nnoremap <leader>j ^
 nnoremap <leader>k $
 
 nnoremap U <c-r>
-nnoremap * *N
+nnoremap * viwy*N
 nnoremap - ~
 nnoremap zc zz
 nnoremap zz <esc>:q!<cr>
@@ -280,6 +280,9 @@ let g:DevIconsEnableFoldersOpenClose = 1
 let g:NERDTreeWinPos                 = 'right'
 let g:nerdtree_sync_cursorline       = 1
 let g:NERDTreeStatusline             = '%#NonText#'
+let g:NERDTreeAutoDeleteBuffer       = 1
+let g:NERDTreeQuitOnOpen             = 1
+let g:NERDTreeMouseMode              = 3
 
 let g:NERDTreeGitStatusIndicatorMapCustom = {
             \  'Modified'  :'M', 'Staged'    :'S', 'Untracked' :'U',
@@ -315,7 +318,6 @@ let g:blamer_delay                = 200
 " Ale
 let g:ale_sign_error   = '✘'
 let g:ale_sign_warning = '⚬'
-let g:ale_fix_on_save  = 1
 
 let g:ale_linters = {
             \  'python': ['flake8', 'pylint']
@@ -382,20 +384,14 @@ hi TabLine            ctermbg=none guibg=bg ctermfg=8 guifg=#4C566A
 hi TabLineFill        ctermbg=none guibg=bg ctermfg=8 guifg=#4C566A
 " end
 
-" Auto Save
-let g:auto_save                = 1
-let g:auto_save_in_insert_mode = 0
-let g:auto_save_silent         = 1
-" end
-
 " Auto Pairs
 let g:AutoPairsMultilineClose  = 0
 " end
 
 " Visual Multi
 let g:VM_maps = {}
-let g:VM_maps["Select Cursor Down"] = '<a-s-j>'
-let g:VM_maps["Select Cursor Up"]   = '<a-s-k>'
+let g:VM_maps["Select Cursor Down"] = '<a-m>'
+let g:VM_maps["Select Cursor Up"]   = '<a-M>'
 let g:VM_Mono_hl   = 'StatusLine'
 let g:VM_Cursor_hl = 'StatusLine'
 let g:VM_Extend_hl = 'StatusLine'
