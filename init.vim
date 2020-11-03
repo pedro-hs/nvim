@@ -211,17 +211,12 @@ function! ToggleTerminal() abort
         hide
         set laststatus=2
     else
-        try
-            if !bufexists(str2nr(g:term_buf))
-                split | term
-                let g:term_buf = bufnr("$")
-            else
-                execute 'sbuffer' . g:term_buf
-            endif
-        catch
+        if g:term_buf == 0 || !bufexists(str2nr(g:term_buf))
             split | term
             let g:term_buf = bufnr("$")
-        endtry
+        else
+            execute 'sbuffer' . g:term_buf
+        endif
         resize 10
         setlocal laststatus=0 noruler nonumber norelativenumber nobuflisted
         let g:term_win = win_getid()
