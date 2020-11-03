@@ -36,7 +36,6 @@ set hidden
 set number
 set mouse=a
 set inccommand=split
-set list
 set cursorline
 set encoding=UTF-8
 set scrolloff=5
@@ -52,11 +51,12 @@ set nowritebackup
 set noswapfile
 set foldmethod=marker
 set noshowmode
+set listchars+=tab:--,space:`
 
 autocmd FileType html setlocal ts=2 sts=2 sw=2
 autocmd BufReadPost quickfix nnoremap <buffer> <cr> <cr>
-autocmd InsertLeave * set listchars= colorcolumn= | silent ALEFix
-autocmd InsertEnter * set listchars=tab:--,space:. colorcolumn=80,120
+autocmd InsertLeave * set nolist | silent ALEFix
+autocmd InsertEnter * set list
 autocmd CursorHold,CursorHoldI * silent update
 
 " Visual
@@ -136,7 +136,6 @@ inoremap <silent> ç <esc>:noh<cr>
 
 " Nord
 set termguicolors
-
 colorscheme nord
 " end
 
@@ -212,12 +211,17 @@ function! ToggleTerminal() abort
         hide
         set laststatus=2
     else
-        if !g:term_buf
+        try
+            if !bufexists(str2nr(g:term_buf))
+                split | term
+                let g:term_buf = bufnr("$")
+            else
+                execute 'sbuffer' . g:term_buf
+            endif
+        catch
             split | term
             let g:term_buf = bufnr("$")
-        else
-            execute 'sbuffer' . g:term_buf
-        endif
+        endtry
         resize 10
         setlocal laststatus=0 noruler nonumber norelativenumber nobuflisted
         let g:term_win = win_getid()
