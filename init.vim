@@ -55,9 +55,10 @@ set listchars+=tab:--,space:`
 
 autocmd FileType html setlocal ts=2 sts=2 sw=2
 autocmd BufReadPost quickfix nnoremap <buffer> <cr> <cr>
-autocmd InsertLeave * set nolist | silent ALEFix
+autocmd InsertLeave * set nolist | silent ALEFix | silent write
 autocmd InsertEnter * set list
-autocmd CursorHold,CursorHoldI * silent update
+autocmd CursorHold,CursorHoldI * silent ALELint
+autocmd TextChanged * silent ALEFix | silent write
 
 " Visual
 vnoremap <leader>j ^
@@ -78,7 +79,7 @@ cnoremap <c-o> \<c-r>"
 " end
 
 " Normal
-nnoremap <bs> i<bs><esc>
+nnoremap <bs> X
 nnoremap <space> i<space><esc>l
 nnoremap <c-m> i<cr><esc>
 nnoremap <tab> i<tab><esc>l
@@ -102,10 +103,11 @@ nnoremap <silent> <c-j> :wincmd j<cr>
 nnoremap <silent> <c-k> :wincmd k<cr>
 
 nnoremap <leader>rr :%s///g<left><left>
-nnoremap <leader>sa <esc>ggVG
 nnoremap <silent> <leader>w :w<cr>
-nnoremap <silent> <leader>c :set ignorecase!<cr>
-nnoremap <silent> <leader>x :set relativenumber!<cr>
+nnoremap <leader>xa <esc>ggVG
+nnoremap <silent> <leader>xc :set ignorecase!<cr>
+nnoremap <silent> <leader>xn :set numbers relativenumber!<cr>
+nnoremap <silent> <leader>xp :call system("xclip -i -selection clipboard", expand("%"))<CR>
 nnoremap <silent> <leader>p a *<esc>pF*x
 nnoremap <leader>j ^
 nnoremap <leader>k $
@@ -160,7 +162,7 @@ set statusline=%1*\ %{toupper(g:currentmode[mode()])}%=%<%m%r%h%w%f%5{StatusLine
 " Center mode
 function! ToggleCenterMode()
     " {{{
-    if bufwinnr('diff') <= 0
+    if bufwinnr('_diff_') <= 0
         if bufwinnr('_center_') > 0
             wincmd o
             set noequalalways!
@@ -244,13 +246,13 @@ hi Folded       ctermfg=0    guifg=#3B4252   guibg=#2E3440 ctermfg=none  ctermbg
 
 function! ToggleGitDiff()
     " {{{
-    if bufwinnr('diff') > 0
-        bd 'diff'
+    if bufwinnr('_diff_') > 0
+        bd '_diff_'
         set nodiff noscrollbind relativenumber nocursorbind
     else
         diffthis
         set norelativenumber
-        vsplit 'diff'
+        vsplit '_diff_'
         set buftype=nofile bufhidden
         execute "r!git show ".(!"<args>"?'HEAD':"<args>").":".expand('#') | 1d_
         let &filetype=getbufvar('#', '&filetype')
@@ -315,11 +317,14 @@ let g:blamer_delay                = 200
 " end
 
 " Ale
-let g:ale_sign_error   = '✘'
-let g:ale_sign_warning = '⚬'
+let g:ale_sign_error              = '✘'
+let g:ale_sign_warning            = '⚬'
+let g:ale_linters_explicit        = 1
 
 let g:ale_linters = {
-            \  'python': ['flake8', 'pylint']
+            \  'python': ['flake8', 'pylint'],
+            \  'typescript': ['eslint'],
+            \  'typescriptreact': ['eslint'],
             \}
 
 let g:ale_fixers = {
@@ -332,10 +337,12 @@ let g:ale_fixers = {
 
 let g:ale_python_flake8_options       = '--ignore=E501,W504'
 let g:ale_python_autopep8_options     = '--max-line-length 120'
-let g:ale_javascript_prettier_options = '--single-quote --print-width=140 --arrow-parens=always --trailing-comma=es5 --implicit-arrow-linebreak=beside'
+let g:ale_javascript_prettier_options = '--single-quote --print-width=100 --arrow-parens=always --trailing-comma=es5 --implicit-arrow-linebreak=beside'
 
 hi ALEWarning guifg=#b7bdc0 guibg=#474646
 hi link ALEError ALEWarning
+hi clear ALEErrorSign
+hi clear ALEWarningSign
 " end
 
 " Semshi
@@ -349,8 +356,8 @@ let g:coc_global_extensions = [
             \  'coc-python',
             \]
 
-nmap gd <Plug>(coc-definition)
-nmap <leader>rn <Plug>(coc-rename)
+nmap cd <Plug>(coc-definition)
+nmap <leader>cr <Plug>(coc-rename)
 nmap <silent> coc :CocCommand<cr>
 
 inoremap <silent><expr> <c-space> coc#refresh()
