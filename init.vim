@@ -55,10 +55,8 @@ set listchars+=tab:--,space:`
 
 autocmd FileType html setlocal ts=2 sts=2 sw=2
 autocmd BufReadPost quickfix nnoremap <buffer> <cr> <cr>
-autocmd InsertLeave * set nolist | silent ALEFix | silent write
+autocmd InsertLeave * set nolist
 autocmd InsertEnter * set list
-autocmd CursorHold,CursorHoldI * silent ALELint
-autocmd TextChanged * silent ALEFix | silent write
 
 " Visual
 vnoremap <leader>j ^
@@ -134,6 +132,20 @@ inoremap <leader>j <esc><s-I>
 inoremap <leader>k <esc><s-A>
 
 inoremap <silent> ç <esc>:noh<cr>
+" end
+
+" Autosave
+function! Autosave()
+    " {{{
+    if empty(&buftype)
+        silent ALEFix
+        silent write
+    endif
+endfunction
+" }}}
+
+autocmd InsertLeave * call Autosave()
+autocmd TextChanged * call Autosave()
 " end
 
 " Nord
@@ -343,6 +355,8 @@ hi ALEWarning guifg=#b7bdc0 guibg=#474646
 hi link ALEError ALEWarning
 hi clear ALEErrorSign
 hi clear ALEWarningSign
+
+autocmd CursorHold,CursorHoldI * silent ALELint
 " end
 
 " Semshi
