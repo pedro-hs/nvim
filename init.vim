@@ -53,10 +53,10 @@ set foldmethod=marker
 set noshowmode
 set listchars+=tab:--,space:`
 
-autocmd FileType html setlocal ts=2 sts=2 sw=2
-autocmd BufReadPost quickfix nnoremap <buffer> <cr> <cr>
-autocmd InsertLeave * set nolist
-autocmd InsertEnter * set list
+au FileType html setlocal ts=2 sts=2 sw=2
+au BufReadPost quickfix nnoremap <buffer> <cr> <cr>
+au InsertLeave * set nolist
+au InsertEnter * set list
 
 " Visual
 vnoremap <leader>j ^
@@ -104,7 +104,7 @@ nnoremap <leader>rr :%s///g<left><left>
 nnoremap <silent> <leader>w :w<cr>
 nnoremap <leader>xa <esc>ggVG
 nnoremap <silent> <leader>xc :set ignorecase!<cr>
-nnoremap <silent> <leader>xn :set numbers relativenumber!<cr>
+nnoremap <silent> <leader>xn :set number relativenumber!<cr>
 nnoremap <silent> <leader>xp :call system("xclip -i -selection clipboard", expand("%"))<CR>
 nnoremap <silent> <leader>p a *<esc>pF*x
 nnoremap <leader>j ^
@@ -134,31 +134,31 @@ inoremap <leader>k <esc><s-A>
 inoremap <silent> ç <esc>:noh<cr>
 " end
 
-" Autosave
-function! Autosave()
-    " {{{
-    if empty(&buftype)
-        silent ALEFix
-        silent write
-    endif
-endfunction
-" }}}
-
-autocmd InsertLeave * call Autosave()
-autocmd TextChanged * call Autosave()
-" end
-
 " Nord
 set termguicolors
 colorscheme nord
 " end
 
+" Autosave
+fun! Autosave()
+    " {{{
+    if empty(&buftype)
+        silent ALEFix
+        silent write
+    endif
+endfun
+" }}}
+
+au InsertLeave * call Autosave()
+au TextChanged * call Autosave()
+" end
+
 " Status Line
-function! StatusLineGit()
+fun! StatusLineGit()
     " {{{
     let l:branchname = system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
     return strlen(l:branchname) > 0 ? ' ('.l:branchname.')' : ''
-endfunction
+endfun
 
 let g:currentmode = {
             \  'n':  'Normal',   'no': 'Pending',  'v':  'Visual',   'V':  'V·Line',     "\<C-V>": 'V·Block',  's':  'Select',  'S':'S·Line',
@@ -172,24 +172,24 @@ set statusline=%1*\ %{toupper(g:currentmode[mode()])}%=%<%m%r%h%w%f%5{StatusLine
 " end
 
 " Center mode
-function! ToggleCenterMode()
+fun! ToggleCenterMode()
     " {{{
     if bufwinnr('_diff_') <= 0
         if bufwinnr('_center_') > 0
             wincmd o
             set noequalalways!
         else
-            execute 'topleft' ((&columns - &textwidth) / 4) . 'vsplit +setlocal\ nobuflisted _center_'
+            exe 'topleft' ((&columns - &textwidth) / 4) . 'vsplit +setlocal\ nobuflisted _center_'
             set nocursorline nonu nornu
             let &l:statusline='%1*%{getline(line("w$")+1)}'
             wincmd p
             set noequalalways
         endif
     endif
-endfunction
+endfun
 " }}}
 
-autocmd VimEnter * hi VertSplit guifg=bg guibg=bg
+au VimEnter * hi VertSplit guifg=bg guibg=bg
 
 nnoremap <silent> <leader>z :call ToggleCenterMode()<cr>
 " end
@@ -197,7 +197,7 @@ nnoremap <silent> <leader>z :call ToggleCenterMode()<cr>
 " Replace All
 command! -nargs=+ QFDo call QFDo(<q-args>)
 
-function! QFDo(command)
+fun! QFDo(command)
     " {{{
     let buffer_numbers = {}
     for fixlist_entry in getqflist()
@@ -209,7 +209,7 @@ function! QFDo(command)
         exe a:command
         update
     endfor
-endfunction
+endfun
 " }}}
 
 nnoremap <leader>ra :silent! QFDo %s///<left><left><c-r>"<right>
@@ -219,7 +219,7 @@ nnoremap <leader>ra :silent! QFDo %s///<left><left><c-r>"<right>
 let g:term_win = 0
 let g:term_buf = 0
 
-function! ToggleTerminal() abort
+fun! ToggleTerminal() abort
     " {{{
     if win_gotoid(g:term_win)
         hide
@@ -229,7 +229,7 @@ function! ToggleTerminal() abort
             split | term
             let g:term_buf = bufnr("$")
         else
-            execute 'sbuffer' . g:term_buf
+            exe 'sbuffer' . g:term_buf
         endif
         resize 10
         setlocal laststatus=0 noruler nonumber norelativenumber nobuflisted
@@ -239,13 +239,13 @@ function! ToggleTerminal() abort
     if bufwinnr('_center_') > 0
         wincmd l
     endif
-endfunction
+endfun
 " }}}
 
 nnoremap <silent><leader>m :call ToggleTerminal()<cr>
 inoremap <silent><leader>m <c-\><c-n>:call ToggleTerminal()<cr>
 tnoremap <silent><leader>m <c-\><c-n>:call ToggleTerminal()<cr>
-tnoremap <silent><leader>k <c-\><c-n>:execute 'wincmd k'<cr>
+tnoremap <silent><leader>k <c-\><c-n>:exe 'wincmd k'<cr>
 tnoremap <silent><leader>n <c-\><c-n>
 " end
 
@@ -256,7 +256,7 @@ hi DiffText     ctermfg=16   ctermbg=65      guifg=#282c34 gui=bold      guibg=#
 hi FoldColumn   guifg=bg     guibg=gb
 hi Folded       ctermfg=0    guifg=#3B4252   guibg=#2E3440 ctermfg=none  ctermbg=none guibg=bg
 
-function! ToggleGitDiff()
+fun! ToggleGitDiff()
     " {{{
     if bufwinnr('_diff_') > 0
         bd '_diff_'
@@ -266,12 +266,12 @@ function! ToggleGitDiff()
         set norelativenumber
         vsplit '_diff_'
         set buftype=nofile bufhidden
-        execute "r!git show ".(!"<args>"?'HEAD':"<args>").":".expand('#') | 1d_
+        exe "r!git show ".(!"<args>"?'HEAD':"<args>").":".expand('#') | 1d_
         let &filetype=getbufvar('#', '&filetype')
         diffthis
         wincmd h
     endif
-endfunction
+endfun
 " }}}
 
 nnoremap <silent> <leader>df :call ToggleGitDiff()<cr>
@@ -308,15 +308,15 @@ hi NERDTreeOpenable ctermfg=white
 hi NERDTreeClosable ctermfg=white
 hi NERDTreeFlags ctermfg=12 guifg=#6a6c6c
 
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+au bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
-function! ToggleNERDTreeWithRefresh()
+fun! ToggleNERDTreeWithRefresh()
     " {{{
     :NERDTreeToggle
     if(exists("b:NERDTreeType") == 1)
         call feedkeys("R")
     endif
-endfunction
+endfun
 " }}}
 
 nnoremap <silent> <leader>n :call ToggleNERDTreeWithRefresh()<cr>
@@ -356,7 +356,7 @@ hi link ALEError ALEWarning
 hi clear ALEErrorSign
 hi clear ALEWarningSign
 
-autocmd CursorHold,CursorHoldI * silent ALELint
+au CursorHold,CursorHoldI * silent ALELint
 " end
 
 " Semshi
@@ -377,14 +377,14 @@ nmap <silent> coc :CocCommand<cr>
 inoremap <silent><expr> <c-space> coc#refresh()
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 
-function! s:show_documentation()
+fun! s:show_documentation()
     " {{{
     if (index(['vim','help'], &filetype) >= 0)
-        execute 'h '.expand('<cword>')
+        exe 'h '.expand('<cword>')
     else
         call CocAction('doHover')
     endif
-endfunction
+endfun
 " }}}
 
 if exists('*complete_info')
