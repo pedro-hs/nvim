@@ -68,6 +68,7 @@ vnoremap <leader>F y/\<<c-r>"\><cr>
 
 vnoremap zz <esc>:wq<cr>
 vnoremap zx <esc>:q!<cr>
+vnoremap p pgvy
 vnoremap <silent> ç <esc>:noh<cr>
 " end
 
@@ -94,7 +95,6 @@ nnoremap <silent> <down>  :resize -3<cr>
 
 nnoremap <silent> <c-a> :bprevious<cr>
 nnoremap <silent> <c-s> :bnext<cr>
-nnoremap <silent> <c-x> :bwipeout!<cr>
 nnoremap <silent> <c-h> :wincmd h<cr>
 nnoremap <silent> <c-l> :wincmd l<cr>
 nnoremap <silent> <c-j> :wincmd j<cr>
@@ -177,13 +177,13 @@ fun! ToggleCenterMode()
     if bufwinnr('_diff_') <= 0
         if bufwinnr('_center_') > 0
             wincmd o
-            set noequalalways!
+            setlocal noequalalways!
         else
             exe 'topleft' ((&columns - &textwidth) / 4) . 'vsplit +setlocal\ nobuflisted _center_'
-            set nocursorline nonu nornu
+            setlocal nocursorline nonumber norelativenumber
             let &l:statusline='%1*%{getline(line("w$")+1)}'
             wincmd p
-            set noequalalways
+            setlocal noequalalways
         endif
     endif
 endfun
@@ -192,6 +192,23 @@ endfun
 au VimEnter * hi VertSplit guifg=bg guibg=bg
 
 nnoremap <silent> <leader>z :call ToggleCenterMode()<cr>
+" end
+
+" CloseBuffer
+fun! CloseBuffer()
+    " {{{
+    if bufwinnr('_center_') > 0
+        call ToggleCenterMode()
+        bwipeout!
+        bnext
+        call ToggleCenterMode()
+    else
+        bwipeout!
+    endif
+endfun
+" }}}
+
+nnoremap <silent> <c-x> :call CloseBuffer()<cr>
 " end
 
 " Replace All
@@ -265,7 +282,7 @@ fun! ToggleGitDiff()
         diffthis
         set norelativenumber
         vsplit '_diff_'
-        set buftype=nofile bufhidden
+        setlocal buftype=nofile bufhidden
         exe "r!git show ".(!"<args>"?'HEAD':"<args>").":".expand('#') | 1d_
         let &filetype=getbufvar('#', '&filetype')
         diffthis
@@ -310,7 +327,7 @@ hi NERDTreeFlags ctermfg=12 guifg=#6a6c6c
 
 au bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
-fun! ToggleNERDTreeWithRefresh()
+fun! ToggleNERDTree()
     " {{{
     :NERDTreeToggle
     if(exists("b:NERDTreeType") == 1)
@@ -319,7 +336,7 @@ fun! ToggleNERDTreeWithRefresh()
 endfun
 " }}}
 
-nnoremap <silent> <leader>n :call ToggleNERDTreeWithRefresh()<cr>
+nnoremap <silent> <leader>n :call ToggleNERDTree()<cr>
 " end
 
 " Blamer
