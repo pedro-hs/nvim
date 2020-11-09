@@ -55,8 +55,8 @@ set listchars+=tab:--,space:`
 
 au FileType html setlocal ts=2 sts=2 sw=2
 au BufReadPost quickfix nnoremap <buffer> <cr> <cr>
-au InsertLeave * set nolist
-au InsertEnter * set list
+au InsertLeave * set nolist relativenumber
+au InsertEnter * set list norelativenumber
 
 " Visual
 vnoremap <leader>j ^
@@ -104,7 +104,6 @@ nnoremap <leader>rr :%s///g<left><left>
 nnoremap <silent> <leader>w :w<cr>
 nnoremap <leader>xa <esc>ggVG
 nnoremap <silent> <leader>xc :set ignorecase!<cr>
-nnoremap <silent> <leader>xn :set number relativenumber!<cr>
 nnoremap <silent> <leader>xp :call system("xclip -i -selection clipboard", expand("%"))<CR>
 nnoremap <silent> <leader>p a *<esc>pF*x
 nnoremap <leader>j ^
