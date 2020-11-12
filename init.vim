@@ -142,8 +142,12 @@ colorscheme nord
 fun! Autosave()
     " {{{
     if empty(&buftype)
-        silent ALEFix
-        silent write
+        try
+            silent ALEFix
+            silent write
+        catch
+            echo ''
+        endtry
     endif
 endfun
 " }}}
@@ -356,23 +360,21 @@ let g:ale_linters = {
             \}
 
 let g:ale_fixers = {
-            \  '*': ['remove_trailing_lines', 'trim_whitespace'],
+            \  '*': ['trim_whitespace'],
             \  'python': ['isort', 'autopep8'],
-            \  'typescript': ['prettier'],
-            \  'typescriptreact': ['prettier'],
+            \  'typescript': ['prettier', 'eslint'],
+            \  'typescriptreact': ['prettier', 'eslint'],
             \  'markdown': ['prettier'],
             \}
 
 let g:ale_python_flake8_options       = '--ignore=E501,W504'
 let g:ale_python_autopep8_options     = '--max-line-length 120'
-let g:ale_javascript_prettier_options = '--single-quote --print-width=100 --arrow-parens=always --trailing-comma=es5 --implicit-arrow-linebreak=beside'
+let g:ale_javascript_prettier_options = '--single-quote --print-width=120'
 
 hi ALEWarning guifg=#b7bdc0 guibg=#474646
 hi link ALEError ALEWarning
 hi clear ALEErrorSign
 hi clear ALEWarningSign
-
-au CursorHold,CursorHoldI * silent ALELint
 " end
 
 " Semshi

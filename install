@@ -15,22 +15,25 @@ fc-cache -fv
 
 
 ## AFTER
-COMFORTABLE MOTION VIM
+COMFORTABLE MOTION VIM (change)
 nnoremap <silent> <a-j> :call comfortable_motion#flick(100)<cr>
 nnoremap <silent> <a-k> :call comfortable_motion#flick(-100)<cr>
 
-BUFTABLINE + DEVICONS
+BUFTABLINE + DEVICONS (change)
 replace all s:switch_buffer to buftabline#switch_buffer
 let tab.label = tab.path[tab.sep + 1:] . ' ' . WebDevIconsGetFileTypeSymbol(tab.path)
 
-VIMSPECTOR
+VIMSPECTOR (run)
 :VimspectorInstall debugpy
 :VimspectorInstall debugger-for-chrome
 
-VIM VISUAL MULTI
+VIM VISUAL MULTI (comment)
 autoload/vm.vim
     call s:V.Funcs.msg('Exited Visual-Multi.')
 autoload/vm/maps.vim
     call s:V.Funcs.msg('VM has started with warnings. :VMDebug for more info')
 autoload/vm/funcs.vim
     silent! noautocmd setlocal statusline=%!vm#themes#statusline()
+
+ALE (comment)
+execute 'echoerr ''The file was changed before fixing finished'''
