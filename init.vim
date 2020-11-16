@@ -362,8 +362,8 @@ let g:ale_linters = {
 let g:ale_fixers = {
             \  '*': ['trim_whitespace'],
             \  'python': ['isort', 'autopep8'],
-            \  'typescript': ['prettier', 'eslint'],
-            \  'typescriptreact': ['prettier', 'eslint'],
+            \  'typescript': ['eslint'],
+            \  'typescriptreact': ['eslint'],
             \  'markdown': ['prettier'],
             \}
 
