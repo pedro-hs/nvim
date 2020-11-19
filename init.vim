@@ -138,6 +138,25 @@ set termguicolors
 colorscheme iceberg
 " end
 
+" Hexadecimal
+function ToggleHex()
+    " {{{
+    if !exists("b:isHex") || !b:isHex
+        setlocal binary
+        silent :e
+        let b:isHex=1
+        %!xxd
+    else
+        setlocal nobinary
+        let b:isHex=0
+        %!xxd -r
+    endif
+endfunction
+" }}}
+
+nnoremap <leader>xh :call ToggleHex()<cr>
+" end
+
 " Autosave
 fun! Autosave()
     " {{{
