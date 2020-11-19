@@ -8,10 +8,10 @@ Plug 'yuttie/comfortable-motion.vim'
 Plug 'mattn/emmet-vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'cocopon/iceberg.vim'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & npm install'  }
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'arcticicestudio/nord-vim'
 Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins' }
 " Plug 'puremourning/vimspector'
 Plug 'ap/vim-buftabline'
@@ -133,9 +133,9 @@ inoremap <leader>k <esc><s-A>
 inoremap <silent> ç <esc>:noh<cr>
 " end
 
-" Nord
+" Iceberg
 set termguicolors
-colorscheme nord
+colorscheme iceberg
 " end
 
 " Autosave
@@ -191,8 +191,6 @@ fun! ToggleCenterMode()
     endif
 endfun
 " }}}
-
-au VimEnter * hi VertSplit guifg=bg guibg=bg
 
 nnoremap <silent> <leader>z :call ToggleCenterMode()<cr>
 " end
@@ -270,12 +268,6 @@ tnoremap <silent><leader>n <c-\><c-n>
 " end
 
 "  Git Diff
-hi DiffAdd      ctermfg=16   ctermbg=65      guifg=#282c34 gui=bold      guibg=#5f875f
-hi DiffChange   ctermfg=59   ctermbg=17      guifg=#abb2bf guibg=#3e4452 cterm=none   gui=none
-hi DiffText     ctermfg=16   ctermbg=65      guifg=#282c34 gui=bold      guibg=#5f875f
-hi FoldColumn   guifg=bg     guibg=gb
-hi Folded       ctermfg=0    guifg=#3B4252   guibg=#2E3440 ctermfg=none  ctermbg=none guibg=bg
-
 fun! ToggleGitDiff()
     " {{{
     if bufwinnr('_diff_') > 0
@@ -411,15 +403,10 @@ else
     inoremap <expr> <cr> pumvisible() ? "\<c-y>" : "\<c-g>u\<cr>"
 endif
 
-hi Pmenu guibg=bg
 " end
 
 " BufTabline
 let g:buftabline_indicators    = 1
-
-hi TabLineSel         cterm=bold gui=bold guifg=#D8DEE9 ctermfg=none ctermbg=none guibg=bg
-hi TabLine            ctermbg=none guibg=bg ctermfg=8 guifg=#4C566A
-hi TabLineFill        ctermbg=none guibg=bg ctermfg=8 guifg=#4C566A
 " end
 
 " Auto Pairs
@@ -451,7 +438,28 @@ let g:gitgutter_sign_modified = '▌'
 let g:gitgutter_sign_removed = '▁'
 let g:gitgutter_sign_removed_first_line = '▌'
 let g:gitgutter_sign_modified_removed = '▌'
-" end
+
+hi GitGutterAdd          guibg=bg
+hi GitGutterChange       guibg=bg
+hi GitGutterDelete       guibg=bg
+hi GitGutterChangeDelete guibg=bg
+"  end
+
+" Highlight
+hi TabLineSel  cterm=bold   gui=bold guifg=#D8DEE9 ctermfg=none ctermbg=none guibg=bg
+hi TabLine     ctermbg=none guibg=bg
+hi TabLineFill guifg=bg
+
+hi LineNr     ctermbg=bg  guibg=bg
+hi SignColumn ctermbg=bg  guibg=bg
+hi VertSplit  guifg=bg    guibg=bg
+hi FoldColumn guibg=bg
+hi Folded     ctermfg=0   guifg=#3B4252   guibg=#2E3440 ctermfg=none  ctermbg=none guibg=bg
+hi Pmenu      guibg=bg
+
+hi DiffAdd    ctermfg=159 ctermbg=23  guifg=#b3c3cc guibg=#384851
+hi DiffDelete ctermbg=224 ctermfg=224 guifg=#53343b guibg=#53343b
+"  end
 
 " Vimspector
 " let g:vimspector_enable_mappings = 'HUMAN'
