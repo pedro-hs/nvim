@@ -65,6 +65,7 @@ vnoremap <leader>a $A
 vnoremap <leader>i 0I
 vnoremap <leader>f y/<c-r>"<cr>
 vnoremap <leader>F y/\<<c-r>"\><cr>
+vnoremap <leader>o %
 
 vnoremap zz <esc>:wq<cr>
 vnoremap zx <esc>:q!<cr>
@@ -106,6 +107,7 @@ nnoremap <leader>xa <esc>ggVG
 nnoremap <silent> <leader>xc :set ignorecase!<cr>
 nnoremap <silent> <leader>xp :call system("xclip -i -selection clipboard", expand("%"))<CR>
 nnoremap <silent> <leader>p a *<esc>pF*x
+nnoremap <leader>o %
 nnoremap <leader>j ^
 nnoremap <leader>k $
 
@@ -380,7 +382,6 @@ let g:ale_fixers = {
 
 let g:ale_python_flake8_options       = '--ignore=E501,W504'
 let g:ale_python_autopep8_options     = '--max-line-length 120'
-let g:ale_javascript_prettier_options = '--single-quote --print-width=120'
 
 hi ALEWarning guifg=#b7bdc0 guibg=#474646
 hi link ALEError ALEWarning
@@ -444,7 +445,7 @@ let g:VM_highlight_matches = ''
 " end
 
 " Clever F
-let g:clever_f_mark_char_color = 'IncSearch'
+let g:clever_f_mark_char_color = 'PmenuSel'
 " end
 
 " Emmet
