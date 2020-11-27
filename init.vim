@@ -200,7 +200,7 @@ fun! ToggleCenterMode()
     " {{{
     if bufwinnr('_diff_') <= 0
         if bufwinnr('_center_') > 0
-            wincmd o
+            execute bufnr('_center_') . 'bd'
             setlocal noequalalways!
         else
             exe 'topleft' ((&columns - &textwidth) / 4) . 'vsplit +setlocal\ nobuflisted _center_'
