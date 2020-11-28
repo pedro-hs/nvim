@@ -110,6 +110,7 @@ nnoremap <silent> <leader>p a *<esc>pF*x
 nnoremap <leader>o %
 nnoremap <leader>j ^
 nnoremap <leader>k $
+nnoremap <silent> <leader>ç :call cursor(0, len(getline('.'))/2)<cr>
 
 nnoremap U <c-r>
 nnoremap * viwy*N
