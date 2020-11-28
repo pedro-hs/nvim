@@ -130,8 +130,9 @@ inoremap <a-h> <left>
 inoremap <a-k> <up>
 
 inoremap <leader>w <esc>:w<cr>
-inoremap <leader>j <esc><s-I>
-inoremap <leader>k <esc><s-A>
+inoremap <leader>j <home>
+inoremap <leader>k <end>
+inoremap <silent> <leader>ç <esc>:call cursor(0, len(getline('.'))/2)<cr>a
 
 inoremap <silent> ç <esc>:noh<cr>
 " end
