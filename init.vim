@@ -21,8 +21,8 @@ Plug 'airblade/vim-gitgutter'
 Plug 'tommcdo/vim-lion'
 Plug 'unkiwii/vim-nerdtree-sync'
 Plug 'sheerun/vim-polyglot'
+Plug 'machakann/vim-sandwich'
 Plug 'mg979/vim-visual-multi'
-Plug 'tpope/vim-surround'
 call plug#end()
 
 set tabstop=4
@@ -111,6 +111,8 @@ nnoremap <leader>o %
 nnoremap <leader>j ^
 nnoremap <leader>k $
 nnoremap <silent> <leader>ç :call cursor(0, len(getline('.'))/2)<cr>
+nnoremap <leader>i viw
+nnoremap <leader>I viW
 
 nnoremap U <c-r>
 nnoremap * viwy*N
@@ -482,6 +484,19 @@ hi Pmenu      guibg=bg
 hi DiffAdd    ctermfg=159 ctermbg=23  guifg=#b3c3cc guibg=#384851
 hi DiffDelete ctermbg=224 ctermfg=224 guifg=#53343b guibg=#53343b
 "  end
+
+" Sandwich
+let g:sandwich#recipes = [
+            \ {'buns': ["(", ")"], 'nesting': 1, 'match_syntax': 1, 'input': ['('] },
+            \ {'buns': ["[", "]"], 'nesting': 1, 'match_syntax': 1, 'input': ['['] },
+            \ {'buns': ["{", "}"], 'nesting': 1, 'match_syntax': 1, 'input': ['{'] },
+            \ {'buns': ["<", ">"], 'nesting': 1, 'match_syntax': 1, 'input': ['<'] },
+            \ {'buns': ["( ", " )"], 'nesting': 1, 'match_syntax': 1, 'input': [')'] },
+            \ {'buns': ["[ ", " ]"], 'nesting': 1, 'match_syntax': 1, 'input': [']'] },
+            \ {'buns': ["{ ", " }"], 'nesting': 1, 'match_syntax': 1, 'input': ['}'] },
+            \ {'buns': ["< ", " >"], 'nesting': 1, 'match_syntax': 1, 'input': ['>'] },
+            \ ]
+" end
 
 " Vimspector
 " let g:vimspector_enable_mappings = 'HUMAN'
