@@ -40,7 +40,7 @@ set cursorline
 set encoding=UTF-8
 set scrolloff=5
 set sidescrolloff=10
-set clipboard=unnamedplus
+set clipboard+=unnamedplus
 set updatetime=50
 set splitbelow
 set splitright
@@ -135,6 +135,7 @@ inoremap <leader>w <esc>:w<cr>
 inoremap <leader>j <home>
 inoremap <leader>k <end>
 inoremap <silent> <leader>ç <esc>:call cursor(0, len(getline('.'))/2)<cr>a
+inoremap <leader>\ \
 
 inoremap <silent> ç <esc>:noh<cr>
 " end
