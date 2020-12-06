@@ -9,6 +9,7 @@ Plug 'mattn/emmet-vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'cocopon/iceberg.vim'
+Plug 'Yggdroot/indentLine'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & npm install'  }
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
@@ -61,15 +62,16 @@ au InsertEnter * set list norelativenumber
 " Visual
 vnoremap <leader>j ^
 vnoremap <leader>k $h
-vnoremap <leader>a $A
-vnoremap <leader>i 0I
-vnoremap <leader>f y/<c-r>"<cr>
-vnoremap <leader>F y/\<<c-r>"\><cr>
 vnoremap <leader>o %
 
 vnoremap zz <esc>:wq<cr>
 vnoremap zx <esc>:q!<cr>
 vnoremap p pgvy
+vnoremap a A
+vnoremap A $A
+vnoremap i I
+vnoremap I 0I
+vnoremap * y/<c-r>"<cr>
 vnoremap <silent> ç <esc>:noh<cr>
 " end
 
@@ -335,11 +337,6 @@ let g:NERDTreeAutoDeleteBuffer       = 1
 let g:NERDTreeQuitOnOpen             = 1
 let g:NERDTreeMouseMode              = 3
 
-let g:NERDTreeGitStatusIndicatorMapCustom = {
-            \  'Modified'  :'M', 'Staged'    :'S', 'Untracked' :'U',
-            \  'Deleted'   :'D', 'Dirty'     :'*', 'Renamed'   :'R'
-            \}
-
 hi NERDTreeDir ctermfg=white
 hi NERDTreeExecFile ctermfg=white
 hi NERDTreeOpenable ctermfg=white
@@ -355,6 +352,11 @@ fun! ToggleNERDTree()
         call feedkeys("R")
     endif
 endfun
+
+let g:NERDTreeGitStatusIndicatorMapCustom = {
+            \  'Modified'  :'M', 'Staged'    :'S', 'Untracked' :'U',
+            \  'Deleted'   :'D', 'Dirty'     :'*', 'Renamed'   :'R'
+            \}
 " }}}
 
 nnoremap <silent> <leader>n :call ToggleNERDTree()<cr>
@@ -388,7 +390,7 @@ let g:ale_fixers = {
 let g:ale_python_flake8_options       = '--ignore=E501,W504'
 let g:ale_python_autopep8_options     = '--max-line-length 120'
 
-hi ALEWarning guifg=#b7bdc0 guibg=#474646
+hi link ALEWarning CursorLineNr
 hi link ALEError ALEWarning
 hi clear ALEErrorSign
 hi clear ALEWarningSign
@@ -497,6 +499,11 @@ let g:sandwich#recipes = [
             \ {'buns': ["{ ", " }"], 'nesting': 1, 'match_syntax': 1, 'input': ['}'] },
             \ {'buns': ["< ", " >"], 'nesting': 1, 'match_syntax': 1, 'input': ['>'] },
             \ ]
+" end
+
+" Indent Line
+let g:indentLine_char = '▏'
+let g:indentLine_defaultGroup = 'CocListFgBlack'
 " end
 
 " Vimspector
