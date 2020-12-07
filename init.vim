@@ -503,7 +503,7 @@ let g:sandwich#recipes = [
 
 " Indent Line
 let g:indentLine_char = '▏'
-let g:indentLine_defaultGroup = 'CocListFgBlack'
+let g:indentLine_defaultGroup = 'Folded'
 " end
 
 " Vimspector
