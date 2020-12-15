@@ -38,6 +38,7 @@ set number
 set mouse=a
 set inccommand=split
 set cursorline
+set colorcolumn=120
 set encoding=UTF-8
 set scrolloff=5
 set sidescrolloff=10
@@ -67,10 +68,9 @@ vnoremap <leader>o %
 vnoremap zz <esc>:wq<cr>
 vnoremap zx <esc>:q!<cr>
 vnoremap p pgvy
-vnoremap a A
-vnoremap A $A
-vnoremap i I
-vnoremap I 0I
+
+vnoremap <leader>a $A
+vnoremap <leader>i 0I
 vnoremap * y/<c-r>"<cr>
 vnoremap <silent> ç <esc>:noh<cr>
 " end
@@ -382,7 +382,7 @@ let g:ale_linters = {
 let g:ale_fixers = {
             \  '*': ['trim_whitespace'],
             \  'python': ['isort', 'autopep8'],
-            \  'typescript': ['eslint'],
+            \  'typescript': ['eslint', 'tslint'],
             \  'typescriptreact': ['eslint'],
             \  'markdown': ['prettier'],
             \}
