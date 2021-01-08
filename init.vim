@@ -108,7 +108,7 @@ nnoremap <silent> <leader>w :w<cr>
 nnoremap <leader>xa <esc>ggVG
 nnoremap <silent> <leader>xc :set ignorecase!<cr>
 nnoremap <silent> <leader>xp :call system("xclip -i -selection clipboard", expand("%"))<CR>
-nnoremap <silent> <leader>p a *<esc>pF*x
+nnoremap <silent> <leader>p a *<esc>pF*xv$<left>y
 nnoremap <leader>o %
 nnoremap <leader>j ^
 nnoremap <leader>k $
@@ -137,6 +137,7 @@ inoremap <leader>w <esc>:w<cr>
 inoremap <leader>j <home>
 inoremap <leader>k <end>
 inoremap <silent> <leader>ç <esc>:call cursor(0, len(getline('.'))/2)<cr>a
+inoremap <leader>ç ç
 inoremap <leader>\ \
 
 inoremap <silent> ç <esc>:noh<cr>
@@ -190,16 +191,25 @@ fun! StatusLineGit()
     let l:branchname = system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
     return strlen(l:branchname) > 0 ? ' ('.l:branchname.')' : ''
 endfun
+" }}}
 
 let g:currentmode = {
             \  'n':  'Normal',   'no': 'Pending',  'v':  'Visual',   'V':  'V·Line',     "\<C-V>": 'V·Block',  's':  'Select',  'S':'S·Line',
             \  '^S': 'S·Block',  'i':  'Insert',   'R':  'Replace',  'Rv': 'V·Replace',  'c':      'Command',  'cv': 'Vim Ex',
             \  'ce': 'Ex',       'r':  'Prompt',   'rm': 'More',     'r?': 'Confirm',    '!':      'Shell',    't':  'Terminal'
             \}
+
+fun! LinterStatus()
+    " {{{
+    let l:counts = ale#statusline#Count(bufnr(''))
+    let l:all_errors = l:counts.error + l:counts.style_error
+    let l:all_warnings = l:counts.total - l:all_errors
+    return l:counts.total == 0 ? 'OK   ' : printf('%dW %dE   ', all_warnings, all_errors)
+endfun
 " }}}
 
 set laststatus=2
-set statusline=%1*\ %{toupper(g:currentmode[mode()])}%=%<%m%r%h%w%f%5{StatusLineGit()}%5v%5l/%L%5p%%
+set statusline=%1*\ %{toupper(g:currentmode[mode()])}%=%<%{LinterStatus()}%f%5{StatusLineGit()}%5v%5l/%L
 " end
 
 " Center mode
@@ -429,7 +439,6 @@ if exists('*complete_info')
 else
     inoremap <expr> <cr> pumvisible() ? "\<c-y>" : "\<c-g>u\<cr>"
 endif
-
 " end
 
 " BufTabline
