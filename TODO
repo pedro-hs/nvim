@@ -1,9 +1,10 @@
 Global search
     - Selected text
-     - Text like: /v1/<id>/url/<new_id>/source
-Yank visual multi
-Email
-postman
-toogle autosave
+    - Text like: /v1/<id>/url/<new_id>/source
 Git merge
-Config ranger
+
+vim rest console
+ranger
+email
+toogle autosave
+fix nerdtree refresh

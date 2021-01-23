@@ -5,7 +5,6 @@ Plug 'APZelos/blamer.nvim'
 Plug 'rhysd/clever-f.vim'
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'yuttie/comfortable-motion.vim'
-Plug 'mattn/emmet-vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'cocopon/iceberg.vim'
@@ -60,6 +59,8 @@ au BufReadPost quickfix nnoremap <buffer> <cr> <cr>
 au InsertLeave * set nolist relativenumber
 au InsertEnter * set list norelativenumber
 
+let mapleader = 'z'
+
 " Visual
 vnoremap <leader>j ^
 vnoremap <leader>k $h
@@ -72,7 +73,7 @@ vnoremap p pgvy
 vnoremap <leader>a $A
 vnoremap <leader>i 0I
 vnoremap * y/<c-r>"<cr>
-vnoremap <silent> ç <esc>:noh<cr>
+vnoremap <silent> ; <esc>:noh<cr>
 " end
 
 " Command
@@ -112,17 +113,19 @@ nnoremap <silent> <leader>p a *<esc>pF*xv$<left>y
 nnoremap <leader>o %
 nnoremap <leader>j ^
 nnoremap <leader>k $
-nnoremap <silent> <leader>ç :call cursor(0, len(getline('.'))/2)<cr>
+nnoremap <silent> <leader>; :call cursor(0, len(getline('.'))/2)<cr>
 nnoremap <leader>i viw
 nnoremap <leader>I viW
 
 nnoremap U <c-r>
 nnoremap * viwy*N
 nnoremap - ~
-nnoremap zc zz
-nnoremap zz <esc>:q!<cr>
-nnoremap zx <esc>:%bd!<cr><esc>:q!<cr>
-nnoremap <silent> ç <esc>:noh<cr>:echo ''<cr>
+nnoremap <leader>zc zz
+nnoremap <leader>zm zm
+nnoremap <leader>zr zr
+nnoremap <leader>zz <esc>:q!<cr>
+nnoremap <leader>zx <esc>:%bd!<cr><esc>:q!<cr>
+nnoremap <silent> ; <esc>:noh<cr>:echo ''<cr>
 " end
 
 " Insert
@@ -136,11 +139,11 @@ inoremap <a-k> <up>
 inoremap <leader>w <esc>:w<cr>
 inoremap <leader>j <home>
 inoremap <leader>k <end>
-inoremap <silent> <leader>ç <esc>:call cursor(0, len(getline('.'))/2)<cr>a
-inoremap <leader>ç ç
-inoremap <leader>\ \
+inoremap <silent> <leader>; <esc>:call cursor(0, len(getline('.'))/2)<cr>a
 
-inoremap <silent> ç <esc>:noh<cr>
+inoremap <silent> ; <esc>:noh<cr>
+inoremap <leader>; ;
+inoremap <leader>z z
 " end
 
 " Iceberg
@@ -204,7 +207,7 @@ fun! LinterStatus()
     let l:counts = ale#statusline#Count(bufnr(''))
     let l:all_errors = l:counts.error + l:counts.style_error
     let l:all_warnings = l:counts.total - l:all_errors
-    return l:counts.total == 0 ? 'OK   ' : printf('%dW %dE   ', all_warnings, all_errors)
+    return l:counts.total == 0 ? '' : printf('%dW %dE   ', all_warnings, all_errors)
 endfun
 " }}}
 
@@ -218,9 +221,9 @@ fun! ToggleCenterMode()
     if bufwinnr('_diff_') <= 0
         if bufwinnr('_center_') > 0
             execute bufnr('_center_') . 'bd'
-            setlocal noequalalways!
+            setlocal noequalalways! cursorline
         else
-            exe 'topleft' ((&columns - &textwidth) / 4) . 'vsplit +setlocal\ nobuflisted _center_'
+            exe 'topleft' ((&columns - &textwidth) / 3) . 'vsplit +setlocal\ nobuflisted _center_'
             setlocal nocursorline nonumber norelativenumber
             let &l:statusline='%1*%{getline(line("w$")+1)}'
             wincmd p
@@ -230,7 +233,7 @@ fun! ToggleCenterMode()
 endfun
 " }}}
 
-nnoremap <silent> <leader>z :call ToggleCenterMode()<cr>
+nnoremap <silent> <leader>a :call ToggleCenterMode()<cr>
 " end
 
 " CloseBuffer
@@ -347,11 +350,11 @@ let g:NERDTreeAutoDeleteBuffer       = 1
 let g:NERDTreeQuitOnOpen             = 1
 let g:NERDTreeMouseMode              = 3
 
-hi NERDTreeDir ctermfg=white
+hi NERDTreeDir      ctermfg=white
 hi NERDTreeExecFile ctermfg=white
 hi NERDTreeOpenable ctermfg=white
 hi NERDTreeClosable ctermfg=white
-hi NERDTreeFlags ctermfg=12 guifg=#6a6c6c
+hi NERDTreeFlags    ctermfg=12 guifg=#6a6c6c
 
 au bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
@@ -385,6 +388,8 @@ let g:ale_linters_explicit        = 1
 
 let g:ale_linters = {
             \  'python': ['flake8', 'pylint'],
+            \  'javascript': ['eslint'],
+            \  'javascriptreact': ['eslint'],
             \  'typescript': ['eslint'],
             \  'typescriptreact': ['eslint'],
             \}
@@ -392,6 +397,8 @@ let g:ale_linters = {
 let g:ale_fixers = {
             \  '*': ['trim_whitespace'],
             \  'python': ['isort', 'autopep8'],
+            \  'javascript': ['prettier'],
+            \  'javascriptreact': ['prettier'],
             \  'typescript': ['eslint', 'tslint'],
             \  'typescriptreact': ['eslint'],
             \  'markdown': ['prettier'],
@@ -399,6 +406,7 @@ let g:ale_fixers = {
 
 let g:ale_python_flake8_options       = '--ignore=E501,W504'
 let g:ale_python_autopep8_options     = '--max-line-length 120'
+let g:ale_javascript_prettier_options = '--single-quote --print-width=140 --arrow-parens=always --trailing-comma=es5 --implicit-arrow-linebreak=beside'
 
 hi link ALEWarning CursorLineNr
 hi link ALEError ALEWarning
@@ -450,30 +458,26 @@ let g:AutoPairsMultilineClose  = 0
 " end
 
 " Visual Multi
-let g:VM_maps = {}
+let g:VM_maps                       = {}
 let g:VM_maps["Select Cursor Down"] = '<a-m>'
 let g:VM_maps["Select Cursor Up"]   = '<a-M>'
-let g:VM_Mono_hl   = 'StatusLine'
-let g:VM_Cursor_hl = 'StatusLine'
-let g:VM_Extend_hl = 'StatusLine'
-let g:VM_Insert_hl = 'StatusLine'
-let g:VM_highlight_matches = ''
+let g:VM_Mono_hl                    = 'StatusLine'
+let g:VM_Cursor_hl                  = 'StatusLine'
+let g:VM_Extend_hl                  = 'StatusLine'
+let g:VM_Insert_hl                  = 'StatusLine'
+let g:VM_highlight_matches          = ''
 " end
 
 " Clever F
 let g:clever_f_mark_char_color = 'PmenuSel'
 " end
 
-" Emmet
-let g:user_emmet_leader_key='\'
-" end
-
 " Git Gutter
-let g:gitgutter_sign_added = '▌'
-let g:gitgutter_sign_modified = '▌'
-let g:gitgutter_sign_removed = '▁'
+let g:gitgutter_sign_added              = '▌'
+let g:gitgutter_sign_modified           = '▌'
+let g:gitgutter_sign_removed            = '▁'
 let g:gitgutter_sign_removed_first_line = '▌'
-let g:gitgutter_sign_modified_removed = '▌'
+let g:gitgutter_sign_modified_removed   = '▌'
 
 hi GitGutterAdd          guibg=bg
 hi GitGutterChange       guibg=bg
@@ -511,7 +515,7 @@ let g:sandwich#recipes = [
 " end
 
 " Indent Line
-let g:indentLine_char = '▏'
+let g:indentLine_char         = '▏'
 let g:indentLine_defaultGroup = 'Folded'
 " end
 
