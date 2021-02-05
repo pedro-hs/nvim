@@ -1,5 +1,5 @@
 " Hexadecimal
-function ToggleHex()
+fun! ToggleHex()
     " {{{
     if !exists("b:isHex") || !b:isHex
         setlocal binary
@@ -11,7 +11,7 @@ function ToggleHex()
         let b:isHex=0
         %!xxd -r
     endif
-endfunction
+endfun
 " }}}
 
 nnoremap <leader>xh :call ToggleHex()<cr>
@@ -76,11 +76,11 @@ fun! ToggleCenterMode()
     " {{{
     if bufwinnr('_diff_') <= 0
         if bufwinnr('_center_') > 0
-            execute bufnr('_center_') . 'bd'
+            exe bufnr('_center_') . 'bd'
             setlocal noequalalways! cursorline
         else
-            exe 'topleft' ((&columns - &textwidth) / 3) . 'vsplit +setlocal\ nobuflisted _center_'
-            setlocal nocursorline nonumber norelativenumber
+            exe 'topleft' ((&columns - &textwidth) / 3) . 'vsplit _center_'
+            setlocal nocursorline nonumber norelativenumber nomodifiable nobuflisted buftype=nofile
             let &l:statusline='%1*%{getline(line("w$")+1)}'
             wincmd p
             setlocal noequalalways
@@ -98,7 +98,7 @@ fun! CloseBuffer()
     if bufwinnr('_center_') > 0
         call ToggleCenterMode()
         bwipeout!
-        bnext
+        wincmd h
         call ToggleCenterMode()
     else
         bwipeout!
@@ -168,14 +168,15 @@ tnoremap <silent><leader>n <c-\><c-n>
 fun! ToggleGitDiff()
     " {{{
     if bufwinnr('_diff_') > 0
-        bd '_diff_'
-        set nodiff noscrollbind relativenumber nocursorbind
+        exe bufnr('_diff_') . 'bd'
+        diffthis
+        set noscrollbind relativenumber nocursorbind nodiff
     else
         diffthis
         set norelativenumber
         vsplit '_diff_'
-        setlocal buftype=nofile bufhidden
         exe "r!git show ".(!"<args>"?'HEAD':"<args>").":".expand('#') | 1d_
+        setlocal buftype=nofile nomodifiable nobuflisted
         let &filetype=getbufvar('#', '&filetype')
         diffthis
         wincmd h
