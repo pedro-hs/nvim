@@ -171,9 +171,11 @@ nnoremap <leader>xh :call ToggleHex()<cr>
 " end
 
 " Autosave
+let g:can_auto_save = 1
+
 fun! Autosave()
     " {{{
-    if empty(&buftype)
+    if empty(&buftype) && g:can_auto_save
         try
             silent ALEFix
             silent write
@@ -186,6 +188,7 @@ endfun
 
 au InsertLeave * call Autosave()
 au TextChanged * call Autosave()
+nnoremap <silent><leader>xs :let g:can_auto_save = g:can_auto_save == 0 ? 1 : 0<cr>
 " end
 
 " Status Line
@@ -211,8 +214,14 @@ fun! LinterStatus()
 endfun
 " }}}
 
+fun! AutosaveStatus()
+" {{{
+    return g:can_auto_save == 1 ? '↻   ' : '⇄   '
+endfun
+" }}}
+
 set laststatus=2
-set statusline=%1*\ %{toupper(g:currentmode[mode()])}%=%<%{LinterStatus()}%f%5{StatusLineGit()}%5v%5l/%L
+set statusline=%1*\ %{toupper(g:currentmode[mode()])}%=%<%{AutosaveStatus()}%{LinterStatus()}%f%5{StatusLineGit()}%3v%5l/%L
 " end
 
 " Center mode
@@ -361,6 +370,7 @@ au bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTre
 fun! ToggleNERDTree()
     " {{{
     :NERDTreeToggle
+    :NERDTreeRefreshRoot
     if(exists("b:NERDTreeType") == 1)
         call feedkeys("R")
     endif
