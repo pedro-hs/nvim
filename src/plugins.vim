@@ -5,6 +5,7 @@ Plug 'APZelos/blamer.nvim'
 Plug 'rhysd/clever-f.vim'
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'yuttie/comfortable-motion.vim'
+Plug 'rhysd/conflict-marker.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'cocopon/iceberg.vim'
@@ -25,10 +26,12 @@ Plug 'machakann/vim-sandwich'
 Plug 'mg979/vim-visual-multi'
 call plug#end()
 
+
 " Iceberg
 set termguicolors
 colorscheme iceberg
 " end
+
 
 " Fzf
 nnoremap <silent> <leader>ss yiw:Ag <c-r>"<cr>
@@ -39,6 +42,7 @@ nnoremap <silent> <leader>sf yiw:Ag<cr>
 let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 let $FZF_DEFAULT_OPTS = '-m --bind ctrl-a:select-all,ctrl-d:deselect-all'
 " end
+
 
 " NerdTree
 let g:NERDTreeMinimalUI              = 1
@@ -76,11 +80,13 @@ let g:NERDTreeGitStatusIndicatorMapCustom = {
 nnoremap <silent> <leader>n :call ToggleNERDTree()<cr>
 " end
 
+
 " Blamer
 let g:blamer_enabled              = 1
 let g:blamer_show_in_visual_modes = 0
 let g:blamer_delay                = 200
 " end
+
 
 " Ale
 let g:ale_sign_error              = '✘'
@@ -115,10 +121,12 @@ hi clear ALEErrorSign
 hi clear ALEWarningSign
 " end
 
+
 " Semshi
 hi semshiSelected ctermbg=242 guifg=#b7bdc0 guibg=#474646
 hi link semshiUnresolved ALEWarning
 " end
+
 
 " Coc
 let g:coc_global_extensions = [
@@ -150,13 +158,16 @@ else
 endif
 " end
 
+
 " BufTabline
 let g:buftabline_indicators    = 1
 " end
 
+
 " Auto Pairs
 let g:AutoPairsMultilineClose  = 0
 " end
+
 
 " Visual Multi
 let g:VM_maps                       = {}
@@ -169,9 +180,11 @@ let g:VM_Insert_hl                  = 'StatusLine'
 let g:VM_highlight_matches          = ''
 " end
 
+
 " Clever F
 let g:clever_f_mark_char_color = 'PmenuSel'
 " end
+
 
 " Git Gutter
 let g:gitgutter_sign_added              = '▌'
@@ -185,6 +198,75 @@ hi GitGutterChange       guibg=bg
 hi GitGutterDelete       guibg=bg
 hi GitGutterChangeDelete guibg=bg
 "  end
+
+
+" Sandwich
+let g:sandwich_no_default_key_mappings = 1
+let g:operator_sandwich_no_default_key_mappings = 1
+let g:sandwich#recipes = [
+            \ {'buns': ["(", ")"], 'nesting': 1, 'match_syntax': 1, 'input': ['('] },
+            \ {'buns': ["[", "]"], 'nesting': 1, 'match_syntax': 1, 'input': ['['] },
+            \ {'buns': ["{", "}"], 'nesting': 1, 'match_syntax': 1, 'input': ['{'] },
+            \ {'buns': ["<", ">"], 'nesting': 1, 'match_syntax': 1, 'input': ['<'] },
+            \ {'buns': ["( ", " )"], 'nesting': 1, 'match_syntax': 1, 'input': [')'] },
+            \ {'buns': ["[ ", " ]"], 'nesting': 1, 'match_syntax': 1, 'input': [']'] },
+            \ {'buns': ["{ ", " }"], 'nesting': 1, 'match_syntax': 1, 'input': ['}'] },
+            \ {'buns': ["< ", " >"], 'nesting': 1, 'match_syntax': 1, 'input': ['>'] },
+            \ ]
+silent! nmap <unique> ca <Plug>(operator-sandwich-add)
+silent! xmap <unique> ca <Plug>(operator-sandwich-add)
+silent! omap <unique> ca <Plug>(operator-sandwich-g@)
+nmap cr <Plug>(operator-sandwich-replace)<Plug>(operator-sandwich-release-count)<Plug>(textobj-sandwich-query-a)
+xmap cr <Plug>(operator-sandwich-replace)
+nmap cd <Plug>(operator-sandwich-delete)<Plug>(operator-sandwich-release-count)<Plug>(textobj-sandwich-query-a)
+xmap cd <Plug>(operator-sandwich-delete)
+" end
+
+
+" Indent Line
+let g:indentLine_char         = '▏'
+let g:indentLine_color_gui = '#3B4252'
+" end
+
+
+" Conflict Marker
+let g:conflict_marker_begin           = '^<<<<.\+'
+let g:conflict_marker_end             = '^>>>>.\+'
+let g:conflict_marker_enable_mappings = 0
+
+hi ConflictMarkerBegin     ctermfg=195 ctermbg=30 guifg=#c6c8d1 guibg=#5b7881
+hi ConflictMarkerEnd       ctermfg=255 ctermbg=240 guifg=#eff0f4 guibg=#5b6389
+hi ConflictMarkerSeparator guifg=#272c42
+hi ConflictMarkerOurs      ctermfg=159   ctermbg=23 guifg=#b3c3cc guibg=#384851
+hi ConflictMarkerTheirs    ctermbg=236   guibg=#3d425b
+
+nnoremap <leader>ho :ConflictMarkerOurselves<cr>
+nnoremap <leader>ht :ConflictMarkerThemselves<cr>
+nnoremap <leader>hb :ConflictMarkerBoth<cr>
+nnoremap <leader>hB :ConflictMarkerBoth!<cr>
+nnoremap <leader>hn :ConflictMarkerNone<cr>
+" end
+
+
+" Git Plugins
+nnoremap ]c :ConflictMarkerNextHunk<cr>:GitGutterNextHunk<cr>:echo ''<cr>
+nnoremap [c :ConflictMarkerPrevHunk<cr>:GitGutterPrevHunk<cr>:echo ''<cr>
+
+fun! DisablePluginsOnMerge()
+    " {{{
+    if filereadable(expand("%:p")) && match(readfile(expand("%:p")),"<<<<<") != -1
+        let g:indentLine_enabled = 0
+        let g:ale_set_highlights = 0
+    else
+        let g:indentLine_enabled = 1
+        let g:ale_set_highlights = 1
+    endif
+endfun
+" }}}
+
+au BufRead,BufEnter * :call DisablePluginsOnMerge()
+" end
+
 
 " Highlight
 hi TabLineSel  cterm=bold   gui=bold guifg=#D8DEE9 ctermfg=none ctermbg=none guibg=bg
@@ -202,23 +284,6 @@ hi DiffAdd    ctermfg=159 ctermbg=23  guifg=#b3c3cc guibg=#384851
 hi DiffDelete ctermbg=224 ctermfg=224 guifg=#53343b guibg=#53343b
 "  end
 
-" Sandwich
-let g:sandwich#recipes = [
-            \ {'buns': ["(", ")"], 'nesting': 1, 'match_syntax': 1, 'input': ['('] },
-            \ {'buns': ["[", "]"], 'nesting': 1, 'match_syntax': 1, 'input': ['['] },
-            \ {'buns': ["{", "}"], 'nesting': 1, 'match_syntax': 1, 'input': ['{'] },
-            \ {'buns': ["<", ">"], 'nesting': 1, 'match_syntax': 1, 'input': ['<'] },
-            \ {'buns': ["( ", " )"], 'nesting': 1, 'match_syntax': 1, 'input': [')'] },
-            \ {'buns': ["[ ", " ]"], 'nesting': 1, 'match_syntax': 1, 'input': [']'] },
-            \ {'buns': ["{ ", " }"], 'nesting': 1, 'match_syntax': 1, 'input': ['}'] },
-            \ {'buns': ["< ", " >"], 'nesting': 1, 'match_syntax': 1, 'input': ['>'] },
-            \ ]
-" end
-
-" Indent Line
-let g:indentLine_char         = '▏'
-let g:indentLine_defaultGroup = 'Folded'
-" end
 
 " Vimspector
 " let g:vimspector_enable_mappings = 'HUMAN'

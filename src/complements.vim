@@ -17,6 +17,7 @@ endfun
 nnoremap <leader>xh :call ToggleHex()<cr>
 " end
 
+
 " Autosave
 let g:can_auto_save = 1
 
@@ -37,6 +38,7 @@ au InsertLeave * call Autosave()
 au TextChanged * call Autosave()
 nnoremap <silent><leader>xs :let g:can_auto_save = g:can_auto_save == 0 ? 1 : 0<cr>
 " end
+
 
 " Status Line
 fun! StatusLineGit()
@@ -71,6 +73,7 @@ set laststatus=2
 set statusline=%1*\ %{toupper(g:currentmode[mode()])}%=%<%{AutosaveStatus()}%{LinterStatus()}%f%5{StatusLineGit()}%3v%5l/%L
 " end
 
+
 " Center mode
 fun! ToggleCenterMode()
     " {{{
@@ -92,6 +95,7 @@ endfun
 nnoremap <silent> <leader>a :call ToggleCenterMode()<cr>
 " end
 
+
 " CloseBuffer
 fun! CloseBuffer()
     " {{{
@@ -108,6 +112,7 @@ endfun
 
 nnoremap <silent> <c-x> :call CloseBuffer()<cr>
 " end
+
 
 " Replace All
 command! -nargs=+ QFDo call QFDo(<q-args>)
@@ -129,6 +134,7 @@ endfun
 
 nnoremap <leader>ra :silent! QFDo %s///<left><left><c-r>"<right>
 " end
+
 
 " Terminal
 let g:term_win = 0
@@ -164,20 +170,21 @@ tnoremap <silent><leader>k <c-\><c-n>:exe 'wincmd k'<cr>
 tnoremap <silent><leader>n <c-\><c-n>
 " end
 
+
 "  Git Diff
 fun! ToggleGitDiff()
     " {{{
     if bufwinnr('_diff_') > 0
         exe bufnr('_diff_') . 'bd'
         diffthis
-        set noscrollbind relativenumber nocursorbind nodiff
+        set noscrollbind nocursorbind nodiff
     else
         diffthis
-        set norelativenumber
         vsplit '_diff_'
         exe "r!git show ".(!"<args>"?'HEAD':"<args>").":".expand('#') | 1d_
-        setlocal buftype=nofile nomodifiable nobuflisted
+        setlocal buftype=nofile nomodifiable nobuflisted norelativenumber
         let &filetype=getbufvar('#', '&filetype')
+        let &l:statusline='%1*%{getline(line("w$")+1)}'
         diffthis
         wincmd h
     endif
