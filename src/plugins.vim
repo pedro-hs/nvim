@@ -134,7 +134,7 @@ let g:coc_global_extensions = [
             \  'coc-python',
             \]
 
-nmap cd <Plug>(coc-definition)
+nmap <leader>cd <Plug>(coc-definition)
 nmap <leader>cr <Plug>(coc-rename)
 nmap <silent> coc :CocCommand<cr>
 
