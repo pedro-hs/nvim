@@ -254,12 +254,14 @@ nnoremap [c :ConflictMarkerPrevHunk<cr>:GitGutterPrevHunk<cr>:echo ''<cr>
 
 fun! DisablePluginsOnMerge()
     " {{{
-    if filereadable(expand("%:p")) && match(readfile(expand("%:p")),"<<<<<") != -1
+    if filereadable(expand('%:p')) && match(readfile(expand('%:p')), g:conflict_marker_begin) != -1
         let g:indentLine_enabled = 0
         let g:ale_set_highlights = 0
+        let g:can_auto_save = 0
     else
         let g:indentLine_enabled = 1
         let g:ale_set_highlights = 1
+        let g:can_auto_save = 1
     endif
 endfun
 " }}}
