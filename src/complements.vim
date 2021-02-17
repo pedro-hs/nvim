@@ -1,7 +1,7 @@
 " Hexadecimal
 fun! ToggleHex()
     " {{{
-    if !exists("b:isHex") || !b:isHex
+    if !exists('b:isHex') || !b:isHex
         setlocal binary
         silent :e
         let b:isHex=1
@@ -48,12 +48,6 @@ fun! StatusLineGit()
 endfun
 " }}}
 
-let g:currentmode = {
-            \  'n':  'Normal',   'no': 'Pending',  'v':  'Visual',   'V':  'V·Line',     "\<C-V>": 'V·Block',  's':  'Select',  'S':'S·Line',
-            \  '^S': 'S·Block',  'i':  'Insert',   'R':  'Replace',  'Rv': 'V·Replace',  'c':      'Command',  'cv': 'Vim Ex',
-            \  'ce': 'Ex',       'r':  'Prompt',   'rm': 'More',     'r?': 'Confirm',    '!':      'Shell',    't':  'Terminal'
-            \}
-
 fun! LinterStatus()
     " {{{
     let l:counts = ale#statusline#Count(bufnr(''))
@@ -68,6 +62,12 @@ fun! AutosaveStatus()
     return g:can_auto_save == 1 ? '↻   ' : '⇄   '
 endfun
 " }}}
+
+let g:currentmode = {
+            \  'n':  'Normal',   'no': 'Pending',  'v':  'Visual',   'V':  'V·Line',     "\<C-V>": 'V·Block',  's':  'Select',  'S':'S·Line',
+            \  '^S': 'S·Block',  'i':  'Insert',   'R':  'Replace',  'Rv': 'V·Replace',  'c':      'Command',  'cv': 'Vim Ex',
+            \  'ce': 'Ex',       'r':  'Prompt',   'rm': 'More',     'r?': 'Confirm',    '!':      'Shell',    't':  'Terminal'
+            \}
 
 set laststatus=2
 set statusline=%1*\ %{toupper(g:currentmode[mode()])}%=%<%{AutosaveStatus()}%{LinterStatus()}%f%5{StatusLineGit()}%3v%5l/%L
@@ -137,29 +137,67 @@ nnoremap <leader>ra :silent! QFDo %s///<left><left><c-r>"<right>
 
 
 " Terminal
-let g:term_win = 0
-let g:term_buf = 0
+let g:windows = []
+let g:buffers = []
 
-fun! ToggleTerminal() abort
+fun! ToggleTerminal()
     " {{{
-    if win_gotoid(g:term_win)
-        hide
-        set laststatus=2
-    else
-        if g:term_buf == 0 || !bufexists(str2nr(g:term_buf))
-            split | term
-            let g:term_buf = bufnr("$")
-        else
-            exe 'sbuffer' . g:term_buf
+    for buffer in g:buffers
+        if !bufexists(buffer)
+            let l:buffer_index = index(g:buffers, buffer)
+            call remove(g:buffers, l:buffer_index, l:buffer_index)
         endif
-        resize 10
-        setlocal laststatus=0 noruler nonumber norelativenumber nobuflisted
-        let g:term_win = win_getid()
+    endfor
+    if len(g:windows) == 0
+        if len(g:buffers) == 0
+            split | term
+            call add(g:buffers, bufnr('$'))
+            call ConfigureTerminalWindow()
+        else
+            exe 'sbuffer' . g:buffers[0]
+            call ConfigureTerminalWindow()
+            for buffer in g:buffers[1:-1]
+                if bufexists(str2nr(buffer))
+                    exe 'vert sb' . buffer
+                    call ConfigureTerminalWindow()
+                    if len(g:windows) > 2
+                        setlocal eadirection=hor equalalways noequalalways
+                    endif
+                endif
+            endfor
+        endif
         startinsert!
+    else
+        for window in g:windows
+            let l:window_index = index(g:windows, window)
+            call remove(g:windows, l:window_index, l:window_index)
+            if win_gotoid(window)
+                hide
+            endif
+        endfor
+        set laststatus=2
     endif
-    if bufwinnr('_center_') > 0
-        wincmd l
+endfun
+" }}}
+
+fun! NewTerminal()
+    " {{{
+    if len(g:buffers) > 3
+        echo 'Limit of created terminals'
+    else
+        vsplit | term
+        call add(g:buffers, bufnr('$'))
+        call ConfigureTerminalWindow()
     endif
+    startinsert!
+endfun
+" }}}
+
+fun! ConfigureTerminalWindow()
+    " {{{
+    resize 10
+    setlocal laststatus=0 noruler nonumber norelativenumber nobuflisted
+    call add(g:windows, win_getid())
 endfun
 " }}}
 
@@ -167,6 +205,10 @@ nnoremap <silent><leader>m :call ToggleTerminal()<cr>
 inoremap <silent><leader>m <c-\><c-n>:call ToggleTerminal()<cr>
 tnoremap <silent><leader>m <c-\><c-n>:call ToggleTerminal()<cr>
 tnoremap <silent><leader>k <c-\><c-n>:exe 'wincmd k'<cr>
+tnoremap <silent><leader>j <c-\><c-n>:exe 'wincmd j'<cr>
+tnoremap <silent><leader>l <c-\><c-n>:exe 'wincmd l'<cr>:startinsert!<cr>
+tnoremap <silent><leader>h <c-\><c-n>:exe 'wincmd h'<cr>:startinsert!<cr>
+tnoremap <silent><leader>M <c-\><c-n>:call NewTerminal()<cr>
 tnoremap <silent><leader>n <c-\><c-n>
 " end
 

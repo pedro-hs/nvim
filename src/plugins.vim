@@ -60,14 +60,14 @@ hi NERDTreeOpenable ctermfg=white
 hi NERDTreeClosable ctermfg=white
 hi NERDTreeFlags    ctermfg=12 guifg=#6a6c6c
 
-au bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+au bufenter * if (winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree()) | q | endif
 
 fun! ToggleNERDTree()
     " {{{
     :NERDTreeToggle
     :NERDTreeRefreshRoot
-    if(exists("b:NERDTreeType") == 1)
-        call feedkeys("R")
+    if(exists('b:NERDTreeType') == 1)
+        call feedkeys('R')
     endif
 endfun
 
@@ -171,8 +171,8 @@ let g:AutoPairsMultilineClose  = 0
 
 " Visual Multi
 let g:VM_maps                       = {}
-let g:VM_maps["Select Cursor Down"] = '<a-m>'
-let g:VM_maps["Select Cursor Up"]   = '<a-M>'
+let g:VM_maps['Select Cursor Down'] = '<a-m>'
+let g:VM_maps['Select Cursor Up']   = '<a-M>'
 let g:VM_Mono_hl                    = 'StatusLine'
 let g:VM_Cursor_hl                  = 'StatusLine'
 let g:VM_Extend_hl                  = 'StatusLine'
@@ -204,14 +204,14 @@ hi GitGutterChangeDelete guibg=bg
 let g:sandwich_no_default_key_mappings = 1
 let g:operator_sandwich_no_default_key_mappings = 1
 let g:sandwich#recipes = [
-            \ {'buns': ["(", ")"], 'nesting': 1, 'match_syntax': 1, 'input': ['('] },
-            \ {'buns': ["[", "]"], 'nesting': 1, 'match_syntax': 1, 'input': ['['] },
-            \ {'buns': ["{", "}"], 'nesting': 1, 'match_syntax': 1, 'input': ['{'] },
-            \ {'buns': ["<", ">"], 'nesting': 1, 'match_syntax': 1, 'input': ['<'] },
-            \ {'buns': ["( ", " )"], 'nesting': 1, 'match_syntax': 1, 'input': [')'] },
-            \ {'buns': ["[ ", " ]"], 'nesting': 1, 'match_syntax': 1, 'input': [']'] },
-            \ {'buns': ["{ ", " }"], 'nesting': 1, 'match_syntax': 1, 'input': ['}'] },
-            \ {'buns': ["< ", " >"], 'nesting': 1, 'match_syntax': 1, 'input': ['>'] },
+            \ {'buns': ['(', ')'], 'nesting': 1, 'match_syntax': 1, 'input': ['('] },
+            \ {'buns': ['[', ']'], 'nesting': 1, 'match_syntax': 1, 'input': ['['] },
+            \ {'buns': ['{', '}'], 'nesting': 1, 'match_syntax': 1, 'input': ['{'] },
+            \ {'buns': ['<', '>'], 'nesting': 1, 'match_syntax': 1, 'input': ['<'] },
+            \ {'buns': ['( ', ' )'], 'nesting': 1, 'match_syntax': 1, 'input': [')'] },
+            \ {'buns': ['[ ', ' ]'], 'nesting': 1, 'match_syntax': 1, 'input': [']'] },
+            \ {'buns': ['{ ', ' }'], 'nesting': 1, 'match_syntax': 1, 'input': ['}'] },
+            \ {'buns': ['< ', ' >'], 'nesting': 1, 'match_syntax': 1, 'input': ['>'] },
             \ ]
 silent! nmap <unique> ca <Plug>(operator-sandwich-add)
 silent! xmap <unique> ca <Plug>(operator-sandwich-add)
