@@ -34,10 +34,12 @@ colorscheme iceberg
 
 
 " Fzf
+vnoremap <silent> <leader>ss y:Ag <c-r>"<cr>
+
 nnoremap <silent> <leader>ss yiw:Ag <c-r>"<cr>
 nnoremap <silent> <leader>sd :Files<cr>
 nnoremap <silent> <leader>sc :GFiles?<cr>
-nnoremap <silent> <leader>sf yiw:Ag<cr>
+nnoremap <silent> <leader>sf :Ag<cr>
 
 let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 let $FZF_DEFAULT_OPTS = '-m --bind ctrl-a:select-all,ctrl-d:deselect-all'
