@@ -1,7 +1,7 @@
 Global search
     - Selected text
+    - Text like: for hello in world
     - Text like: /v1/<id>/url/<new_id>/source
 
 vim rest console
 ranger
-email

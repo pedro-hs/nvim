@@ -96,8 +96,8 @@ nnoremap <silent> <leader>a :call ToggleCenterMode()<cr>
 " end
 
 
-" CloseBuffer
-fun! CloseBuffer()
+" CloseFile
+fun! CloseFile()
     " {{{
     if bufwinnr('_center_') > 0
         call ToggleCenterMode()
@@ -110,14 +110,14 @@ fun! CloseBuffer()
 endfun
 " }}}
 
-nnoremap <silent> <c-x> :call CloseBuffer()<cr>
+nnoremap <silent> <c-x> :call CloseFile()<cr>
 " end
 
 
-" Replace All
-command! -nargs=+ QFDo call QFDo(<q-args>)
+" Search and Replace
+command! -nargs=+ ReplaceAll call ReplaceAll(<q-args>)
 
-fun! QFDo(command)
+fun! ReplaceAll(command)
     " {{{
     let buffer_numbers = {}
     for fixlist_entry in getqflist()
@@ -132,7 +132,27 @@ fun! QFDo(command)
 endfun
 " }}}
 
-nnoremap <leader>ra :silent! QFDo %s///<left><left><c-r>"<right>
+nnoremap <leader>ra :silent! ReplaceAll %s///<left><left><c-r>"<right>
+
+fun! Search() range
+    " {{{
+    let l:default_register = @"
+    execute 'normal! vgvy'
+    let l:pattern = escape(@", "\\/.*'$^~[]")
+    let l:pattern = substitute(l:pattern, "\n$", "", "")
+    let @/ = l:pattern
+    let @" = l:default_register
+endfun
+" }}}
+
+nnoremap * viwy<esc>:call Search()<cr>:set hlsearch<cr>
+nnoremap # viwy<esc>:call Search()<cr>:set hlsearch<cr>
+nnoremap <leader>rr :%s///g<left><left>
+nnoremap <leader>rd viwy<esc>:call Search()<cr>:set hlsearch<cr>cgn
+
+vnoremap * <esc>:call Search()<cr>:set hlsearch<cr>
+vnoremap # <esc>:call Search()<cr>:set hlsearch<cr>
+vnoremap <leader>rd <esc>:call Search()<cr>:set hlsearch<cr>cgn
 " end
 
 
@@ -182,8 +202,8 @@ endfun
 
 fun! NewTerminal()
     " {{{
-    if len(g:buffers) > 3
-        echo 'Limit of created terminals'
+    if len(g:buffers) > 2
+        echo 'Limit of terminals created'
     else
         vsplit | term
         call add(g:buffers, bufnr('$'))
@@ -205,7 +225,6 @@ nnoremap <silent><leader>m :call ToggleTerminal()<cr>
 inoremap <silent><leader>m <c-\><c-n>:call ToggleTerminal()<cr>
 tnoremap <silent><leader>m <c-\><c-n>:call ToggleTerminal()<cr>
 tnoremap <silent><leader>k <c-\><c-n>:exe 'wincmd k'<cr>
-tnoremap <silent><leader>j <c-\><c-n>:exe 'wincmd j'<cr>
 tnoremap <silent><leader>l <c-\><c-n>:exe 'wincmd l'<cr>:startinsert!<cr>
 tnoremap <silent><leader>h <c-\><c-n>:exe 'wincmd h'<cr>:startinsert!<cr>
 tnoremap <silent><leader>M <c-\><c-n>:call NewTerminal()<cr>

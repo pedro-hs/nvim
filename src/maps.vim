@@ -2,14 +2,10 @@
 vnoremap <leader>j ^
 vnoremap <leader>k $h
 vnoremap <leader>o %
-
-vnoremap zz <esc>:wq<cr>
-vnoremap zx <esc>:q!<cr>
-vnoremap p pgvy
-
 vnoremap <leader>a $A
 vnoremap <leader>i 0I
-vnoremap * y/<c-r>"<cr>
+
+vnoremap p pgvy
 vnoremap <silent> ; <esc>:noh<cr>
 " end
 
@@ -20,9 +16,9 @@ cnoremap <c-o> \<c-r>"
 
 " Normal
 nnoremap <bs> X
-nnoremap <space> i<space><esc>l
-nnoremap <c-m> i<cr><esc>
-nnoremap <tab> i<tab><esc>l
+nnoremap <space> i<space><esc><right>
+nnoremap <c-m> i<cr><esc><right>
+nnoremap <tab> i<tab><esc><right>
 
 nnoremap <a-h> <c-o>
 nnoremap <a-l> <c-i>
@@ -41,7 +37,6 @@ nnoremap <silent> <c-l> :wincmd l<cr>
 nnoremap <silent> <c-j> :wincmd j<cr>
 nnoremap <silent> <c-k> :wincmd k<cr>
 
-nnoremap <leader>rr :%s///g<left><left>
 nnoremap <silent> <leader>w :w<cr>
 nnoremap <leader>xa <esc>ggVG
 nnoremap <silent> <leader>xc :set ignorecase!<cr>
@@ -51,11 +46,8 @@ nnoremap <leader>o %
 nnoremap <leader>j ^
 nnoremap <leader>k $
 nnoremap <silent> <leader>; :call cursor(0, len(getline('.'))/2)<cr>
-nnoremap <leader>i viw
-nnoremap <leader>I viW
 
 nnoremap U <c-r>
-nnoremap * viwy*N
 nnoremap - ~
 nnoremap <leader>zc zz
 nnoremap <leader>zm zm
