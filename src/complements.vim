@@ -19,12 +19,11 @@ nnoremap <leader>xh :call ToggleHex()<cr>
 
 
 " Autosave
-let g:can_auto_save = 1
 let g:auto_save_status = '↻   '
 
 fun! Autosave()
     " {{{
-    if empty(&buftype) && g:can_auto_save
+    if empty(&buftype) && g:auto_save_status == '↻   '
         try
             silent ALEFix
             silent write
@@ -37,13 +36,7 @@ endfun
 
 fun! ToggleAutosave()
     " {{{
-    if g:can_auto_save == 0
-        let g:can_auto_save = 1
-        let g:auto_save_status = '↻   '
-    else
-        let g:can_auto_save = 0
-        let g:auto_save_status = '⇄   '
-    endif
+    let g:auto_save_status = g:auto_save_status == '↻   ' ? '⇄   ' : '↻   '
 endfun
 " }}}
 
@@ -51,7 +44,7 @@ au InsertLeave * call Autosave()
 au TextChanged * call Autosave()
 
 nnoremap <silent><leader>xs :call ToggleAutosave()<cr>
-nnoremap <silent><leader>p :call ToggleAutosave()<cr>a<space><esc>p:call ToggleAutosave()<cr>:w<cr>
+nnoremap <silent><leader>p :call ToggleAutosave()<cr>a<space><esc>p`[:call ToggleAutosave()<cr>:w<cr>
 " end
 
 
@@ -101,11 +94,6 @@ fun! ToggleCenterMode()
 endfun
 " }}}
 
-nnoremap <silent> <leader>a :call ToggleCenterMode()<cr>
-" end
-
-
-" CloseFile
 fun! CloseFile()
     " {{{
     if bufwinnr('_center_') > 0
@@ -120,11 +108,13 @@ endfun
 " }}}
 
 nnoremap <silent> <c-x> :call CloseFile()<cr>
+nnoremap <silent> <leader>a :call ToggleCenterMode()<cr>
 " end
 
 
 " Search and Replace
 command! -nargs=+ ReplaceAll call ReplaceAll(<q-args>)
+let g:search_full_word = 0
 
 fun! ReplaceAll(command)
     " {{{
@@ -140,10 +130,6 @@ fun! ReplaceAll(command)
     endfor
 endfun
 " }}}
-
-nnoremap <leader>ra :silent! ReplaceAll %s///<left><left><c-r>"<right>
-
-let g:search_full_word = 0
 
 fun! Search(...) range
     " {{{
@@ -165,6 +151,7 @@ nnoremap * viwy<esc>:call Search()<cr>:set hlsearch<cr>:echo<cr>
 nnoremap # viwy<esc>:call Search()<cr>:set hlsearch<cr>:echo<cr>
 nnoremap <leader>rr :%s///g<left><left>
 nnoremap <leader>rd :call Search(0, 1)<cr>:set hlsearch<cr>:echo<cr>cgn
+nnoremap <leader>ra :silent! ReplaceAll %s///<left><left><c-r>"<right>
 
 vnoremap * ygv<esc>:call Search()<cr>:set hlsearch<cr>:echo<cr>
 vnoremap # ygv<esc>:call Search()<cr>:set hlsearch<cr>:echo<cr>
