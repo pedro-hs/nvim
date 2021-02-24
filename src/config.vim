@@ -26,6 +26,7 @@ set noswapfile
 set foldmethod=marker
 set noshowmode
 set listchars+=tab:--,space:`
+set title
 
 au FileType html setlocal ts=2 sts=2 sw=2
 au BufReadPost quickfix nnoremap <buffer> <cr> <cr>

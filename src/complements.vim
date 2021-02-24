@@ -20,6 +20,7 @@ nnoremap <leader>xh :call ToggleHex()<cr>
 
 " Autosave
 let g:can_auto_save = 1
+let g:auto_save_status = '↻   '
 
 fun! Autosave()
     " {{{
@@ -34,9 +35,23 @@ fun! Autosave()
 endfun
 " }}}
 
+fun! ToggleAutosave()
+    " {{{
+    if g:can_auto_save == 0
+        let g:can_auto_save = 1
+        let g:auto_save_status = '↻   '
+    else
+        let g:can_auto_save = 0
+        let g:auto_save_status = '⇄   '
+    endif
+endfun
+" }}}
+
 au InsertLeave * call Autosave()
 au TextChanged * call Autosave()
-nnoremap <silent><leader>xs :let g:can_auto_save = g:can_auto_save == 0 ? 1 : 0<cr>
+
+nnoremap <silent><leader>xs :call ToggleAutosave()<cr>
+nnoremap <silent><leader>p :call ToggleAutosave()<cr>a<space><esc>p:call ToggleAutosave()<cr>:w<cr>
 " end
 
 
@@ -57,12 +72,6 @@ fun! LinterStatus()
 endfun
 " }}}
 
-fun! AutosaveStatus()
-" {{{
-    return g:can_auto_save == 1 ? '↻   ' : '⇄   '
-endfun
-" }}}
-
 let g:currentmode = {
             \  'n':  'Normal',   'no': 'Pending',  'v':  'Visual',   'V':  'V·Line',     "\<C-V>": 'V·Block',  's':  'Select',  'S':'S·Line',
             \  '^S': 'S·Block',  'i':  'Insert',   'R':  'Replace',  'Rv': 'V·Replace',  'c':      'Command',  'cv': 'Vim Ex',
@@ -70,7 +79,7 @@ let g:currentmode = {
             \}
 
 set laststatus=2
-set statusline=%1*\ %{toupper(g:currentmode[mode()])}%=%<%{AutosaveStatus()}%{LinterStatus()}%f%5{StatusLineGit()}%3v%5l/%L
+set statusline=%1*\ %{toupper(g:currentmode[mode()])}%=%<%{g:auto_save_status}%{LinterStatus()}%f%5{StatusLineGit()}%3v%5l/%L
 " end
 
 
@@ -134,25 +143,32 @@ endfun
 
 nnoremap <leader>ra :silent! ReplaceAll %s///<left><left><c-r>"<right>
 
-fun! Search() range
+let g:search_full_word = 0
+
+fun! Search(...) range
     " {{{
+    if get(a:, 1, 0)
+        let g:search_full_word = g:search_full_word ? 0 : 1
+    endif
     let l:default_register = @"
     execute 'normal! vgvy'
     let l:pattern = escape(@", "\\/.*'$^~[]")
-    let l:pattern = substitute(l:pattern, "\n$", "", "")
+    let l:pattern = g:search_full_word ? substitute('\v<'.l:pattern.'>', "\n$", "", "") : substitute(l:pattern, "\n$", "", "")
     let @/ = l:pattern
     let @" = l:default_register
 endfun
 " }}}
 
-nnoremap * viwy<esc>:call Search()<cr>:set hlsearch<cr>
-nnoremap # viwy<esc>:call Search()<cr>:set hlsearch<cr>
+nnoremap <leader>xc :set ignorecase! ignorecase?<cr>
+nnoremap <leader>xw :call Search(1)<cr>:set hlsearch<cr>:echo printf('%sfullmatch', g:search_full_word ? '  ' : 'no')<cr>
+nnoremap * viwy<esc>:call Search()<cr>:set hlsearch<cr>:echo<cr>
+nnoremap # viwy<esc>:call Search()<cr>:set hlsearch<cr>:echo<cr>
 nnoremap <leader>rr :%s///g<left><left>
-nnoremap <leader>rd viwy<esc>:call Search()<cr>:set hlsearch<cr>cgn
+nnoremap <leader>rd :call Search(0, 1)<cr>:set hlsearch<cr>:echo<cr>cgn
 
-vnoremap * <esc>:call Search()<cr>:set hlsearch<cr>
-vnoremap # <esc>:call Search()<cr>:set hlsearch<cr>
-vnoremap <leader>rd <esc>:call Search()<cr>:set hlsearch<cr>cgn
+vnoremap * ygv<esc>:call Search()<cr>:set hlsearch<cr>:echo<cr>
+vnoremap # ygv<esc>:call Search()<cr>:set hlsearch<cr>:echo<cr>
+vnoremap <leader>rd <esc>:call Search(0, 1)<cr>:set hlsearch<cr>:echo<cr>cgn
 " end
 
 
@@ -222,7 +238,9 @@ endfun
 " }}}
 
 nnoremap <silent><leader>m :call ToggleTerminal()<cr>
+
 inoremap <silent><leader>m <c-\><c-n>:call ToggleTerminal()<cr>
+
 tnoremap <silent><leader>m <c-\><c-n>:call ToggleTerminal()<cr>
 tnoremap <silent><leader>k <c-\><c-n>:exe 'wincmd k'<cr>
 tnoremap <silent><leader>l <c-\><c-n>:exe 'wincmd l'<cr>:startinsert!<cr>

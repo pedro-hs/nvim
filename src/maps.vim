@@ -39,9 +39,7 @@ nnoremap <silent> <c-k> :wincmd k<cr>
 
 nnoremap <silent> <leader>w :w<cr>
 nnoremap <leader>xa <esc>ggVG
-nnoremap <silent> <leader>xc :set ignorecase!<cr>
 nnoremap <silent> <leader>xp :call system('xclip -i -selection clipboard', expand('%'))<CR>
-nnoremap <silent> <leader>p a *<esc>pF*xv$<left>y
 nnoremap <leader>o %
 nnoremap <leader>j ^
 nnoremap <leader>k $
