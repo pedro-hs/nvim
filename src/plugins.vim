@@ -259,11 +259,11 @@ fun! DisablePluginsOnMerge()
     if filereadable(expand('%:p')) && match(readfile(expand('%:p')), g:conflict_marker_begin) != -1
         let g:indentLine_enabled = 0
         let g:ale_set_highlights = 0
-        let g:can_auto_save = 0
+        let g:auto_save_status = '⇄   '
     else
         let g:indentLine_enabled = 1
         let g:ale_set_highlights = 1
-        let g:can_auto_save = 1
+        let g:auto_save_status = '↻   '
     endif
 endfun
 " }}}

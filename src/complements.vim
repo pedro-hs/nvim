@@ -150,12 +150,12 @@ nnoremap <leader>xw :call Search(1)<cr>:set hlsearch<cr>:echo printf('%sfullmatc
 nnoremap * viwy<esc>:call Search()<cr>:set hlsearch<cr>:echo<cr>
 nnoremap # viwy<esc>:call Search()<cr>:set hlsearch<cr>:echo<cr>
 nnoremap <leader>rr :%s///g<left><left>
-nnoremap <leader>rd :call Search(0, 1)<cr>:set hlsearch<cr>:echo<cr>cgn
+nnoremap <leader>rd :call Search()<cr>:set hlsearch<cr>:echo<cr>cgn
 nnoremap <leader>ra :silent! ReplaceAll %s///<left><left><c-r>"<right>
 
 vnoremap * ygv<esc>:call Search()<cr>:set hlsearch<cr>:echo<cr>
 vnoremap # ygv<esc>:call Search()<cr>:set hlsearch<cr>:echo<cr>
-vnoremap <leader>rd <esc>:call Search(0, 1)<cr>:set hlsearch<cr>:echo<cr>cgn
+vnoremap <leader>rd <esc>:call Search()<cr>:set hlsearch<cr>:echo<cr>cgn
 " end
 
 
