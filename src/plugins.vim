@@ -114,6 +114,7 @@ let g:ale_fixers = {
             \}
 
 let g:ale_python_flake8_options       = '--ignore=E501,W504'
+let g:ale_python_pylint_options       = '--max-line-length 120'
 let g:ale_python_autopep8_options     = '--max-line-length 120'
 let g:ale_javascript_prettier_options = '--single-quote --print-width=140 --arrow-parens=always --trailing-comma=es5 --implicit-arrow-linebreak=beside'
 

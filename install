@@ -1,4 +1,4 @@
-## BEFORE
+# BEFORE
 INSTALL
 apt install silversearcher-ag ranger terminator nvim
 
