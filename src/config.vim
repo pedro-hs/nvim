@@ -24,12 +24,13 @@ set ignorecase
 set nobackup
 set nowritebackup
 set noswapfile
-set foldmethod=marker
+set foldmethod=manual
 set noshowmode
 set listchars+=tab:--,space:`
 set title
 
 au FileType html setlocal ts=2 sts=2 sw=2
+au FileType vim set foldmethod=marker
 au BufReadPost quickfix nnoremap <buffer> <cr> <cr>
 au InsertLeave * set nolist relativenumber
 au InsertEnter * set list norelativenumber
