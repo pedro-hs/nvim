@@ -1,6 +1,7 @@
 set tabstop=4
 set shiftwidth=4
 set softtabstop=4
+set shiftround
 set autoindent
 set expandtab
 set nowrap
@@ -32,5 +33,6 @@ au FileType html setlocal ts=2 sts=2 sw=2
 au BufReadPost quickfix nnoremap <buffer> <cr> <cr>
 au InsertLeave * set nolist relativenumber
 au InsertEnter * set list norelativenumber
+au FocusGained,CursorHold * silent! checktime
 
 let mapleader = 'z'

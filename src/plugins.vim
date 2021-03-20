@@ -9,6 +9,7 @@ Plug 'rhysd/conflict-marker.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'cocopon/iceberg.vim'
+Plug 'Yggdroot/indentLine'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & npm install'  }
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
@@ -18,7 +19,6 @@ Plug 'ap/vim-buftabline'
 Plug 'tpope/vim-commentary'
 Plug 'ryanoasis/vim-devicons'
 Plug 'airblade/vim-gitgutter'
-Plug 'nathanaelkane/vim-indent-guides'
 Plug 'tommcdo/vim-lion'
 Plug 'unkiwii/vim-nerdtree-sync'
 Plug 'sheerun/vim-polyglot'
@@ -226,14 +226,12 @@ xmap cd <Plug>(operator-sandwich-delete)
 " end
 
 
-" Indent Guides
-let g:indent_guides_enable_on_vim_startup = 1
-let g:indent_guides_auto_colors = 0
-let g:indent_guides_start_level = 2
-let g:indent_guides_guide_size  = 1
-
-hi IndentGuidesOdd  ctermbg=235 guibg=#1e2132
-hi IndentGuidesEven ctermbg=235 guibg=#1e2132
+" Indent Line
+let g:indentLine_char         = '▏'
+let g:indentLine_color_gui = '#3B4252'
+let g:vim_json_syntax_conceal = 0
+let g:vim_markdown_conceal = 0
+let g:vim_markdown_conceal_code_blocks = 0
 " end
 
 
