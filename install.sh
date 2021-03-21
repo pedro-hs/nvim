@@ -3,7 +3,7 @@ sudo add-apt-repository universe
 sudo add-apt-repository multiverse
 sudo apt update
 
-sudo apt install silversearcher-ag nvim python3-pip npm
+sudo apt install silversearcher-ag neovim python3-pip npm
 
 curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
