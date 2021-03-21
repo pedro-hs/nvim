@@ -13,6 +13,9 @@ npm install --global prettier
 wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/DroidSansMono.zip
 unzip DroidSansMono.zip -d ~/.fonts
 fc-cache -fv
+echo "###################### start plug install"
+sudo nvim --clean +PlugInstall +qall
+echo "###################### end vim install"
 
 ### AFTER
 # :PlugInstall
