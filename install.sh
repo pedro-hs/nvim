@@ -5,7 +5,7 @@
 # cd nvim
 # sudo sh install.sh && vi -c PlugInstall +qall
 
-sudo apt install silversearcher-ag neovim python3-pip npm
+sudo apt install silversearcher-ag neovim python3-pip npm feh
 
 mkdir autoload
 cd autoload

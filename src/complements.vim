@@ -259,3 +259,13 @@ endfun
 
 nnoremap <silent> <leader>df :call ToggleGitDiff()<cr>
 " end
+
+
+" Open Image
+fun! OpenImage()
+    silent !feh ls "%"
+    silent bd
+endfun
+
+au BufEnter *.png,*.jpg,*.jpeg :silent! call OpenImage()
+" end
