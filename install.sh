@@ -1,5 +1,7 @@
 ### BEFORE
-sudo snap install nvim
+sudo add-apt-repository universe
+sudo add-apt-repository multiverse
+sudo apt update
 
 sudo apt install silversearcher-ag nvim python3-pip npm
 
@@ -13,6 +15,7 @@ unzip DroidSansMono.zip -d ~/.fonts
 fc-cache -fv
 
 ### AFTER
+# :PlugInstall
 ## COMFORTABLE MOTION VIM (change)
 # nnoremap <silent> <a-j> :call comfortable_motion#flick(100)<cr>
 # nnoremap <silent> <a-k> :call comfortable_motion#flick(-100)<cr>
