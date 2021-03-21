@@ -6,9 +6,9 @@ curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubuserc
 pip3 install flake8 isort pylint autopep8 pynvim jedi
 npm install --global prettier
 
-wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/DroidSansMono.zip
-unzip DroidSansMono.zip -d ~/.fonts
-fc-cache -fv
+# wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/DroidSansMono.zip
+# unzip DroidSansMono.zip -d ~/.fonts
+# fc-cache -fv
 
 ### AFTER
 # :PlugInstall
