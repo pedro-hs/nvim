@@ -1,6 +1,5 @@
 ### BEFORE
 sudo apt install silversearcher-ag neovim python3-pip npm
-# sudo curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 mkdir autoload
 cd autoload
 wget https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -8,13 +7,9 @@ wget https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 pip3 install flake8 isort pylint autopep8 pynvim jedi
 npm install --global prettier
 
-# rm -rf ~/.config/nvim/autoload
-# mkdir ~/.config/nvim/autoload
-# cd ~/.config/nvim/autoload
-# wget https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-# wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/DroidSansMono.zip
-# unzip DroidSansMono.zip -d ~/.fonts
-# fc-cache -fv
+wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/DroidSansMono.zip
+unzip DroidSansMono.zip -d ~/.fonts
+fc-cache -fv && vi -c PlugInstall +qall
 
 ### AFTER
 # :PlugInstall
