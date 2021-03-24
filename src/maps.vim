@@ -39,7 +39,7 @@ nnoremap <silent> <c-k> :wincmd k<cr>
 
 nnoremap <silent> <leader>w :w<cr>
 nnoremap <leader>xa <esc>ggVG
-nnoremap <silent> <leader>xp :call system('xclip -i -selection clipboard', expand('%'))<CR>
+nnoremap <silent> <leader>xp :call system('xclip -i -selection clipboard', expand('%'))<cr>
 nnoremap <leader>o %
 nnoremap <leader>j ^
 nnoremap <leader>k $

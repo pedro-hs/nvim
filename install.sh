@@ -20,25 +20,16 @@ fc-cache -fv
 rm -f DroidSansMono.zip
 
 ### AFTER INSTALL
-## COMFORTABLE MOTION VIM (change)
+## COMFORTABLE MOTION VIM (add)
 # nnoremap <silent> <a-j> :call comfortable_motion#flick(100)<cr>
 # nnoremap <silent> <a-k> :call comfortable_motion#flick(-100)<cr>
 
-## BUFTABLINE + DEVICONS (change)
-# replace all s:switch_buffer to buftabline#switch_buffer
+## BUFTABLINE + DEVICONS (replace)
 # let tab.label = tab.path[tab.sep + 1:] . ' ' . WebDevIconsGetFileTypeSymbol(tab.path)
 
 ## VIMSPECTOR (run)
 # :VimspectorInstall debugpy
 # :VimspectorInstall debugger-for-chrome
-
-## VIM VISUAL MULTI (comment)
-# autoload/vm.vim
-#     call s:V.Funcs.msg('Exited Visual-Multi.')
-# autoload/vm/maps.vim
-#     call s:V.Funcs.msg('VM has started with warnings. :VMDebug for more info')
-# autoload/vm/funcs.vim
-#     silent! noautocmd setlocal statusline=%!vm#themes#statusline()
 
 # ALE (comment)
 # execute 'echoerr ''The file was changed before fixing finished'''

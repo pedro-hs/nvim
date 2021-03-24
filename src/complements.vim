@@ -6,8 +6,9 @@ fun! ToggleHex()
         silent :e
         let b:isHex=1
         %!xxd
+        setlocal nomodifiable
     else
-        setlocal nobinary
+        setlocal nobinary modifiable
         let b:isHex=0
         %!xxd -r
     endif
@@ -263,9 +264,11 @@ nnoremap <silent> <leader>df :call ToggleGitDiff()<cr>
 
 " Open Image
 fun! OpenImage()
+    " {{{
     silent !feh ls "%"
     silent bd
 endfun
+" }}}
 
 au BufEnter *.png,*.jpg,*.jpeg :silent! call OpenImage()
 " end

@@ -19,11 +19,11 @@ Plug 'ap/vim-buftabline'
 Plug 'tpope/vim-commentary'
 Plug 'ryanoasis/vim-devicons'
 Plug 'airblade/vim-gitgutter'
+Plug 'knubie/vim-kitty-navigator'
 Plug 'tommcdo/vim-lion'
 Plug 'unkiwii/vim-nerdtree-sync'
 Plug 'sheerun/vim-polyglot'
 Plug 'machakann/vim-sandwich'
-Plug 'mg979/vim-visual-multi'
 call plug#end()
 
 
@@ -172,18 +172,6 @@ let g:AutoPairsMultilineClose  = 0
 " end
 
 
-" Visual Multi
-let g:VM_maps                       = {}
-let g:VM_maps['Select Cursor Down'] = '<a-m>'
-let g:VM_maps['Select Cursor Up']   = '<a-M>'
-let g:VM_Mono_hl                    = 'StatusLine'
-let g:VM_Cursor_hl                  = 'StatusLine'
-let g:VM_Extend_hl                  = 'StatusLine'
-let g:VM_Insert_hl                  = 'StatusLine'
-let g:VM_highlight_matches          = ''
-" end
-
-
 " Clever F
 let g:clever_f_mark_char_color = 'PmenuSel'
 " end
@@ -291,6 +279,11 @@ hi Pmenu      guibg=bg
 hi DiffAdd    ctermfg=159 ctermbg=23  guifg=#b3c3cc guibg=#384851
 hi DiffDelete ctermbg=224 ctermfg=224 guifg=#53343b guibg=#53343b
 "  end
+
+" Vim Kitty Navigator
+let &titlestring='%t - nvim'
+let g:kitty_navigator_listening_on_address = "unix:/tmp/mykitty"
+" end
 
 
 " Vimspector
