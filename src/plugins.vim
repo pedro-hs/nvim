@@ -281,8 +281,7 @@ hi DiffDelete ctermbg=224 ctermfg=224 guifg=#53343b guibg=#53343b
 "  end
 
 " Vim Kitty Navigator
-let &titlestring='%t - nvim'
-let g:kitty_navigator_listening_on_address = "unix:/tmp/mykitty"
+let g:kitty_navigator_listening_on_address = "unix:@mykitty"
 " end
 
 
