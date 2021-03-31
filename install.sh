@@ -4,6 +4,10 @@
 # git clone https://github.com/pedro-hs/nvim.git
 # cd nvim
 # sudo sh install.sh && vi -c PlugInstall +qall
+# wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/DroidSansMono.zip
+# unzip DroidSansMono.zip -d ~/.fonts
+# fc-cache -fv
+# rm -f DroidSansMono.zip
 
 sudo apt install -y silversearcher-ag neovim python3-pip npm feh
 
@@ -13,11 +17,6 @@ wget https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 pip3 install flake8 isort pylint autopep8 pynvim jedi
 npm install --global prettier
-
-wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/DroidSansMono.zip
-unzip DroidSansMono.zip -d ~/.fonts
-fc-cache -fv
-rm -f DroidSansMono.zip
 
 ### AFTER INSTALL
 ## COMFORTABLE MOTION VIM (add)

@@ -282,6 +282,12 @@ hi DiffDelete ctermbg=224 ctermfg=224 guifg=#53343b guibg=#53343b
 
 " Vim Kitty Navigator
 let g:kitty_navigator_listening_on_address = "unix:@mykitty"
+let g:kitty_navigator_no_mappings = 1
+
+nnoremap <silent> <c-h> :KittyNavigateLeft<cr>
+nnoremap <silent> <c-j> :KittyNavigateDown<cr>
+nnoremap <silent> <c-k> :KittyNavigateUp<cr>
+nnoremap <silent> <c-l> :KittyNavigateRight<cr>
 " end
 
 

@@ -17,7 +17,7 @@ cnoremap <c-o> \<c-r>"
 " Normal
 nnoremap <bs> X
 nnoremap <space> i<space><esc><right>
-nnoremap <c-m> i<cr><esc><right>
+nnoremap <c-m> i<cr><esc>
 nnoremap <tab> i<tab><esc><right>
 
 nnoremap <a-h> <c-o>
