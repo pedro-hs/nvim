@@ -140,7 +140,7 @@ fun! Search(...) range
     let l:default_register = @"
     execute 'normal! vgvy'
     let l:pattern = escape(@", "\\/.*'$^~[]")
-    let l:pattern = g:search_full_word ? substitute('\v<'.l:pattern.'>', "\n$", "", "") : substitute(l:pattern, "\n$", "", "")
+    let l:pattern = g:search_full_word ? substitute('\v<'.l:pattern.'>', "\n$", '', '') : substitute(l:pattern, "\n$", '', '')
     let @/ = l:pattern
     let @" = l:default_register
 endfun
@@ -265,7 +265,7 @@ nnoremap <silent> <leader>df :call ToggleGitDiff()<cr>
 " Open Image
 fun! OpenImage()
     " {{{
-    silent !feh ls "%"
+    silent !feh ls '%'
     silent bd
 endfun
 " }}}

@@ -32,10 +32,6 @@ nnoremap <silent> <down>  :resize -3<cr>
 
 nnoremap <silent> <c-a> :bprevious<cr>
 nnoremap <silent> <c-s> :bnext<cr>
-nnoremap <silent> <c-h> :wincmd h<cr>
-nnoremap <silent> <c-l> :wincmd l<cr>
-nnoremap <silent> <c-j> :wincmd j<cr>
-nnoremap <silent> <c-k> :wincmd k<cr>
 
 nnoremap <silent> <leader>w :w<cr>
 nnoremap <leader>xa <esc>ggVG

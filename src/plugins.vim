@@ -54,7 +54,7 @@ let g:NERDTreeStatusline             = '%#NonText#'
 let g:NERDTreeAutoDeleteBuffer       = 1
 let g:NERDTreeQuitOnOpen             = 1
 let g:NERDTreeMouseMode              = 3
-let g:NERDTreeMapToggleHidden        = "."
+let g:NERDTreeMapToggleHidden        = '.'
 
 hi NERDTreeDir      ctermfg=white
 hi NERDTreeExecFile ctermfg=white
@@ -281,7 +281,7 @@ hi DiffDelete ctermbg=224 ctermfg=224 guifg=#53343b guibg=#53343b
 "  end
 
 " Vim Kitty Navigator
-let g:kitty_navigator_listening_on_address = "unix:@mykitty"
+let g:kitty_navigator_listening_on_address = 'unix:@mykitty'
 let g:kitty_navigator_no_mappings = 1
 
 nnoremap <silent> <c-h> :KittyNavigateLeft<cr>
