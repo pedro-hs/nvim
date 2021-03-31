@@ -20,7 +20,6 @@ Plug 'tpope/vim-commentary'
 Plug 'ryanoasis/vim-devicons'
 Plug 'airblade/vim-gitgutter'
 Plug 'knubie/vim-kitty-navigator'
-Plug 'tommcdo/vim-lion'
 Plug 'unkiwii/vim-nerdtree-sync'
 Plug 'sheerun/vim-polyglot'
 Plug 'machakann/vim-sandwich'
@@ -55,6 +54,7 @@ let g:NERDTreeStatusline             = '%#NonText#'
 let g:NERDTreeAutoDeleteBuffer       = 1
 let g:NERDTreeQuitOnOpen             = 1
 let g:NERDTreeMouseMode              = 3
+let g:NERDTreeMapToggleHidden        = "."
 
 hi NERDTreeDir      ctermfg=white
 hi NERDTreeExecFile ctermfg=white
