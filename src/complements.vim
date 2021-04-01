@@ -166,6 +166,9 @@ let g:buffers = []
 
 fun! ToggleTerminal()
     " {{{
+    if (exists('b:NERDTree'))
+        return
+    endif
     for buffer in g:buffers
         if !bufexists(buffer)
             let l:buffer_index = index(g:buffers, buffer)
