@@ -62,24 +62,12 @@ hi NERDTreeOpenable ctermfg=white
 hi NERDTreeClosable ctermfg=white
 hi NERDTreeFlags    ctermfg=12 guifg=#6a6c6c
 
-au bufenter * if (winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree()) | q | endif
-
-fun! ToggleNERDTree()
-    " {{{
-    :NERDTreeToggle
-    :NERDTreeRefreshRoot
-    if(exists('b:NERDTreeType') == 1)
-        call feedkeys('R')
-    endif
-endfun
-
 let g:NERDTreeGitStatusIndicatorMapCustom = {
             \  'Modified'  :'M', 'Staged'    :'S', 'Untracked' :'U',
             \  'Deleted'   :'D', 'Dirty'     :'*', 'Renamed'   :'R'
             \}
-" }}}
 
-nnoremap <silent> <leader>n :call ToggleNERDTree()<cr>
+nnoremap <silent> <leader>n :NERDTreeToggle<cr>:NERDTreeRefreshRoot<cr>
 " end
 
 
@@ -215,11 +203,11 @@ xmap cd <Plug>(operator-sandwich-delete)
 
 
 " Indent Line
-let g:indentLine_char         = '▏'
-let g:indentLine_color_gui = '#3B4252'
-let g:vim_json_syntax_conceal = 0
-let g:vim_markdown_conceal = 0
-let g:vim_markdown_conceal_code_blocks = 0
+let g:indentLine_char                   = '▏'
+let g:indentLine_color_gui              = '#3B4252'
+let g:vim_json_syntax_conceal           = 0
+let g:vim_markdown_conceal              = 0
+let g:vim_markdown_conceal_code_blocks  = 0
 " end
 
 
