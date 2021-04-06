@@ -268,6 +268,7 @@ hi DiffAdd    ctermfg=159 ctermbg=23  guifg=#b3c3cc guibg=#384851
 hi DiffDelete ctermbg=224 ctermfg=224 guifg=#53343b guibg=#53343b
 "  end
 
+
 " Vim Kitty Navigator
 let g:kitty_navigator_listening_on_address = 'unix:@mykitty'
 let g:kitty_navigator_no_mappings = 1

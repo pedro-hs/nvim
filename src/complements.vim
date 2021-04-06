@@ -241,7 +241,9 @@ tnoremap <silent><leader>n <c-\><c-n>
 " end
 
 
-"  Git Diff
+" Git Complements
+let g:revision_version = 0
+
 fun! ToggleGitDiff()
     " {{{
     if bufwinnr('_diff_') > 0
@@ -251,7 +253,7 @@ fun! ToggleGitDiff()
     else
         diffthis
         vsplit '_diff_'
-        exe "r!git show ".(!"<args>"?'HEAD':"<args>").":".expand('#') | 1d_
+        exe "r!git show ".(!"<args>" ? 'HEAD~' . g:revision_version : "<args>") . ":" . expand('#') | 1d_
         setlocal buftype=nofile nomodifiable nobuflisted norelativenumber
         let &filetype=getbufvar('#', '&filetype')
         let &l:statusline='%1*%{getline(line("w$")+1)}'
@@ -261,7 +263,21 @@ fun! ToggleGitDiff()
 endfun
 " }}}
 
-nnoremap <silent> <leader>df :call ToggleGitDiff()<cr>
+fun! GitRevision(...)
+    " {{{
+    if bufwinnr('_diff_') > 0
+        call ToggleGitDiff()
+    endif
+    let g:revision_version = get(a:, 1, 0) ? g:revision_version + 1 : g:revision_version - 1
+    let g:revision_version = g:revision_version >= 0 ? g:revision_version : 0
+    call ToggleGitDiff()
+    echo 'Revision ' . g:revision_version
+endfun
+" }}}
+
+nnoremap <silent> <leader>df :let g:revision_version=0<cr>:call ToggleGitDiff()<cr>
+nnoremap <silent> <leader>dl :call GitRevision()<cr>
+nnoremap <silent> <leader>dh :call GitRevision(1)<cr>
 " end
 
 
