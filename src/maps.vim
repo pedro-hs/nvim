@@ -30,6 +30,7 @@ nnoremap <silent> <c-a> :bprevious<cr>
 nnoremap <silent> <c-s> :bnext<cr>
 nnoremap <silent> <leader>w :w<cr>
 nnoremap <leader>xa <esc>ggVG
+nnoremap <leader>xc :set ignorecase! ignorecase?<cr>
 nnoremap <silent> <leader>xp :call system('xclip -i -selection clipboard', expand('%'))<cr>
 nnoremap <leader>o %
 nnoremap <leader>j ^
@@ -37,6 +38,8 @@ nnoremap <leader>k $
 nnoremap <silent> ; <esc>:noh<cr>:echo ''<cr>
 nnoremap U <c-r>
 nnoremap - ~
+nnoremap * *N
+nnoremap # #n
 nnoremap Z <esc>:q!<cr>
 nnoremap Q <esc>:%bd!<cr><esc>:q!<cr>
 nnoremap <leader>zz zz
@@ -45,8 +48,6 @@ nnoremap <leader>zr zr
 " end
 
 " Insert
-inoremap <silent> <c-j> <esc>:m .+1<cr>==gi
-inoremap <silent> <c-k> <esc>:m .-2<cr>==gi
 inoremap <a-j> <down>
 inoremap <a-l> <right>
 inoremap <a-h> <left>

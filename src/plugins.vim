@@ -15,7 +15,7 @@ Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins' }
 " Plug 'puremourning/vimspector'
-Plug 'ap/vim-buftabline'
+Plug 'pacha/vem-tabline'
 Plug 'tpope/vim-commentary'
 Plug 'ryanoasis/vim-devicons'
 Plug 'airblade/vim-gitgutter'
@@ -102,6 +102,7 @@ let g:ale_fixers = {
             \}
 
 let g:ale_python_flake8_options       = '--ignore=E501,W504'
+let g:ale_python_isort_options        = '--line-length=100'
 let g:ale_python_pylint_options       = '--max-line-length 120'
 let g:ale_python_autopep8_options     = '--max-line-length 120'
 let g:ale_javascript_prettier_options = '--single-quote --print-width=140 --arrow-parens=always --trailing-comma=es5 --implicit-arrow-linebreak=beside'
@@ -147,11 +148,6 @@ if exists('*complete_info')
 else
     inoremap <expr> <cr> pumvisible() ? "\<c-y>" : "\<c-g>u\<cr>"
 endif
-" end
-
-
-" BufTabline
-let g:buftabline_indicators    = 1
 " end
 
 
@@ -253,19 +249,20 @@ au BufRead,BufEnter * :call DisablePluginsOnMerge()
 
 
 " Highlight
-hi TabLineSel  cterm=bold   gui=bold guifg=#D8DEE9 ctermfg=none ctermbg=none guibg=bg
-hi TabLine     ctermbg=none guibg=bg
-hi TabLineFill guifg=bg
+hi TabLineSel   cterm=bold   gui=bold guifg=#D8DEE9 ctermfg=none ctermbg=none guibg=bg
+hi TabLine      ctermbg=none guibg=bg
+hi TabLineFill  guifg=bg
 
-hi LineNr     ctermbg=bg  guibg=bg
-hi SignColumn ctermbg=bg  guibg=bg
-hi VertSplit  guifg=bg    guibg=bg
-hi FoldColumn guibg=bg
-hi Folded     ctermfg=0   guifg=#3B4252   guibg=#2E3440 ctermfg=none  ctermbg=none guibg=bg
-hi Pmenu      guibg=bg
+hi LineNr       ctermbg=bg  guibg=bg
+hi SignColumn   ctermbg=bg  guibg=bg
+hi VertSplit    guifg=bg    guibg=bg
+hi FoldColumn   guibg=bg
+hi Folded       ctermfg=0   guifg=#3B4252   guibg=#2E3440 ctermfg=none  ctermbg=none guibg=bg
+hi Pmenu        ctermbg=235 guibg=#1e2132
 
-hi DiffAdd    ctermfg=159 ctermbg=23  guifg=#b3c3cc guibg=#384851
-hi DiffDelete ctermbg=224 ctermfg=224 guifg=#53343b guibg=#53343b
+hi DiffAdd      ctermfg=159 ctermbg=23  guifg=#b3c3cc guibg=#384851
+hi DiffDelete   ctermbg=224 ctermfg=224 guifg=#53343b guibg=#53343b
+hi Visual       ctermbg=236 guibg=#3d425b
 "  end
 
 

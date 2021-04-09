@@ -23,9 +23,6 @@ sudo npm install --global prettier
 # nnoremap <silent> <a-j> :call comfortable_motion#flick(100)<cr>
 # nnoremap <silent> <a-k> :call comfortable_motion#flick(-100)<cr>
 
-## BUFTABLINE + DEVICONS (replace)
-# let tab.label = tab.path[tab.sep + 1:] . ' ' . WebDevIconsGetFileTypeSymbol(tab.path)
-
 ## VIMSPECTOR (run)
 # :VimspectorInstall debugpy
 # :VimspectorInstall debugger-for-chrome

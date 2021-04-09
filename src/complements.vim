@@ -132,33 +132,25 @@ fun! ReplaceAll(command)
 endfun
 " }}}
 
-fun! Search(...) range
+fun! Search() range
     " {{{
-    if get(a:, 1, 0)
-        let g:search_full_word = g:search_full_word ? 0 : 1
-    endif
     let l:default_register = @"
     execute 'normal! vgvy'
     let l:pattern = escape(@", "\\/.*'$^~[]")
-    let l:pattern = g:search_full_word ? substitute('\v<'.l:pattern.'>', "\n$", '', '') : substitute(l:pattern, "\n$", '', '')
+    let l:pattern = substitute(l:pattern, "\n$", "", "")
     let @/ = l:pattern
     let @" = l:default_register
 endfun
 " }}}
 
-nnoremap <leader>xc :set ignorecase! ignorecase?<cr>
-nnoremap <leader>xw :call Search(1)<cr>:set hlsearch<cr>:echo printf('%sfullmatch', g:search_full_word ? '  ' : 'no')<cr>
-nnoremap * viwy<esc>:call Search()<cr>:set hlsearch<cr>:echo<cr>
-nnoremap # viwy<esc>:call Search()<cr>:set hlsearch<cr>:echo<cr>
+nnoremap <silent> <leader>rd viw:call Search()<CR>cgn
 nnoremap <leader>rr :%s///g<left><left>
-nnoremap <leader>rd :call Search()<cr>:set hlsearch<cr>:echo<cr>cgn
 nnoremap <leader>ra :silent! ReplaceAll %s///<left><left><c-r>"<right>
 
-vnoremap * ygv<esc>:call Search()<cr>:set hlsearch<cr>:echo<cr>
-vnoremap # ygv<esc>:call Search()<cr>:set hlsearch<cr>:echo<cr>
-vnoremap <leader>rd <esc>:call Search()<cr>:set hlsearch<cr>:echo<cr>cgn
+vnoremap <silent> * :<C-u>call Search()<CR>/<C-R>=@/<CR><CR>N
+vnoremap <silent> # :<C-u>call Search()<CR>?<C-R>=@/<CR><CR>N
+vnoremap <silent> <leader>rd :call Search()<CR>cgn
 " end
-
 
 " Terminal
 let g:windows = []
