@@ -85,7 +85,7 @@ fun! ToggleCenterMode()
             exe bufnr('_center_') . 'bd'
             setlocal noequalalways! cursorline
         else
-            exe 'topleft' ((&columns - &textwidth) / 3) . 'vsplit _center_'
+            exe 'topleft' ((&columns - &textwidth) / 4) . 'vsplit _center_'
             setlocal nocursorline nonumber norelativenumber nomodifiable nobuflisted buftype=nofile
             let &l:statusline='%1*%{getline(line("w$")+1)}'
             wincmd p

@@ -1,6 +1,6 @@
 call plug#begin()
 Plug 'w0rp/ale'
-Plug 'jiangmiao/auto-pairs'
+Plug 'jiangmiao/auto-pairs'  " Remove
 Plug 'APZelos/blamer.nvim'
 Plug 'rhysd/clever-f.vim'
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
@@ -67,7 +67,7 @@ let g:NERDTreeGitStatusIndicatorMapCustom = {
             \  'Deleted'   :'D', 'Dirty'     :'*', 'Renamed'   :'R'
             \}
 
-nnoremap <silent> <leader>n :NERDTreeToggle<cr>:NERDTreeRefreshRoot<cr>
+nnoremap <silent> <leader>n :NERDTreeToggle<cr>:NERDTreeRefreshRoot<cr>:wincmd h<cr>:wincmd l<cr>
 " end
 
 

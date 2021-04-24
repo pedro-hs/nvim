@@ -3,7 +3,7 @@
 # sudo rm -rf nvim
 # git clone https://github.com/pedro-hs/nvim.git
 # cd nvim
-# sudo sh install.sh && vi -c PlugInstall +qall
+# sh install.sh && vi -c PlugInstall +qall
 # wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/DroidSansMono.zip
 # unzip DroidSansMono.zip -d ~/.fonts
 # fc-cache -fv
