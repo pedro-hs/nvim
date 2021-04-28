@@ -16,7 +16,6 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins' }
 Plug 'ap/vim-buftabline'
 Plug 'tpope/vim-commentary'
-" Plug 'ryanoasis/vim-devicons'
 Plug 'airblade/vim-gitgutter'
 Plug 'knubie/vim-kitty-navigator'
 Plug 'unkiwii/vim-nerdtree-sync'
