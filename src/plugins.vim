@@ -14,10 +14,9 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & npm install'  }
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins' }
-" Plug 'puremourning/vimspector'
-Plug 'pacha/vem-tabline'
+Plug 'ap/vim-buftabline'
 Plug 'tpope/vim-commentary'
-Plug 'ryanoasis/vim-devicons'
+" Plug 'ryanoasis/vim-devicons'
 Plug 'airblade/vim-gitgutter'
 Plug 'knubie/vim-kitty-navigator'
 Plug 'unkiwii/vim-nerdtree-sync'
@@ -46,15 +45,14 @@ let $FZF_DEFAULT_OPTS = '-m --bind ctrl-a:select-all,ctrl-d:deselect-all'
 
 
 " NerdTree
-let g:NERDTreeMinimalUI              = 1
-let g:DevIconsEnableFoldersOpenClose = 1
-let g:NERDTreeWinPos                 = 'right'
-let g:nerdtree_sync_cursorline       = 1
-let g:NERDTreeStatusline             = '%#NonText#'
-let g:NERDTreeAutoDeleteBuffer       = 1
-let g:NERDTreeQuitOnOpen             = 1
-let g:NERDTreeMouseMode              = 3
-let g:NERDTreeMapToggleHidden        = '.'
+let g:NERDTreeMinimalUI                = 1
+let g:NERDTreeWinPos                   = 'right'
+let g:nerdtree_sync_cursorline         = 1
+let g:NERDTreeStatusline               = '%#NonText#'
+let g:NERDTreeAutoDeleteBuffer         = 1
+let g:NERDTreeQuitOnOpen               = 1
+let g:NERDTreeMouseMode                = 3
+let g:NERDTreeMapToggleHidden          = '.'
 
 hi NERDTreeDir      ctermfg=white
 hi NERDTreeExecFile ctermfg=white
@@ -151,6 +149,11 @@ endif
 " end
 
 
+" BufTabline
+let g:buftabline_indicators    = 1
+" end
+
+
 " Auto Pairs
 let g:AutoPairsMultilineClose  = 0
 " end
@@ -204,6 +207,7 @@ let g:indentLine_color_gui              = '#3B4252'
 let g:vim_json_syntax_conceal           = 0
 let g:vim_markdown_conceal              = 0
 let g:vim_markdown_conceal_code_blocks  = 0
+let g:indentLine_fileTypeExclude        = ["nerdtree"]
 " end
 
 
@@ -274,15 +278,4 @@ nnoremap <silent> <c-h> :KittyNavigateLeft<cr>
 nnoremap <silent> <c-j> :KittyNavigateDown<cr>
 nnoremap <silent> <c-k> :KittyNavigateUp<cr>
 nnoremap <silent> <c-l> :KittyNavigateRight<cr>
-" end
-
-
-" Vimspector
-" let g:vimspector_enable_mappings = 'HUMAN'
-
-" nmap <leader>vl :call vimspector#Launch()<cr>
-" nmap <leader>vr :VimspectorReset<cr>
-" nmap <leader>ve :VimspectorEval
-" nmap <leader>vw :VimspectorWatch
-" nmap <leader>vo :VimspectorShowOutput
 " end
