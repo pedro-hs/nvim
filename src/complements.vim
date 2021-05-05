@@ -230,6 +230,8 @@ tnoremap <silent><leader>l <c-\><c-n>:exe 'wincmd l'<cr>:startinsert!<cr>
 tnoremap <silent><leader>h <c-\><c-n>:exe 'wincmd h'<cr>:startinsert!<cr>
 tnoremap <silent><leader>M <c-\><c-n>:call NewTerminal()<cr>
 tnoremap <silent><leader>n <c-\><c-n>
+
+au BufWinEnter,WinEnter term://* startinsert
 " end
 
 
