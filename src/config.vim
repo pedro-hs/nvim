@@ -16,7 +16,6 @@ set encoding=UTF-8
 set scrolloff=5
 set sidescrolloff=10
 set clipboard+=unnamedplus
-set updatetime=50
 set splitbelow
 set splitright
 set cmdheight=2

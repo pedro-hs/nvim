@@ -121,6 +121,7 @@ hi link semshiUnresolved ALEWarning
 let g:coc_global_extensions = [
             \  'coc-tsserver',
             \  'coc-python',
+            \  'coc-yank',
             \]
 
 nmap <leader>cd <Plug>(coc-definition)
@@ -145,6 +146,8 @@ if exists('*complete_info')
 else
     inoremap <expr> <cr> pumvisible() ? "\<c-y>" : "\<c-g>u\<cr>"
 endif
+
+hi HighlightedyankRegion cterm=bold gui=bold ctermbg=0 guibg=#5b6389
 " end
 
 
