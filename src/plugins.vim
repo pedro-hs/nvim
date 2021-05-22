@@ -147,7 +147,7 @@ else
     inoremap <expr> <cr> pumvisible() ? "\<c-y>" : "\<c-g>u\<cr>"
 endif
 
-hi HighlightedyankRegion cterm=bold gui=bold ctermbg=0 guibg=#5b6389
+hi HighlightedyankRegion cterm=bold gui=bold ctermbg=0 guibg=#c6c8d1 guifg=#17171b
 " end
 
 

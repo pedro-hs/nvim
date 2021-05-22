@@ -45,6 +45,7 @@ nnoremap Q <esc>:%bd!<cr><esc>:q!<cr>
 nnoremap <leader>zz zz
 nnoremap <leader>zm zm
 nnoremap <leader>zr zr
+nnoremap <leader>/ /\<\><left><left>
 " end
 
 " Insert
