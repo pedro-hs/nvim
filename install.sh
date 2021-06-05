@@ -15,10 +15,6 @@ pip3 install flake8 isort pylint autopep8 pynvim jedi
 sudo npm install --global prettier
 
 ### AFTER INSTALL
-## COMFORTABLE MOTION VIM (add)
-# nnoremap <silent> <a-j> :call comfortable_motion#flick(100)<cr>
-# nnoremap <silent> <a-k> :call comfortable_motion#flick(-100)<cr>
-
 # ALE (comment)
 # execute 'echoerr ''The file was changed before fixing finished'''
 

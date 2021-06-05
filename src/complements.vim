@@ -285,3 +285,9 @@ endfun
 
 au BufEnter *.png,*.jpg,*.jpeg :silent! call OpenImage()
 " end
+
+" Scroll
+set scrolloff=5
+nnoremap <silent><leader>c :let &scrolloff=999-&scrolloff<cr>:set scrolloff?<cr>
+let &scrolloff=999-&scrolloff
+" end

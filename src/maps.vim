@@ -20,6 +20,8 @@ nnoremap <c-m> i<cr><esc>
 nnoremap <tab> i<tab><esc><right>
 nnoremap <a-h> <c-o>
 nnoremap <a-l> <c-i>
+nnoremap <a-j> <c-d>
+nnoremap <a-k> <c-u>
 nnoremap <a-s-k> <c-y>
 nnoremap <a-s-j> <c-e>
 nnoremap <silent> <right> :vertical resize +3<cr>
@@ -42,7 +44,6 @@ nnoremap * *N
 nnoremap # #n
 nnoremap Z <esc>:q!<cr>
 nnoremap Q <esc>:%bd!<cr><esc>:q!<cr>
-nnoremap <leader>zz zz
 nnoremap <leader>zm zm
 nnoremap <leader>zr zr
 nnoremap <leader>/ /\<\><left><left>

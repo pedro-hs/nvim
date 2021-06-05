@@ -4,7 +4,6 @@ Plug 'jiangmiao/auto-pairs'  " Remove
 Plug 'APZelos/blamer.nvim'
 Plug 'rhysd/clever-f.vim'
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
-Plug 'yuttie/comfortable-motion.vim'
 Plug 'rhysd/conflict-marker.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'

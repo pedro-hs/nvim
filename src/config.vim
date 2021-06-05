@@ -13,8 +13,7 @@ set inccommand=split
 set cursorline
 set colorcolumn=120
 set encoding=UTF-8
-set scrolloff=5
-set sidescrolloff=10
+set sidescrolloff=15
 set clipboard+=unnamedplus
 set splitbelow
 set splitright
