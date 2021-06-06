@@ -1,6 +1,5 @@
 call plug#begin()
 Plug 'w0rp/ale'
-Plug 'jiangmiao/auto-pairs'  " Remove
 Plug 'APZelos/blamer.nvim'
 Plug 'rhysd/clever-f.vim'
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
@@ -9,6 +8,7 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'cocopon/iceberg.vim'
 Plug 'Yggdroot/indentLine'
+Plug 'cohama/lexima.vim'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & npm install'  }
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
@@ -21,7 +21,6 @@ Plug 'unkiwii/vim-nerdtree-sync'
 Plug 'sheerun/vim-polyglot'
 Plug 'machakann/vim-sandwich'
 call plug#end()
-
 
 " Iceberg
 set termguicolors
@@ -93,7 +92,7 @@ let g:ale_fixers = {
             \  'javascript': ['prettier'],
             \  'javascriptreact': ['prettier'],
             \  'typescript': ['eslint', 'tslint'],
-            \  'typescriptreact': ['eslint'],
+            \  'typescriptreact': ['eslint', 'tslint'],
             \  'markdown': ['prettier'],
             \}
 
@@ -152,11 +151,6 @@ hi HighlightedyankRegion cterm=bold gui=bold ctermbg=0 guibg=#c6c8d1 guifg=#1717
 
 " BufTabline
 let g:buftabline_indicators    = 1
-" end
-
-
-" Auto Pairs
-let g:AutoPairsMultilineClose  = 0
 " end
 
 
