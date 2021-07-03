@@ -289,6 +289,5 @@ fun! s:GetSelectedText()
   return l:new_register
 endfun
 
-vnoremap <silent> * :call setreg(<sid>GetSelectedText(), '\_s\+', '\\_s\\+', 'g'))<cr>nN
-vnoremap <silent> # :call setreg(<sid>GetSelectedText(), '\_s\+', '\\_s\\+', 'g'))<cr>nN
+vnoremap <silent> * :call setreg("/", substitute(<SID>GetSelectedText(), '\_s\+', '\\_s\\+', 'g'))<cr>nN
 " end
