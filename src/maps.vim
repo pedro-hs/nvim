@@ -52,10 +52,6 @@ nnoremap < <<
 " end
 
 " Insert
-inoremap <a-j> <down>
-inoremap <a-l> <right>
-inoremap <a-h> <left>
-inoremap <a-k> <up>
 inoremap <leader>j <home>
 inoremap <leader>k <end>
 inoremap <silent> ; <esc>:noh<cr>

@@ -113,9 +113,8 @@ nnoremap <silent> <leader>a :call ToggleCenterMode()<cr>
 " end
 
 
-" Search and Replace
+" Replace
 command! -nargs=+ ReplaceAll call ReplaceAll(<q-args>)
-let g:search_full_word = 0
 
 fun! ReplaceAll(command)
     " {{{
@@ -132,24 +131,9 @@ fun! ReplaceAll(command)
 endfun
 " }}}
 
-fun! Search() range
-    " {{{
-    let l:default_register = @"
-    execute 'normal! vgvy'
-    let l:pattern = escape(@", "\\/.*'$^~[]")
-    let l:pattern = substitute(l:pattern, "\n$", "", "")
-    let @/ = l:pattern
-    let @" = l:default_register
-endfun
-" }}}
-
-nnoremap <silent> <leader>rd viw:call Search()<CR>cgn
-nnoremap <leader>rr :%s///g<left><left>
 nnoremap <leader>ra :silent! ReplaceAll %s///<left><left><c-r>"<right>
-
-vnoremap <silent> * :<C-u>call Search()<CR>/<C-R>=@/<CR><CR>N
-vnoremap <silent> # :<C-u>call Search()<CR>?<C-R>=@/<CR><CR>N
-vnoremap <silent> <leader>rd :call Search()<CR>cgn
+nnoremap <leader>rr :%s///g<left><left>
+vnoremap <leader>rr :s/\%V\%V//<left><left><left><left><left>
 " end
 
 " Terminal
@@ -226,8 +210,8 @@ inoremap <silent><leader>m <c-\><c-n>:call ToggleTerminal()<cr>
 
 tnoremap <silent><leader>m <c-\><c-n>:call ToggleTerminal()<cr>
 tnoremap <silent><leader>k <c-\><c-n>:exe 'wincmd k'<cr>
-tnoremap <silent><leader>l <c-\><c-n>:exe 'wincmd l'<cr>:startinsert!<cr>
-tnoremap <silent><leader>h <c-\><c-n>:exe 'wincmd h'<cr>:startinsert!<cr>
+tnoremap <silent><leader>l <c-\><c-n>:exe 'wincmd l'<cr>
+tnoremap <silent><leader>h <c-\><c-n>:exe 'wincmd h'<cr>
 tnoremap <silent><leader>M <c-\><c-n>:call NewTerminal()<cr>
 tnoremap <silent><leader>n <c-\><c-n>
 
@@ -286,8 +270,25 @@ endfun
 au BufEnter *.png,*.jpg,*.jpeg :silent! call OpenImage()
 " end
 
+
 " Scroll
 set scrolloff=5
 nnoremap <silent><leader>c :let &scrolloff=999-&scrolloff<cr>:set scrolloff?<cr>
 let &scrolloff=999-&scrolloff
+" end
+
+
+" Visual search
+fun! s:GetSelectedText()
+  let l:old_register = getreg('"')
+  let l:old_register_type = getregtype('"')
+  norm gvy
+  let l:new_register = getreg('"')
+  call setreg('"', l:old_register, l:old_register_type)
+  exe "norm \<Esc>"
+  return l:new_register
+endfun
+
+vnoremap <silent> * :call setreg(<sid>GetSelectedText(), '\_s\+', '\\_s\\+', 'g'))<cr>nN
+vnoremap <silent> # :call setreg(<sid>GetSelectedText(), '\_s\+', '\\_s\\+', 'g'))<cr>nN
 " end
