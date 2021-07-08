@@ -77,7 +77,7 @@ set statusline=%1*\ %{toupper(g:currentmode[mode()])}%=%<%{g:auto_save_status}%{
 " end
 
 
-" Center mode
+" Center Mode
 fun! ToggleCenterMode()
     " {{{
     if bufwinnr('_diff_') <= 0
@@ -113,7 +113,7 @@ nnoremap <silent> <leader>a :call ToggleCenterMode()<cr>
 " end
 
 
-" Replace
+" Replace In Text Working Directory
 command! -nargs=+ ReplaceAll call ReplaceAll(<q-args>)
 
 fun! ReplaceAll(command)
@@ -132,9 +132,8 @@ endfun
 " }}}
 
 nnoremap <leader>ra :silent! ReplaceAll %s///<left><left><c-r>"<right>
-nnoremap <leader>rr :%s///g<left><left>
-vnoremap <leader>rr :s/\%V\%V//<left><left><left><left><left>
 " end
+
 
 " Terminal
 let g:windows = []
@@ -278,16 +277,18 @@ let &scrolloff=999-&scrolloff
 " end
 
 
-" Visual search
+" Visual Search
 fun! s:GetSelectedText()
-  let l:old_register = getreg('"')
-  let l:old_register_type = getregtype('"')
-  norm gvy
-  let l:new_register = getreg('"')
-  call setreg('"', l:old_register, l:old_register_type)
-  exe "norm \<Esc>"
-  return l:new_register
+    " {{{
+    let l:old_register = getreg('"')
+    let l:old_register_type = getregtype('"')
+    norm gvy
+    let l:new_register = getreg('"')
+    call setreg('"', l:old_register, l:old_register_type)
+    exe "norm \<esc>"
+    return l:new_register
 endfun
+" }}}
 
 vnoremap <silent> * :call setreg("/", substitute(<SID>GetSelectedText(), '\_s\+', '\\_s\\+', 'g'))<cr>nN
 " end

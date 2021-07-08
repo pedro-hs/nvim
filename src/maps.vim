@@ -6,6 +6,7 @@ vnoremap <leader>a $A
 vnoremap <leader>i 0I
 vnoremap p pgvy
 vnoremap <silent> ; <esc>:noh<cr>
+vnoremap <leader>rr :s/\%V\%V//<left><left><left><left><left>
 " end
 
 " Command
@@ -38,6 +39,7 @@ nnoremap <leader>o %
 nnoremap <leader>j ^
 nnoremap <leader>k $
 nnoremap <silent> ; <esc>:noh<cr>:echo ''<cr>
+nnoremap <leader>rr :%s///g<left><left>
 nnoremap U <c-r>
 nnoremap - ~
 nnoremap * *N
