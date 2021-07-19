@@ -113,7 +113,7 @@ nnoremap <silent> <leader>a :call ToggleCenterMode()<cr>
 " end
 
 
-" Replace In Text Working Directory
+" Replace Text In Working Directory
 command! -nargs=+ ReplaceAll call ReplaceAll(<q-args>)
 
 fun! ReplaceAll(command)

@@ -36,3 +36,4 @@ au InsertEnter * set list norelativenumber
 au FocusGained,CursorHold * silent! checktime
 
 let mapleader = 'z'
+let g:omni_sql_no_default_maps = 1
