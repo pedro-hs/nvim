@@ -207,14 +207,16 @@ nnoremap <silent><leader>m :call ToggleTerminal()<cr>
 
 inoremap <silent><leader>m <c-\><c-n>:call ToggleTerminal()<cr>
 
-tnoremap <silent><leader>m <c-\><c-n>:call ToggleTerminal()<cr>
-tnoremap <silent><leader>k <c-\><c-n>:exe 'wincmd k'<cr>
-tnoremap <silent><leader>l <c-\><c-n>:exe 'wincmd l'<cr>
-tnoremap <silent><leader>h <c-\><c-n>:exe 'wincmd h'<cr>
-tnoremap <silent><leader>M <c-\><c-n>:call NewTerminal()<cr>
-tnoremap <silent><leader>n <c-\><c-n>
+tnoremap <silent><leader>m <c-\><c-n>:call ToggleTerminal()<cr><esc>
+tnoremap <silent><c-k> <c-\><c-n>:exe 'wincmd k'<cr>
+tnoremap <silent><c-l> <c-\><c-n>:exe 'wincmd l'<cr>
+tnoremap <silent><c-h> <c-\><c-n>:exe 'wincmd h'<cr>
+tnoremap <silent><c-j> <c-\><c-n>:exe 'wincmd h'<cr>
+tnoremap <silent><leader>n <c-\><c-n>:call NewTerminal()<cr>
+tnoremap <silent><leader>M <c-\><c-n>
 
 au BufWinEnter,WinEnter term://* startinsert
+au TermClose * call feedkeys("i") | call feedkeys("\<esc>")
 " end
 
 
