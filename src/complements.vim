@@ -217,6 +217,8 @@ tnoremap <silent><leader>M <c-\><c-n>
 
 au BufWinEnter,WinEnter term://* startinsert
 au TermClose * call feedkeys("i") | call feedkeys("\<esc>")
+au TermEnter * setlocal scrolloff=0
+au TermLeave * setlocal scrolloff=10
 " end
 
 
