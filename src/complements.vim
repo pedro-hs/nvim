@@ -184,7 +184,7 @@ endfun
 
 fun! NewTerminal()
     " {{{
-    if len(g:buffers) > 2
+    if len(g:buffers) > 4
         echo 'Limit of terminals created'
     else
         vsplit | term
