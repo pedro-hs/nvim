@@ -26,7 +26,7 @@ set foldmethod=manual
 set noshowmode
 set listchars+=tab:--,space:`
 set title
-let &titlestring='%F - nvim'
+let &titlestring=system('echo `basename $(pwd)` \|\| %t')
 
 au FileType html setlocal ts=2 sts=2 sw=2
 au FileType vim set foldmethod=marker

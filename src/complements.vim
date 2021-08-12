@@ -73,7 +73,8 @@ let g:currentmode = {
             \}
 
 set laststatus=2
-set statusline=%1*\ %{toupper(g:currentmode[mode()])}%=%<%{g:auto_save_status}%{LinterStatus()}%f%5{StatusLineGit()}%5l/%L%5v
+let g:basedir = system("`echo basename $(pwd)` | tr -d '\n'")
+set statusline=%1*\ %{toupper(g:currentmode[mode()])}%=%<%10{g:auto_save_status}%10{LinterStatus()}%10f%10{StatusLineGit()}%10l/%L%10v%10{g:basedir}
 " end
 
 
@@ -216,7 +217,10 @@ tnoremap <silent><leader>n <c-\><c-n>:call NewTerminal()<cr>
 tnoremap <silent><leader>M <c-\><c-n>
 
 au BufWinEnter,WinEnter term://* startinsert
-au TermClose * call feedkeys("i") | call feedkeys("\<esc>")
+" BUG: Autoformat is executed in any file opened with fzf
+"   DESCRIPTION: This solution (commented code below) to close terminal (ctrl + d) without message in nvim,
+"                edit file when come from fzf (terminal mode), so the autoformatter is called after edit
+" au TermClose * call feedkeys("i") | call feedkeys("\<esc>")
 au TermEnter * setlocal scrolloff=0
 au TermLeave * setlocal scrolloff=10
 " end
