@@ -7,10 +7,13 @@ fun! ToggleHex()
         let b:isHex=1
         %!xxd
         setlocal nomodifiable
+        syntax off
     else
         setlocal nobinary modifiable
         let b:isHex=0
         %!xxd -r
+        syntax on
+        call SetColors()
     endif
 endfun
 " }}}
@@ -225,7 +228,6 @@ autocmd TermClose term://*
         \   call feedkeys("\<esc>") |
         \ endif
 augroup END
-
 " end
 
 

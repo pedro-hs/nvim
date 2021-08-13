@@ -8,10 +8,10 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'Yggdroot/indentLine'
 Plug 'cohama/lexima.vim'
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & npm install'  }
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & npm install', 'for': 'markdown'  }
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins' }
+Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins', 'for': 'python' }
 Plug 'ap/vim-buftabline'
 Plug 'tpope/vim-commentary'
 Plug 'airblade/vim-gitgutter'
@@ -247,21 +247,27 @@ au BufRead,BufEnter * :call DisablePluginsOnMerge()
 
 
 " Highlight
-hi TabLineSel   cterm=bold   gui=bold guifg=#D8DEE9 ctermfg=none ctermbg=none guibg=bg
-hi TabLine      ctermbg=none guibg=bg
-hi TabLineFill  guifg=bg
+fun! SetColors()
+    " {{{
+    hi TabLineSel   cterm=bold   gui=bold guifg=#D8DEE9 ctermfg=none ctermbg=none guibg=bg
+    hi TabLine      ctermbg=none guibg=bg
+    hi TabLineFill  guifg=bg
 
-hi LineNr       ctermbg=bg  guibg=bg
-hi SignColumn   ctermbg=bg  guibg=bg
-hi VertSplit    guifg=bg    guibg=bg
-hi FoldColumn   guibg=bg
-hi Folded       guibg=bg
-hi Pmenu        ctermbg=12 guibg=#0a3749
-hi Search       ctermfg=4 guifg=bg guibg=#ad9717
+    hi LineNr       ctermbg=bg  guibg=bg
+    hi SignColumn   ctermbg=bg  guibg=bg
+    hi VertSplit    guifg=bg    guibg=bg
+    hi FoldColumn   guibg=bg
+    hi Folded       guibg=bg
+    hi Pmenu        ctermbg=12 guibg=#0a3749
+    hi Search       ctermfg=4 guifg=bg guibg=#ad9717
 
-hi DiffAdd      ctermbg=23 ctermfg=255  guifg=#ffffff guibg=#5ba369
-hi DiffDelete   ctermbg=158 ctermfg=158 guifg=#9e4141 guibg=#9e4141
-hi Visual       ctermbg=236 guibg=#3d425b
+    hi DiffAdd      ctermbg=23 ctermfg=255  guifg=#ffffff guibg=#5ba369
+    hi DiffDelete   ctermbg=158 ctermfg=158 guifg=#9e4141 guibg=#9e4141
+    hi Visual       ctermbg=236 guibg=#3d425b
+endfun
+" }}}
+
+call SetColors()
 "  end
 
 
