@@ -217,12 +217,15 @@ tnoremap <silent><leader>n <c-\><c-n>:call NewTerminal()<cr>
 tnoremap <silent><leader>i <c-\><c-n>
 
 au BufWinEnter,WinEnter term://* startinsert
-" TODO BUG: Autoformat is executed in any file opened with fzf
-"   DESCRIPTION: This solution (commented code below) to close terminal (ctrl + d) without message in nvim,
-"                edit file when come from fzf (terminal mode), so the autoformatter is called after edit
-" au TermClose * call feedkeys("i") | call feedkeys("\<esc>")
 au TermEnter * setlocal scrolloff=0
-au TermLeave * setlocal scrolloff=10
+au TermLeave * let &scrolloff=999-&scrolloff
+autocmd TermClose term://*
+        \ if (expand('<afile>') !~ "fzf") |
+        \   call feedkeys("\<cr>")      |
+        \   call feedkeys("\<esc>") |
+        \ endif
+augroup END
+
 " end
 
 
