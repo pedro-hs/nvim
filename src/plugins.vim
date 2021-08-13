@@ -251,8 +251,8 @@ au BufRead,BufEnter * :call DisablePluginsOnMerge()
 " Highlight
 fun! SetColors()
     " {{{
-    hi TabLineSel   cterm=bold   gui=bold guifg=#D8DEE9 ctermfg=none ctermbg=none guibg=bg
-    hi TabLine      ctermbg=none guibg=bg
+    hi TabLineSel   ctermfg=fg guifg=#069e8a guibg=bg ctermbg=bg
+    hi TabLine      cterm=bold   gui=bold guifg=#D8DEE9 ctermfg=none ctermbg=none guibg=bg
     hi TabLineFill  guifg=bg
 
     hi LineNr       ctermbg=bg  guibg=bg
