@@ -14,6 +14,7 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins', 'for': 'python' }
 Plug 'ap/vim-buftabline'
 Plug 'tpope/vim-commentary'
+Plug 'dominikduda/vim_current_word'
 Plug 'airblade/vim-gitgutter'
 Plug 'whatyouhide/vim-gotham'
 Plug 'knubie/vim-kitty-navigator'
@@ -22,7 +23,8 @@ Plug 'sheerun/vim-polyglot'
 Plug 'machakann/vim-sandwich'
 call plug#end()
 
-" Iceberg
+
+" Theme
 set termguicolors
 colorscheme gotham
 " end
@@ -109,7 +111,7 @@ hi clear ALEWarningSign
 
 
 " Semshi
-hi link semshiSelected SpellCap
+hi link semshiSelected ALEWarning
 hi link semshiUnresolved ALEWarning
 " end
 
@@ -259,6 +261,7 @@ fun! SetColors()
     hi FoldColumn   guibg=bg
     hi Folded       guibg=bg
     hi Pmenu        ctermbg=12 guibg=#0a3749
+    hi Comment      ctermfg=6 guifg=#33859E
     hi Search       ctermfg=4 guifg=bg guibg=#ad9717
 
     hi DiffAdd      ctermbg=23 ctermfg=255  guifg=#ffffff guibg=#5ba369
@@ -269,6 +272,11 @@ endfun
 
 call SetColors()
 "  end
+
+" Vim Current Word
+hi CurrentWord ctermfg=7 ctermbg=10 guifg=#99d1ce guibg=#091f2e
+hi CurrentWordTwins ctermfg=7 ctermbg=12 guifg=#99d1ce guibg=#0a3749
+" end
 
 
 " Vim Kitty Navigator
