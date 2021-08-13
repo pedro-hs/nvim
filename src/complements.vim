@@ -74,7 +74,7 @@ let g:currentmode = {
             \}
 
 set laststatus=2
-set statusline=%1*\ %{toupper(g:currentmode[mode()])}%=%<%10{g:auto_save_status}%10{LinterStatus()}%10f%10{StatusLineGit()}%10l/%L%5v%10{g:basedir}
+set statusline=%1*\ %{toupper(g:currentmode[mode()])}%=%<%10{g:auto_save_status}%10{LinterStatus()}%10f%10{StatusLineGit()}%10l/%L%5v%20{g:basedir}
 " end
 
 

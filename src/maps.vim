@@ -34,7 +34,7 @@ nnoremap <silent> <c-s> :bnext<cr>
 nnoremap <silent> <leader>w :w<cr>
 nnoremap <leader>xa <esc>ggVG
 nnoremap <leader>xc :set ignorecase! ignorecase?<cr>
-nnoremap <leader>xr :source init.vim<cr>
+nnoremap <silent> <leader>xr :source ~/.config/nvim/init.vim<cr>:echo 'vimrc updated'<cr>
 nnoremap <silent> <leader>xp :call system('xclip -i -selection clipboard', expand('%'))<cr>
 nnoremap <leader>o %
 nnoremap <leader>j ^

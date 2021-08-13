@@ -6,7 +6,6 @@ Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'rhysd/conflict-marker.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'cocopon/iceberg.vim'
 Plug 'Yggdroot/indentLine'
 Plug 'cohama/lexima.vim'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & npm install'  }
@@ -16,6 +15,7 @@ Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins' }
 Plug 'ap/vim-buftabline'
 Plug 'tpope/vim-commentary'
 Plug 'airblade/vim-gitgutter'
+Plug 'whatyouhide/vim-gotham'
 Plug 'knubie/vim-kitty-navigator'
 Plug 'unkiwii/vim-nerdtree-sync'
 Plug 'sheerun/vim-polyglot'
@@ -24,7 +24,7 @@ call plug#end()
 
 " Iceberg
 set termguicolors
-colorscheme iceberg
+colorscheme gotham
 " end
 
 
@@ -51,11 +51,10 @@ let g:NERDTreeQuitOnOpen               = 1
 let g:NERDTreeMouseMode                = 3
 let g:NERDTreeMapToggleHidden          = '.'
 
-hi NERDTreeDir      ctermfg=white
+hi NERDTreeDir      ctermfg=fg guifg=#069e8a guibg=bg ctermbg=bg
 hi NERDTreeExecFile ctermfg=white
 hi NERDTreeOpenable ctermfg=white
-hi NERDTreeClosable ctermfg=white
-hi NERDTreeFlags    ctermfg=12 guifg=#6a6c6c
+hi NERDTreeClosable ctermfg=fg guifg=#069e8a guibg=bg ctermbg=bg
 
 let g:NERDTreeGitStatusIndicatorMapCustom = {
             \  'Modified'  :'M', 'Staged'    :'S', 'Untracked' :'U',
@@ -102,7 +101,7 @@ let g:ale_python_pylint_options       = '--max-line-length 120'
 let g:ale_python_autopep8_options     = '--max-line-length 120'
 let g:ale_javascript_prettier_options = '--single-quote --print-width=140 --arrow-parens=always --trailing-comma=es5 --implicit-arrow-linebreak=beside'
 
-hi link ALEWarning CursorLineNr
+hi ALEWarning ctermfg=3 guifg=#edb443  ctermbg=4 guibg=#195466
 hi link ALEError ALEWarning
 hi clear ALEErrorSign
 hi clear ALEWarningSign
@@ -110,7 +109,7 @@ hi clear ALEWarningSign
 
 
 " Semshi
-hi semshiSelected ctermbg=242 guifg=#b7bdc0 guibg=#474646
+hi link semshiSelected SpellCap
 hi link semshiUnresolved ALEWarning
 " end
 
@@ -256,11 +255,12 @@ hi LineNr       ctermbg=bg  guibg=bg
 hi SignColumn   ctermbg=bg  guibg=bg
 hi VertSplit    guifg=bg    guibg=bg
 hi FoldColumn   guibg=bg
-hi Folded       ctermfg=0   guifg=#3B4252   guibg=#2E3440 ctermfg=none  ctermbg=none guibg=bg
-hi Pmenu        ctermbg=235 guibg=#1e2132
+hi Folded       guibg=bg
+hi Pmenu        ctermbg=12 guibg=#0a3749
+hi Search       ctermfg=4 guifg=bg guibg=#ad9717
 
-hi DiffAdd      ctermfg=159 ctermbg=23  guifg=#b3c3cc guibg=#384851
-hi DiffDelete   ctermbg=224 ctermfg=224 guifg=#53343b guibg=#53343b
+hi DiffAdd      ctermbg=23 ctermfg=255  guifg=#ffffff guibg=#5ba369
+hi DiffDelete   ctermbg=158 ctermfg=158 guifg=#9e4141 guibg=#9e4141
 hi Visual       ctermbg=236 guibg=#3d425b
 "  end
 
