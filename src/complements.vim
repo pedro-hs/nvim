@@ -66,6 +66,7 @@ fun! LinterStatus()
 endfun
 " }}}
 
+let g:basedir = system("`echo basename $(pwd)` | tr -d '\n'")
 let g:currentmode = {
             \  'n':  'Normal',   'no': 'Pending',  'v':  'Visual',   'V':  'V·Line',     "\<C-V>": 'V·Block',  's':  'Select',  'S':'S·Line',
             \  '^S': 'S·Block',  'i':  'Insert',   'R':  'Replace',  'Rv': 'V·Replace',  'c':      'Command',  'cv': 'Vim Ex',
@@ -73,8 +74,7 @@ let g:currentmode = {
             \}
 
 set laststatus=2
-let g:basedir = system("`echo basename $(pwd)` | tr -d '\n'")
-set statusline=%1*\ %{toupper(g:currentmode[mode()])}%=%<%10{g:auto_save_status}%10{LinterStatus()}%10f%10{StatusLineGit()}%10l/%L%10v%10{g:basedir}
+set statusline=%1*\ %{toupper(g:currentmode[mode()])}%=%<%10{g:auto_save_status}%10{LinterStatus()}%10f%10{StatusLineGit()}%10l/%L%5v%10{g:basedir}
 " end
 
 
@@ -214,10 +214,10 @@ tnoremap <silent><c-l> <c-\><c-n>:exe 'wincmd l'<cr>
 tnoremap <silent><c-h> <c-\><c-n>:exe 'wincmd h'<cr>
 tnoremap <silent><c-j> <c-\><c-n>:exe 'wincmd h'<cr>
 tnoremap <silent><leader>n <c-\><c-n>:call NewTerminal()<cr>
-tnoremap <silent><leader>M <c-\><c-n>
+tnoremap <silent><leader>i <c-\><c-n>
 
 au BufWinEnter,WinEnter term://* startinsert
-" BUG: Autoformat is executed in any file opened with fzf
+" TODO BUG: Autoformat is executed in any file opened with fzf
 "   DESCRIPTION: This solution (commented code below) to close terminal (ctrl + d) without message in nvim,
 "                edit file when come from fzf (terminal mode), so the autoformatter is called after edit
 " au TermClose * call feedkeys("i") | call feedkeys("\<esc>")
