@@ -258,11 +258,12 @@ fun! SetColors()
     hi LineNr       ctermbg=bg  guibg=bg
     hi SignColumn   ctermbg=bg  guibg=bg
     hi VertSplit    guifg=bg    guibg=bg
-    hi FoldColumn   guibg=bg
-    hi Folded       guibg=bg
+    hi FoldColumn   ctermfg=fg guifg=#33859E guibg=bg ctermbg=bg
+    hi Folded       ctermfg=fg guifg=#33859E guibg=bg ctermbg=bg
     hi Pmenu        ctermbg=12 guibg=#0a3749
     hi Comment      ctermfg=6 guifg=#33859E
     hi Search       ctermfg=4 guifg=bg guibg=#ad9717
+    hi EndOfBuffer  guifg=bg ctermfg=bg ctermbg=bg guibg=bg
 
     hi DiffAdd      ctermbg=23 ctermfg=255  guifg=#ffffff guibg=#5ba369
     hi DiffDelete   ctermbg=158 ctermfg=158 guifg=#9e4141 guibg=#9e4141
