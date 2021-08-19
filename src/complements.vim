@@ -148,18 +148,16 @@ fun! ToggleTerminal()
     if (exists('b:NERDTree'))
         return
     endif
-    for buffer in g:buffers
-        if !bufexists(buffer)
-            let l:buffer_index = index(g:buffers, buffer)
-            call remove(g:buffers, l:buffer_index, l:buffer_index)
-        endif
-    endfor
+    call RemoveTerminalBufffers()
+    let g:vim_current_word#enabled = 1
     if len(g:windows) == 0
         if len(g:buffers) == 0
+            let g:vim_current_word#enabled = 0
             split | term
             call add(g:buffers, bufnr('$'))
             call ConfigureTerminalWindow()
         else
+            let g:vim_current_word#enabled = 0
             exe 'sbuffer' . g:buffers[0]
             call ConfigureTerminalWindow()
             for buffer in g:buffers[1:-1]
@@ -181,6 +179,7 @@ fun! ToggleTerminal()
                 hide
             endif
         endfor
+        let g:vim_current_word#enabled = 1
         set laststatus=2
     endif
 endfun
@@ -188,7 +187,7 @@ endfun
 
 fun! NewTerminal()
     " {{{
-    if len(g:buffers) > 4
+    if len(g:buffers) > 3
         echo 'Limit of terminals created'
     else
         vsplit | term
@@ -207,6 +206,17 @@ fun! ConfigureTerminalWindow()
 endfun
 " }}}
 
+fun! RemoveTerminalBufffers()
+    " {{{
+    for buffer in g:buffers
+        if !bufexists(buffer)
+            let l:buffer_index = index(g:buffers, buffer)
+            call remove(g:buffers, l:buffer_index, l:buffer_index)
+        endif
+    endfor
+endfun
+" }}}
+
 nnoremap <silent><leader>m :call ToggleTerminal()<cr>
 
 inoremap <silent><leader>m <c-\><c-n>:call ToggleTerminal()<cr>
@@ -218,16 +228,11 @@ tnoremap <silent><c-h> <c-\><c-n>:exe 'wincmd h'<cr>
 tnoremap <silent><c-j> <c-\><c-n>:exe 'wincmd h'<cr>
 tnoremap <silent><leader>n <c-\><c-n>:call NewTerminal()<cr>
 tnoremap <silent><leader>i <c-\><c-n>
+tnoremap <silent><c-d> <c-\><c-n>:call RemoveTerminalBufffers()<cr>:bwipeout!<cr>
 
 au BufWinEnter,WinEnter term://* startinsert
 au TermEnter * setlocal scrolloff=0
 au TermLeave * let &scrolloff=999-&scrolloff
-autocmd TermClose term://*
-        \ if (expand('<afile>') !~ "fzf") |
-        \   call feedkeys("\<cr>")      |
-        \   call feedkeys("\<esc>") |
-        \ endif
-augroup END
 " end
 
 

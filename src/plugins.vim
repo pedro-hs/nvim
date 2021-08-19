@@ -251,7 +251,7 @@ au BufRead,BufEnter * :call DisablePluginsOnMerge()
 " Highlight
 fun! SetColors()
     " {{{
-    hi TabLineSel   ctermfg=fg guifg=#069e8a guibg=bg ctermbg=bg
+    hi TabLineSel   ctermfg=fg guifg=#33859E guibg=bg ctermbg=bg
     hi TabLine      cterm=bold   gui=bold guifg=#D8DEE9 ctermfg=none ctermbg=none guibg=bg
     hi TabLineFill  guifg=bg
 
@@ -272,6 +272,7 @@ endfun
 
 call SetColors()
 "  end
+
 
 " Vim Current Word
 hi CurrentWord ctermfg=7 ctermbg=10 guifg=#99d1ce guibg=#091f2e
