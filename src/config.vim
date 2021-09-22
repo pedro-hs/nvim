@@ -26,6 +26,7 @@ set foldmethod=manual
 set noshowmode
 set listchars+=tab:--,space:`
 set title
+set updatetime=50
 let &titlestring=system('echo `basename $(pwd)` \| %t - vi')
 
 au FileType html setlocal ts=2 sts=2 sw=2

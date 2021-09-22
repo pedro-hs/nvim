@@ -276,15 +276,15 @@ nnoremap <silent> <leader>dh :call GitRevision(1)<cr>
 " end
 
 
-" Open Image
-fun! OpenImage()
+" Open Image, PDF
+fun! OpenFiles()
     " {{{
-    silent !feh ls '%'
+    silent !xdg-open '%'
     silent bd
 endfun
 " }}}
 
-au BufEnter *.png,*.jpg,*.jpeg :silent! call OpenImage()
+au BufEnter *.png,*.jpg,*.jpeg,*.pdf :silent! call OpenFiles()
 " end
 
 
