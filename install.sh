@@ -5,6 +5,9 @@
 # cd nvim
 # sh install.sh && vi -c PlugInstall +qall
 
+curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+sudo apt-get install nodejs
+
 sudo apt install -y silversearcher-ag neovim python3-pip npm feh
 
 mkdir autoload
