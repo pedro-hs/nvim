@@ -6,7 +6,7 @@ vnoremap <leader>a $A
 vnoremap <leader>i 0I
 vnoremap p pgvy
 vnoremap <silent> ; <esc>:noh<cr>
-vnoremap <leader>rr :s/\%V\%V//<left><left><left><left><left>
+vnoremap <leader>rr :s/\%V\%V//g<left><left><left><left><left><left>
 " end
 
 " Command
