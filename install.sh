@@ -22,7 +22,7 @@ pip3 install flake8 isort pylint autopep8 pynvim jedi
 sudo npm install --global prettier neovim
 
 ### AFTER INSTALL
-# ALE (comment)
+# ALE (comment in autoload/ale/fix.vim)
 # execute 'echoerr ''The file was changed before fixing finished'''
 
 # NERDTREE (change in plugged/nerdtree/lib/nerdtree/flag_set.vim)
