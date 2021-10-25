@@ -7,13 +7,6 @@
 
 sudo apt install -y silversearcher-ag neovim python3-pip npm
 
-wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
-source ~/.nvm/nvm.sh
-source ~/.profile
-source ~/.bashrc
-nvm install 12
-nvm use 12
-
 mkdir autoload
 cd autoload
 wget https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
