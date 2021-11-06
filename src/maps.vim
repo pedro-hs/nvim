@@ -52,7 +52,6 @@ nnoremap <leader>zr zr
 nnoremap <leader>/ /\<\><left><left>
 nnoremap > >>
 nnoremap < <<
-
 nnoremap <silent> <c-h> :wincmd h<cr>
 nnoremap <silent> <c-l> :wincmd l<cr>
 nnoremap <silent> <c-j> :wincmd j<cr>

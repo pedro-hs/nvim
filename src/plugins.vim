@@ -168,8 +168,8 @@ call SetColors()
 
 
 " Vim Current Word
-hi CurrentWord ctermfg=7 ctermbg=10 guifg=#99d1ce guibg=#091f2e
-hi CurrentWordTwins ctermfg=7 ctermbg=12 guifg=#99d1ce guibg=#0a3749
+hi CurrentWord ctermfg=15 ctermbg=2 guifg=#d3ebe9 guibg=#2aa889
+hi CurrentWordTwins ctermfg=15 ctermbg=4 guifg=#d3ebe9 guibg=#195466
 " end
 
 
@@ -181,7 +181,7 @@ let g:loaded_netrwFileHandlers  = 1
 
 let g:fern#disable_default_mappings = 1
 
-noremap <silent> <Leader>n :Fern . -drawer -right -reveal=% -toggle -width=35<CR>
+noremap <silent> <Leader>n :Fern . -drawer -right -reveal=% -toggle -width=35<cr>
 
 fun! InitFern() abort
   nmap <buffer><expr>

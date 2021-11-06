@@ -32,7 +32,7 @@ fun! Autosave()
             silent ALEFix
             silent write
         catch
-            echo ''
+            echo
         endtry
     endif
 endfun
@@ -74,6 +74,7 @@ fun! LintStatus()
 endfun
 " }}}
 
+" {{{
 let g:basedir = system("`echo basename $(pwd)` | tr -d '\n'")
 let g:currentmode = {
             \  'n':  'Normal',   'no': 'Pending',  'v':  'Visual',   'V':  'V·Line',     "\<C-V>": 'V·Block',  's':  'Select',  'S':'S·Line',
@@ -82,26 +83,18 @@ let g:currentmode = {
             \}
 
 set laststatus=2
-set statusline=%1*                                  " color
-set statusline+=⠀⠀
+set statusline=%1*⠀⠀                                " color
 set statusline+=%{toupper(g:currentmode[mode()])}   " mode
 set statusline+=%=                                  " divider
-set statusline+=%{LintStatus()}                     " lint
-set statusline+=⠀⠀⠀⠀⠀
-set statusline+=%{g:autosave_on?'on':'off'}                    " auto-save
-set statusline+=⠀⠀⠀⠀⠀
-set statusline+=%l/%L                               " lines
-set statusline+=⠀⠀⠀⠀⠀
-set statusline+=%v                                  " column
-set statusline+=⠀⠀⠀⠀⠀
-set statusline+=%m                                  " edit-status
-set statusline+=⠀
-set statusline+=%f                                  " file
-set statusline+=⠀⠀⠀⠀⠀
-set statusline+=(%{StatusLineGit()})                " git-branch
-set statusline+=⠀⠀⠀⠀⠀
-set statusline+=[%{g:basedir}]                      " project
-set statusline+=⠀⠀⠀⠀⠀
+set statusline+=%{LintStatus()}⠀⠀⠀⠀⠀                " lint
+set statusline+=%{g:autosave_on?'on':'off'}⠀⠀⠀⠀⠀    " auto-save
+set statusline+=%l/%L⠀⠀⠀⠀⠀                          " lines
+set statusline+=%v⠀⠀⠀⠀⠀                             " column
+set statusline+=%m⠀                                 " edit-status
+set statusline+=%f⠀⠀⠀⠀⠀                             " file
+set statusline+=(%{StatusLineGit()})⠀⠀⠀⠀⠀           " git-branch
+set statusline+=[%{g:basedir}]⠀⠀⠀⠀⠀                 " project
+" }}}
 " end
 
 
@@ -172,7 +165,7 @@ fun! ToggleTerminal()
     if (exists('b:fern'))
         return
     endif
-    call RemoveTerminalBufffers()
+    call RemoveTerminalBuffers()
     let g:vim_current_word#enabled = 1
     if len(g:windows) == 0
         if len(g:buffers) == 0
@@ -230,7 +223,7 @@ fun! ConfigureTerminalWindow()
 endfun
 " }}}
 
-fun! RemoveTerminalBufffers()
+fun! RemoveTerminalBuffers()
     " {{{
     for buffer in g:buffers
         if !bufexists(buffer)
@@ -252,11 +245,9 @@ tnoremap <silent><c-h> <c-\><c-n>:exe 'wincmd h'<cr>
 tnoremap <silent><c-j> <c-\><c-n>:exe 'wincmd h'<cr>
 tnoremap <silent><leader>n <c-\><c-n>:call NewTerminal()<cr>
 tnoremap <silent><leader>i <c-\><c-n>
-tnoremap <silent><c-d> <c-\><c-n>:call RemoveTerminalBufffers()<cr>:bwipeout!<cr>
+tnoremap <silent><c-d> <c-\><c-n>:call RemoveTerminalBuffers()<cr>:bwipeout!<cr>
 
 au BufWinEnter,WinEnter term://* startinsert
-au TermEnter * setlocal scrolloff=0
-au TermLeave * let &scrolloff=999-&scrolloff
 " end
 
 
@@ -268,7 +259,7 @@ fun! ToggleGitDiff()
     if bufwinnr('_diff_') > 0
         exe bufnr('_diff_') . 'bd'
         diffthis
-        set noscrollbind nocursorbind nodiff
+        setlocal noscrollbind nocursorbind nodiff
     else
         diffthis
         vsplit '_diff_'
@@ -316,6 +307,8 @@ au BufEnter *.png,*.jpg,*.jpeg,*.pdf :silent! call OpenFiles()
 set scrolloff=5
 nnoremap <silent><leader>c :let &scrolloff=999-&scrolloff<cr>:set scrolloff?<cr>
 let &scrolloff=999-&scrolloff
+au TermEnter * setlocal scrolloff=0
+au TermLeave * let &scrolloff=999-&scrolloff
 " end
 
 
