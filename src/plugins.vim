@@ -1,26 +1,25 @@
 call plug#begin()
-Plug 'w0rp/ale'
-Plug 'APZelos/blamer.nvim'
 Plug 'rhysd/clever-f.vim'
-Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'rhysd/conflict-marker.vim'
+Plug 'lambdalisue/fern.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'Yggdroot/indentLine'
 Plug 'cohama/lexima.vim'
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & npm install', 'for': 'markdown'  }
-Plug 'scrooloose/nerdtree'
-Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins', 'for': 'python' }
 Plug 'ap/vim-buftabline'
 Plug 'tpope/vim-commentary'
 Plug 'dominikduda/vim_current_word'
 Plug 'airblade/vim-gitgutter'
 Plug 'whatyouhide/vim-gotham'
-Plug 'knubie/vim-kitty-navigator'
-Plug 'unkiwii/vim-nerdtree-sync'
 Plug 'sheerun/vim-polyglot'
 Plug 'machakann/vim-sandwich'
+
+" extra.vim
+Plug 'w0rp/ale'
+Plug 'neoclide/coc.nvim', { 'branch': 'release' }
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & npm install', 'for': 'markdown'  }
+Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins', 'for': 'python' }
+Plug 'knubie/vim-kitty-navigator'
 call plug#end()
 
 
@@ -43,113 +42,6 @@ let $FZF_DEFAULT_OPTS = '-m --bind ctrl-a:select-all,ctrl-d:deselect-all'
 " end
 
 
-" NerdTree
-let g:NERDTreeMinimalUI                = 1
-let g:NERDTreeWinPos                   = 'right'
-let g:nerdtree_sync_cursorline         = 1
-let g:NERDTreeStatusline               = '%#NonText#'
-let g:NERDTreeAutoDeleteBuffer         = 1
-let g:NERDTreeQuitOnOpen               = 1
-let g:NERDTreeMouseMode                = 3
-let g:NERDTreeMapToggleHidden          = '.'
-
-hi NERDTreeDir      ctermfg=fg guifg=#069e8a guibg=bg ctermbg=bg
-hi NERDTreeExecFile ctermfg=white
-hi NERDTreeOpenable ctermfg=white
-hi NERDTreeClosable ctermfg=fg guifg=#069e8a guibg=bg ctermbg=bg
-
-let g:NERDTreeGitStatusIndicatorMapCustom = {
-            \  'Modified'  :'M', 'Staged'    :'S', 'Untracked' :'U',
-            \  'Deleted'   :'D', 'Dirty'     :'*', 'Renamed'   :'R'
-            \}
-
-nnoremap <silent> <leader>n :NERDTreeToggle<cr>:NERDTreeRefreshRoot<cr>:wincmd h<cr>:wincmd l<cr>
-" end
-
-
-" Blamer
-let g:blamer_enabled              = 1
-let g:blamer_show_in_visual_modes = 0
-let g:blamer_delay                = 200
-" end
-
-
-" Ale
-let g:ale_sign_error              = '✘'
-let g:ale_sign_warning            = '⚬'
-let g:ale_linters_explicit        = 1
-
-let g:ale_linters = {
-            \  'python': ['flake8', 'pylint'],
-            \  'javascript': ['eslint'],
-            \  'javascriptreact': ['eslint'],
-            \  'typescript': ['eslint'],
-            \  'typescriptreact': ['eslint'],
-            \}
-
-let g:ale_fixers = {
-            \  '*': ['trim_whitespace'],
-            \  'python': ['isort', 'autopep8'],
-            \  'javascript': ['prettier'],
-            \  'javascriptreact': ['prettier'],
-            \  'typescript': ['eslint', 'tslint'],
-            \  'typescriptreact': ['eslint', 'tslint'],
-            \  'markdown': ['prettier'],
-            \}
-
-let g:ale_python_flake8_options       = '--ignore=E501,W504'
-let g:ale_python_isort_options        = '--line-length=100'
-let g:ale_python_pylint_options       = '--max-line-length 120'
-let g:ale_python_autopep8_options     = '--max-line-length 120'
-let g:ale_javascript_prettier_options = '--single-quote --print-width=140 --arrow-parens=always --trailing-comma=es5 --implicit-arrow-linebreak=beside'
-
-hi ALEWarning ctermfg=3 guifg=#edb443  ctermbg=4 guibg=#195466
-hi link ALEError ALEWarning
-hi clear ALEErrorSign
-hi clear ALEWarningSign
-" end
-
-
-" Semshi
-hi link semshiSelected ALEWarning
-hi link semshiUnresolved ALEWarning
-" end
-
-
-" Coc
-let g:coc_global_extensions = [
-            \  'coc-tsserver',
-            \  'coc-python',
-            \  'coc-yank',
-            \]
-
-nmap <leader>cd <Plug>(coc-definition)
-nmap <leader>cr <Plug>(coc-rename)
-nmap <silent> coc :CocCommand<cr>
-
-inoremap <silent><expr> <c-space> coc#refresh()
-inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-
-fun! s:show_documentation()
-    " {{{
-    if (index(['vim','help'], &filetype) >= 0)
-        exe 'h '.expand('<cword>')
-    else
-        call CocAction('doHover')
-    endif
-endfun
-" }}}
-
-if exists('*complete_info')
-    inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<c-y>" : "\<c-g>u\<cr>"
-else
-    inoremap <expr> <cr> pumvisible() ? "\<c-y>" : "\<c-g>u\<cr>"
-endif
-
-hi HighlightedyankRegion cterm=bold gui=bold ctermbg=0 guibg=#c6c8d1 guifg=#17171b
-" end
-
-
 " BufTabline
 let g:buftabline_indicators    = 1
 " end
@@ -158,20 +50,6 @@ let g:buftabline_indicators    = 1
 " Clever F
 let g:clever_f_mark_char_color = 'PmenuSel'
 " end
-
-
-" Git Gutter
-let g:gitgutter_sign_added              = '▌'
-let g:gitgutter_sign_modified           = '▌'
-let g:gitgutter_sign_removed            = '▁'
-let g:gitgutter_sign_removed_first_line = '▌'
-let g:gitgutter_sign_modified_removed   = '▌'
-
-hi GitGutterAdd          guibg=bg
-hi GitGutterChange       guibg=bg
-hi GitGutterDelete       guibg=bg
-hi GitGutterChangeDelete guibg=bg
-"  end
 
 
 " Sandwich
@@ -203,8 +81,22 @@ let g:indentLine_color_gui              = '#3B4252'
 let g:vim_json_syntax_conceal           = 0
 let g:vim_markdown_conceal              = 0
 let g:vim_markdown_conceal_code_blocks  = 0
-let g:indentLine_fileTypeExclude        = ["nerdtree"]
+let g:indentLine_fileTypeExclude        = ['fern']
 " end
+
+
+" Git Gutter
+let g:gitgutter_sign_added              = '▌'
+let g:gitgutter_sign_modified           = '▌'
+let g:gitgutter_sign_removed            = '▁'
+let g:gitgutter_sign_removed_first_line = '▌'
+let g:gitgutter_sign_modified_removed   = '▌'
+
+hi GitGutterAdd          guibg=bg
+hi GitGutterChange       guibg=bg
+hi GitGutterDelete       guibg=bg
+hi GitGutterChangeDelete guibg=bg
+"  end
 
 
 " Conflict Marker
@@ -226,7 +118,7 @@ nnoremap <leader>hn :ConflictMarkerNone<cr>
 " end
 
 
-" Git Plugins
+" Git Gutter & Conflict Marker
 nnoremap ]c :ConflictMarkerNextHunk<cr>:GitGutterNextHunk<cr>:echo ''<cr>
 nnoremap [c :ConflictMarkerPrevHunk<cr>:GitGutterPrevHunk<cr>:echo ''<cr>
 
@@ -281,12 +173,42 @@ hi CurrentWordTwins ctermfg=7 ctermbg=12 guifg=#99d1ce guibg=#0a3749
 " end
 
 
-" Vim Kitty Navigator
-let g:kitty_navigator_listening_on_address = 'unix:@mykitty'
-let g:kitty_navigator_no_mappings = 1
+" Fern
+let g:loaded_netrw              = 1
+let g:loaded_netrwPlugin        = 1
+let g:loaded_netrwSettings      = 1
+let g:loaded_netrwFileHandlers  = 1
 
-nnoremap <silent> <c-h> :KittyNavigateLeft<cr>
-nnoremap <silent> <c-j> :KittyNavigateDown<cr>
-nnoremap <silent> <c-k> :KittyNavigateUp<cr>
-nnoremap <silent> <c-l> :KittyNavigateRight<cr>
+let g:fern#disable_default_mappings = 1
+
+noremap <silent> <Leader>n :Fern . -drawer -right -reveal=% -toggle -width=35<CR>
+
+function! InitFern() abort
+  nmap <buffer><expr>
+        \ <Plug>(fern-open-expand-collapse)
+        \ fern#smart#leaf(
+        \   "\<Plug>(fern-action-open:select)",
+        \   "\<Plug>(fern-action-expand)",
+        \   "\<Plug>(fern-action-collapse)",
+        \ )
+
+  nmap <buffer> x <Plug>(fern-action-collapse)
+  nmap <buffer> o <Plug>(fern-open-expand-collapse)
+  nmap <buffer> O <Plug>(fern-action-open:vsplit)
+  nmap <buffer> a <Plug>(fern-action-new-path)
+  nmap <buffer> d <Plug>(fern-action-remove)
+  nmap <buffer> r <Plug>(fern-action-move)
+  nmap <buffer> . <Plug>(fern-action-hidden:toggle)
+  nmap <buffer> b <Plug>(fern-action-focus:parent)
+  nmap <buffer><nowait> < <Plug>(fern-action-leave)
+  nmap <buffer><nowait> > <Plug>(fern-action-enter)
+
+  nmap <buffer> <space> <Plug>(fern-action-mark:toggle)j
+  nmap <buffer> n <Plug>(fern-action-diff:select)
+endfunction
+
+augroup FernCustom
+  au!
+  au FileType fern setlocal norelativenumber | setlocal nonumber | call InitFern()
+augroup END
 " end

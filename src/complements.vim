@@ -23,29 +23,15 @@ nnoremap <leader>xh :call ToggleHex()<cr>
 
 
 " Autosave
-let g:auto_save_status = '↻   '
-
-fun! Autosave()
-    " {{{
-    if empty(&buftype) && g:auto_save_status == '↻   '
-        try
-            silent ALEFix
-            silent write
-        catch
-            echo ''
-        endtry
-    endif
-endfun
-" }}}
+let g:auto_save_status = '↻'
 
 fun! ToggleAutosave()
     " {{{
-    let g:auto_save_status = g:auto_save_status == '↻   ' ? '⇄   ' : '↻   '
+    let g:auto_save_status = g:auto_save_status == '↻' ? '⇄' : '↻'
 endfun
 " }}}
 
-au InsertLeave * call Autosave()
-au TextChanged * call Autosave()
+au TextChanged,InsertLeave * if empty(&buftype) && g:auto_save_status == '↻' | silent write | silent ALEFix | endif
 
 nnoremap <silent><leader>xs :call ToggleAutosave()<cr>
 nnoremap <silent><leader>p :call ToggleAutosave()<cr>a<space><esc>p`[:call ToggleAutosave()<cr>:w<cr>
@@ -56,16 +42,16 @@ nnoremap <silent><leader>p :call ToggleAutosave()<cr>a<space><esc>p`[:call Toggl
 fun! StatusLineGit()
     " {{{
     let l:branchname = system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
-    return strlen(l:branchname) > 0 ? ' ('.l:branchname.')' : ''
+    return strlen(l:branchname) > 0 ? l:branchname : ''
 endfun
 " }}}
 
-fun! LinterStatus()
+fun! LintStatus()
     " {{{
     let l:counts = ale#statusline#Count(bufnr(''))
     let l:all_errors = l:counts.error + l:counts.style_error
     let l:all_warnings = l:counts.total - l:all_errors
-    return l:counts.total == 0 ? '' : printf('%dW %dE   ', all_warnings, all_errors)
+    return l:counts.total == 0 ? '' : printf('%dW %dE', all_warnings, all_errors)
 endfun
 " }}}
 
@@ -77,7 +63,26 @@ let g:currentmode = {
             \}
 
 set laststatus=2
-set statusline=%1*\ %{toupper(g:currentmode[mode()])}%=%<%10{g:auto_save_status}%10{LinterStatus()}%10f%10{StatusLineGit()}%10l/%L%5v%20{g:basedir}
+set statusline=%1*                                  " color
+set statusline+=⠀⠀
+set statusline+=%{toupper(g:currentmode[mode()])}   " mode
+set statusline+=%=                                  " divider
+set statusline+=%{LintStatus()}                     " lint
+set statusline+=⠀⠀⠀⠀⠀
+set statusline+=%{g:auto_save_status}               " auto-save
+set statusline+=⠀⠀⠀⠀⠀
+set statusline+=%l/%L                               " lines
+set statusline+=⠀⠀⠀⠀⠀
+set statusline+=%v                                  " column
+set statusline+=⠀⠀⠀⠀⠀\|
+set statusline+=%m                                  " edit-status
+set statusline+=⠀⠀
+set statusline+=%f                                  " file
+set statusline+=⠀⠀⠀⠀⠀
+set statusline+=(%{StatusLineGit()})                " git-branch
+set statusline+=⠀⠀⠀⠀⠀
+set statusline+=[%{g:basedir}]                      " project
+set statusline+=⠀⠀
 " end
 
 
@@ -145,7 +150,7 @@ let g:buffers = []
 
 fun! ToggleTerminal()
     " {{{
-    if (exists('b:NERDTree'))
+    if (exists('b:fern'))
         return
     endif
     call RemoveTerminalBufffers()
