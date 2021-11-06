@@ -27,7 +27,7 @@ let g:auto_save_status = '↻'
 
 fun! Autosave()
     " {{{
-    if empty(&buftype) && g:auto_save_status == '↻   '
+    if empty(&buftype) && g:auto_save_status == '↻'
         try
             silent ALEFix
             silent write
