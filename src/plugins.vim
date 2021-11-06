@@ -127,16 +127,16 @@ fun! DisablePluginsOnMerge()
     if filereadable(expand('%:p')) && match(readfile(expand('%:p')), g:conflict_marker_begin) != -1
         let g:indentLine_enabled = 0
         let g:ale_set_highlights = 0
-        let g:auto_save_status = '⇄   '
+        let g:autosave_on = 0
     else
         let g:indentLine_enabled = 1
         let g:ale_set_highlights = 1
-        let g:auto_save_status = '↻   '
+        let g:autosave_on = 1
     endif
 endfun
 " }}}
 
-au BufRead,BufEnter * :call DisablePluginsOnMerge()
+au BufEnter * :call DisablePluginsOnMerge()
 " end
 
 

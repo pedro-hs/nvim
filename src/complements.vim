@@ -22,12 +22,12 @@ nnoremap <leader>xh :call ToggleHex()<cr>
 " end
 
 
-" Autosave
-let g:auto_save_status = '↻'
+" Autosave (depends ale)
+let g:autosave_on = 1
 
 fun! Autosave()
     " {{{
-    if empty(&buftype) && g:auto_save_status == '↻'
+    if empty(&buftype) && g:autosave_on == 1
         try
             silent ALEFix
             silent write
@@ -40,7 +40,7 @@ endfun
 
 fun! ToggleAutosave()
     " {{{
-    let g:auto_save_status = g:auto_save_status == '↻' ? '⇄' : '↻'
+    let g:autosave_on = !g:autosave_on
 endfun
 " }}}
 
@@ -51,7 +51,7 @@ nnoremap <silent><leader>p :call ToggleAutosave()<cr>a<space><esc>p`[:call Toggl
 " end
 
 
-" Status Line
+" Status Line (depends ale)
 fun! StatusLineGit()
     " {{{
     let l:branchname = system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
@@ -88,7 +88,7 @@ set statusline+=%{toupper(g:currentmode[mode()])}   " mode
 set statusline+=%=                                  " divider
 set statusline+=%{LintStatus()}                     " lint
 set statusline+=⠀⠀⠀⠀⠀
-set statusline+=%{g:auto_save_status}               " auto-save
+set statusline+=%{g:autosave_on?'on':'off'}                    " auto-save
 set statusline+=⠀⠀⠀⠀⠀
 set statusline+=%l/%L                               " lines
 set statusline+=⠀⠀⠀⠀⠀
@@ -163,7 +163,7 @@ nnoremap <leader>ra :silent! ReplaceAll %s///<left><left><c-r>"<right>
 " end
 
 
-" Terminal
+" Terminal (depends vim current word)
 let g:windows = []
 let g:buffers = []
 
