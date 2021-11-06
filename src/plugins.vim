@@ -183,7 +183,7 @@ let g:fern#disable_default_mappings = 1
 
 noremap <silent> <Leader>n :Fern . -drawer -right -reveal=% -toggle -width=35<CR>
 
-function! InitFern() abort
+fun! InitFern() abort
   nmap <buffer><expr>
         \ <Plug>(fern-open-expand-collapse)
         \ fern#smart#leaf(
@@ -205,10 +205,10 @@ function! InitFern() abort
 
   nmap <buffer> <space> <Plug>(fern-action-mark:toggle)j
   nmap <buffer> n <Plug>(fern-action-diff:select)
-endfunction
+endfun
 
 augroup FernCustom
   au!
-  au FileType fern setlocal norelativenumber | setlocal nonumber | call InitFern()
+  au FileType fern setlocal norelativenumber | setlocal nonumber | call HideStatusLine() | call InitFern()
 augroup END
 " end

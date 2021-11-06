@@ -25,13 +25,26 @@ nnoremap <leader>xh :call ToggleHex()<cr>
 " Autosave
 let g:auto_save_status = '↻'
 
+fun! Autosave()
+    " {{{
+    if empty(&buftype) && g:auto_save_status == '↻   '
+        try
+            silent ALEFix
+            silent write
+        catch
+            echo ''
+        endtry
+    endif
+endfun
+" }}}
+
 fun! ToggleAutosave()
     " {{{
     let g:auto_save_status = g:auto_save_status == '↻' ? '⇄' : '↻'
 endfun
 " }}}
 
-au TextChanged,InsertLeave * if empty(&buftype) && g:auto_save_status == '↻' | silent write | silent ALEFix | endif
+au TextChanged,InsertLeave * call Autosave()
 
 nnoremap <silent><leader>xs :call ToggleAutosave()<cr>
 nnoremap <silent><leader>p :call ToggleAutosave()<cr>a<space><esc>p`[:call ToggleAutosave()<cr>:w<cr>
@@ -43,6 +56,12 @@ fun! StatusLineGit()
     " {{{
     let l:branchname = system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
     return strlen(l:branchname) > 0 ? l:branchname : ''
+endfun
+" }}}
+
+fun! HideStatusLine()
+    " {{{
+    let &l:statusline='%1*%{getline(line("w$")+1)}'
 endfun
 " }}}
 
@@ -74,15 +93,15 @@ set statusline+=⠀⠀⠀⠀⠀
 set statusline+=%l/%L                               " lines
 set statusline+=⠀⠀⠀⠀⠀
 set statusline+=%v                                  " column
-set statusline+=⠀⠀⠀⠀⠀\|
+set statusline+=⠀⠀⠀⠀⠀
 set statusline+=%m                                  " edit-status
-set statusline+=⠀⠀
+set statusline+=⠀
 set statusline+=%f                                  " file
 set statusline+=⠀⠀⠀⠀⠀
 set statusline+=(%{StatusLineGit()})                " git-branch
 set statusline+=⠀⠀⠀⠀⠀
 set statusline+=[%{g:basedir}]                      " project
-set statusline+=⠀⠀
+set statusline+=⠀⠀⠀⠀⠀
 " end
 
 
@@ -96,7 +115,7 @@ fun! ToggleCenterMode()
         else
             exe 'topleft' ((&columns - &textwidth) / 4) . 'vsplit _center_'
             setlocal nocursorline nonumber norelativenumber nomodifiable nobuflisted buftype=nofile
-            let &l:statusline='%1*%{getline(line("w$")+1)}'
+            call HideStatusLine()
             wincmd p
             setlocal noequalalways
         endif
@@ -256,7 +275,7 @@ fun! ToggleGitDiff()
         exe "r!git show ".(!"<args>" ? 'HEAD~' . g:revision_version : "<args>") . ":" . expand('#') | 1d_
         setlocal buftype=nofile nomodifiable nobuflisted norelativenumber
         let &filetype=getbufvar('#', '&filetype')
-        let &l:statusline='%1*%{getline(line("w$")+1)}'
+        call HideStatusLine()
         diffthis
         wincmd h
     endif
