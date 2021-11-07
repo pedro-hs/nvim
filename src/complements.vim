@@ -221,7 +221,7 @@ au TermLeave * let &scrolloff=999-&scrolloff
 " end
 
 
-" Visual Replace
+" Visual Search
 fun! s:GetSelectedText()
     " {{{
     let l:old_register = getreg('"')
@@ -234,7 +234,6 @@ fun! s:GetSelectedText()
 endfun
 " }}}
 
-vnoremap <leader>rr                 :s/\%V\%V//g<left><left><left><left><left><left>
 vnoremap <silent> * :call setreg("/", substitute(<SID>GetSelectedText(), '\_s\+', '\\_s\\+', 'g'))<cr>nN
 " end
 
