@@ -1,3 +1,6 @@
+### EXECUTE WITHOUT PLUGINS
+# vim file.txt --cmd "let MINIMAL=1"
+
 ### RUN
 # cd ~/.config
 # sudo rm -rf nvim
