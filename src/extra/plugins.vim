@@ -7,7 +7,6 @@ Plug 'junegunn/fzf.vim'
 Plug 'Yggdroot/indentLine' " TODO
 Plug 'cohama/lexima.vim' " TODO
 Plug 'ap/vim-buftabline' " TODO
-Plug 'tpope/vim-commentary' " TODO
 Plug 'dominikduda/vim_current_word' " TODO
 Plug 'airblade/vim-gitgutter'
 Plug 'whatyouhide/vim-gotham'

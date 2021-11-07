@@ -232,3 +232,53 @@ endfun
 
 vnoremap <silent> * :call setreg("/", substitute(<SID>GetSelectedText(), '\_s\+', '\\_s\\+', 'g'))<cr>nN
 " end
+
+
+" Comment
+fun! ToggleComment()
+    " {{{
+    let l:commentstring = GetCommentString()
+    if match(getline("."), "^\\s*" . l:commentstring[0]) == 0
+        call Uncomment()
+    else
+        call Comment()
+    endif
+endfun
+" }}}
+
+fun! GetCommentString()
+    " {{{
+    let l:commentstring = split(&commentstring, "%s")
+    let l:commentstring_result = []
+    for item in l:commentstring
+        call add(l:commentstring_result, escape(item, '\\/.*$^~[]'))
+    endfor
+    return l:commentstring_result
+endfun
+" }}}
+
+fun! Comment()
+    " {{{
+    let l:commentstring = split(&commentstring, "%s")
+    let l:commentstring_end = get(l:commentstring, 1, '')
+    let l:commentstring_end = l:commentstring_end != '' ? ' ' . l:commentstring_end : ''
+    let l:line = getline('.')
+    let l:whitespaces = match(l:line, '\S')
+    call setline('.', repeat(' ', l:whitespaces) . l:commentstring[0] . ' ' . trim(l:line) . l:commentstring_end)
+endfun
+" }}}
+
+fun! Uncomment()
+    " {{{
+    let l:commentstring = GetCommentString()
+    call setline('.', substitute(getline('.'), l:commentstring[0] . ' ', '', 'g'))
+
+    if len(l:commentstring) == 2
+        call setline('.', substitute(getline('.'), ' ' . l:commentstring[1], '', 'g'))
+    endif
+endfun
+" }}}
+
+nnoremap <silent><leader>b :call ToggleComment()<cr>
+vnoremap <silent><leader>b :call ToggleComment()<cr>
+" end

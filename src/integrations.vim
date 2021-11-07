@@ -20,7 +20,8 @@ fun! ToggleHex()
 endfun
 " }}}
 
-nnoremap <leader>xh :call ToggleHex()<cr> " end
+nnoremap <leader>xh :call ToggleHex()<cr>
+" end
 
 
 " Git Complements
