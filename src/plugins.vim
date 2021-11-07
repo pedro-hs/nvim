@@ -160,9 +160,9 @@ fun! ThemeColors()
     hi DiffDelete   ctermbg=158 ctermfg=158 guifg=#9e4141 guibg=#9e4141
     hi Visual       ctermbg=236 guibg=#3d425b
 endfun
-" }}}
 
 call ThemeColors()
+" }}}
 "  end
 
 

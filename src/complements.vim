@@ -8,7 +8,11 @@ fun! Autosave()
             silent ALEFix
             silent write
         catch
-            echo
+            try
+                silent write
+            catch
+                echo
+            endtry
         endtry
     endif
 endfun
@@ -282,3 +286,20 @@ endfun
 nnoremap <silent><leader>b :call ToggleComment()<cr>
 vnoremap <silent><leader>b :call ToggleComment()<cr>
 " end
+
+
+" Dir Colors
+fun! DirColors()
+    " {{{
+    set fillchars+=vert:\⠀
+    hi ColorColumn ctermbg=8 guibg=#11151c
+    hi VertSplit cterm=none
+    hi CursorLine cterm=none
+endfun
+
+if exists('MINIMAL')
+    call DirColors()
+endif
+" }}}
+" end
+
