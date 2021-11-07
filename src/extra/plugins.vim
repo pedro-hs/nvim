@@ -1,14 +1,14 @@
 call plug#begin()
-Plug 'rhysd/clever-f.vim'
-Plug 'rhysd/conflict-marker.vim'
+Plug 'rhysd/clever-f.vim' " TODO
+Plug 'rhysd/conflict-marker.vim' " TODO
 Plug 'lambdalisue/fern.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'Yggdroot/indentLine'
-Plug 'cohama/lexima.vim'
-Plug 'ap/vim-buftabline'
-Plug 'tpope/vim-commentary'
-Plug 'dominikduda/vim_current_word'
+Plug 'Yggdroot/indentLine' " TODO
+Plug 'cohama/lexima.vim' " TODO
+Plug 'ap/vim-buftabline' " TODO
+Plug 'tpope/vim-commentary' " TODO
+Plug 'dominikduda/vim_current_word' " TODO
 Plug 'airblade/vim-gitgutter'
 Plug 'whatyouhide/vim-gotham'
 Plug 'sheerun/vim-polyglot'
@@ -44,6 +44,10 @@ let $FZF_DEFAULT_OPTS = '-m --bind ctrl-a:select-all,ctrl-d:deselect-all'
 
 " BufTabline
 let g:buftabline_indicators    = 1
+
+hi TabLineSel   ctermfg=fg guifg=#33859E guibg=bg ctermbg=bg
+hi TabLine      cterm=bold   gui=bold guifg=#D8DEE9 ctermfg=none ctermbg=none guibg=bg
+hi TabLineFill  guifg=bg
 " end
 
 
@@ -140,13 +144,9 @@ au BufEnter * :call DisablePluginsOnMerge()
 " end
 
 
-" Highlight
-fun! SetColors()
+" Theme Colors
+fun! ThemeColors()
     " {{{
-    hi TabLineSel   ctermfg=fg guifg=#33859E guibg=bg ctermbg=bg
-    hi TabLine      cterm=bold   gui=bold guifg=#D8DEE9 ctermfg=none ctermbg=none guibg=bg
-    hi TabLineFill  guifg=bg
-
     hi LineNr       ctermbg=bg  guibg=bg
     hi SignColumn   ctermbg=bg  guibg=bg
     hi VertSplit    guifg=bg    guibg=bg
@@ -163,7 +163,7 @@ fun! SetColors()
 endfun
 " }}}
 
-call SetColors()
+call ThemeColors()
 "  end
 
 
@@ -174,17 +174,13 @@ hi CurrentWordTwins ctermfg=15 ctermbg=4 guifg=#d3ebe9 guibg=#195466
 
 
 " Fern
-let g:loaded_netrw              = 1
-let g:loaded_netrwPlugin        = 1
-let g:loaded_netrwSettings      = 1
-let g:loaded_netrwFileHandlers  = 1
-
 let g:fern#disable_default_mappings = 1
 
 noremap <silent> <Leader>n :Fern . -drawer -right -reveal=% -toggle -width=35<cr>
 
 fun! InitFern() abort
-  nmap <buffer><expr>
+    " {{{
+    nmap <buffer><expr>
         \ <Plug>(fern-open-expand-collapse)
         \ fern#smart#leaf(
         \   "\<Plug>(fern-action-open:select)",
@@ -192,23 +188,24 @@ fun! InitFern() abort
         \   "\<Plug>(fern-action-collapse)",
         \ )
 
-  nmap <buffer> x <Plug>(fern-action-collapse)
-  nmap <buffer> o <Plug>(fern-open-expand-collapse)
-  nmap <buffer> O <Plug>(fern-action-open:vsplit)
-  nmap <buffer> a <Plug>(fern-action-new-path)
-  nmap <buffer> d <Plug>(fern-action-remove)
-  nmap <buffer> r <Plug>(fern-action-move)
-  nmap <buffer> . <Plug>(fern-action-hidden:toggle)
-  nmap <buffer> b <Plug>(fern-action-focus:parent)
-  nmap <buffer><nowait> < <Plug>(fern-action-leave)
-  nmap <buffer><nowait> > <Plug>(fern-action-enter)
+    nmap <buffer> x <Plug>(fern-action-collapse)
+    nmap <buffer> o <Plug>(fern-open-expand-collapse)
+    nmap <buffer> O <Plug>(fern-action-open:vsplit)
+    nmap <buffer> a <Plug>(fern-action-new-path)
+    nmap <buffer> d <Plug>(fern-action-remove)
+    nmap <buffer> r <Plug>(fern-action-move)
+    nmap <buffer> . <Plug>(fern-action-hidden:toggle)
+    nmap <buffer> b <Plug>(fern-action-focus:parent)
+    nmap <buffer><nowait> < <Plug>(fern-action-leave)
+    nmap <buffer><nowait> > <Plug>(fern-action-enter)
 
-  nmap <buffer> <space> <Plug>(fern-action-mark:toggle)j
-  nmap <buffer> n <Plug>(fern-action-diff:select)
+    nmap <buffer> <space> <Plug>(fern-action-mark:toggle)j
+    nmap <buffer> n <Plug>(fern-action-diff:select)
 endfun
+" }}}
 
 augroup FernCustom
-  au!
-  au FileType fern setlocal norelativenumber | setlocal nonumber | call HideStatusLine() | call InitFern()
+    au!
+    au FileType fern setlocal norelativenumber | setlocal nonumber | call HideStatusLine() | call InitFern()
 augroup END
 " end

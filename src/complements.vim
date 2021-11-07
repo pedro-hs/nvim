@@ -1,27 +1,3 @@
-" Hexadecimal
-fun! ToggleHex()
-    " {{{
-    if !exists('b:isHex') || !b:isHex
-        setlocal binary
-        silent :e
-        let b:isHex=1
-        %!xxd
-        setlocal nomodifiable
-        syntax off
-    else
-        setlocal nobinary modifiable
-        let b:isHex=0
-        %!xxd -r
-        syntax on
-        call SetColors()
-    endif
-endfun
-" }}}
-
-nnoremap <leader>xh :call ToggleHex()<cr>
-" end
-
-
 " Autosave (depends ale)
 let g:autosave_on = 1
 
@@ -51,26 +27,10 @@ nnoremap <silent><leader>p :call ToggleAutosave()<cr>a<space><esc>p`[:call Toggl
 " end
 
 
-" Status Line (depends ale)
-fun! StatusLineGit()
-    " {{{
-    let l:branchname = system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
-    return strlen(l:branchname) > 0 ? l:branchname : ''
-endfun
-" }}}
-
+" Status Line
 fun! HideStatusLine()
     " {{{
     let &l:statusline='%1*%{getline(line("w$")+1)}'
-endfun
-" }}}
-
-fun! LintStatus()
-    " {{{
-    let l:counts = ale#statusline#Count(bufnr(''))
-    let l:all_errors = l:counts.error + l:counts.style_error
-    let l:all_warnings = l:counts.total - l:all_errors
-    return l:counts.total == 0 ? '' : printf('%dW %dE', all_warnings, all_errors)
 endfun
 " }}}
 
@@ -86,32 +46,31 @@ set laststatus=2
 set statusline=%1*⠀⠀                                " color
 set statusline+=%{toupper(g:currentmode[mode()])}   " mode
 set statusline+=%=                                  " divider
-set statusline+=%{LintStatus()}⠀⠀⠀⠀⠀                " lint
 set statusline+=%{g:autosave_on?'on':'off'}⠀⠀⠀⠀⠀    " auto-save
 set statusline+=%l/%L⠀⠀⠀⠀⠀                          " lines
 set statusline+=%v⠀⠀⠀⠀⠀                             " column
 set statusline+=%m⠀                                 " edit-status
 set statusline+=%f⠀⠀⠀⠀⠀                             " file
-set statusline+=(%{StatusLineGit()})⠀⠀⠀⠀⠀           " git-branch
 set statusline+=[%{g:basedir}]⠀⠀⠀⠀⠀                 " project
 " }}}
 " end
 
 
-" Center Mode
+" Center Mode (depends git diff)
 fun! ToggleCenterMode()
     " {{{
-    if bufwinnr('_diff_') <= 0
-        if bufwinnr('_center_') > 0
-            exe bufnr('_center_') . 'bd'
-            setlocal noequalalways! cursorline
-        else
-            exe 'topleft' ((&columns - &textwidth) / 4) . 'vsplit _center_'
-            setlocal nocursorline nonumber norelativenumber nomodifiable nobuflisted buftype=nofile
-            call HideStatusLine()
-            wincmd p
-            setlocal noequalalways
-        endif
+    if bufwinnr('_diff_') > 0
+        return
+    endif
+    if bufwinnr('_center_') > 0
+        exe bufnr('_center_') . 'bd'
+        setlocal noequalalways! cursorline
+    else
+        exe 'topleft' ((&columns - &textwidth) / 4) . 'vsplit _center_'
+        setlocal nocursorline nonumber norelativenumber nomodifiable nobuflisted buftype=nofile
+        call HideStatusLine()
+        wincmd p
+        setlocal noequalalways
     endif
 endfun
 " }}}
@@ -156,25 +115,23 @@ nnoremap <leader>ra :silent! ReplaceAll %s///<left><left><c-r>"<right>
 " end
 
 
-" Terminal (depends vim current word)
+" Terminal (depends vim current word and fern)
 let g:windows = []
 let g:buffers = []
 
 fun! ToggleTerminal()
     " {{{
-    if (exists('b:fern'))
+    if exists('b:fern')
         return
     endif
     call RemoveTerminalBuffers()
-    let g:vim_current_word#enabled = 1
     if len(g:windows) == 0
+        let g:vim_current_word#enabled = 0
         if len(g:buffers) == 0
-            let g:vim_current_word#enabled = 0
             split | term
             call add(g:buffers, bufnr('$'))
             call ConfigureTerminalWindow()
         else
-            let g:vim_current_word#enabled = 0
             exe 'sbuffer' . g:buffers[0]
             call ConfigureTerminalWindow()
             for buffer in g:buffers[1:-1]
@@ -248,58 +205,6 @@ tnoremap <silent><leader>i <c-\><c-n>
 tnoremap <silent><c-d> <c-\><c-n>:call RemoveTerminalBuffers()<cr>:bwipeout!<cr>
 
 au BufWinEnter,WinEnter term://* startinsert
-" end
-
-
-" Git Complements
-let g:revision_version = 0
-
-fun! ToggleGitDiff()
-    " {{{
-    if bufwinnr('_diff_') > 0
-        exe bufnr('_diff_') . 'bd'
-        diffthis
-        setlocal noscrollbind nocursorbind nodiff
-    else
-        diffthis
-        vsplit '_diff_'
-        exe "r!git show ".(!"<args>" ? 'HEAD~' . g:revision_version : "<args>") . ":" . expand('#') | 1d_
-        setlocal buftype=nofile nomodifiable nobuflisted norelativenumber
-        let &filetype=getbufvar('#', '&filetype')
-        call HideStatusLine()
-        diffthis
-        wincmd h
-    endif
-endfun
-" }}}
-
-fun! GitRevision(...)
-    " {{{
-    if bufwinnr('_diff_') > 0
-        call ToggleGitDiff()
-    endif
-    let g:revision_version = get(a:, 1, 0) ? g:revision_version + 1 : g:revision_version - 1
-    let g:revision_version = g:revision_version >= 0 ? g:revision_version : 0
-    call ToggleGitDiff()
-    echo 'Revision ' . g:revision_version
-endfun
-" }}}
-
-nnoremap <silent> <leader>df :let g:revision_version=0<cr>:call ToggleGitDiff()<cr>
-nnoremap <silent> <leader>dl :call GitRevision()<cr>
-nnoremap <silent> <leader>dh :call GitRevision(1)<cr>
-" end
-
-
-" Open Image, PDF
-fun! OpenFiles()
-    " {{{
-    silent !xdg-open '%'
-    silent bd
-endfun
-" }}}
-
-au BufEnter *.png,*.jpg,*.jpeg,*.pdf :silent! call OpenFiles()
 " end
 
 

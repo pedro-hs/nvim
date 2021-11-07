@@ -31,6 +31,18 @@ hi ALEWarning ctermfg=3 guifg=#edb443  ctermbg=4 guibg=#195466
 hi link ALEError ALEWarning
 hi clear ALEErrorSign
 hi clear ALEWarningSign
+
+
+fun! LintStatus()
+    " {{{
+    let l:counts = ale#statusline#Count(bufnr(''))
+    let l:all_errors = l:counts.error + l:counts.style_error
+    let l:all_warnings = l:counts.total - l:all_errors
+    return l:counts.total == 0 ? '' : printf('%dW %dE     ', all_warnings, all_errors)
+endfun
+" }}}
+
+set statusline+=%{LintStatus()}
 " end
 
 
@@ -56,7 +68,7 @@ inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 
 fun! s:show_documentation()
     " {{{
-    if (index(['vim','help'], &filetype) >= 0)
+    if index(['vim','help'], &filetype) >= 0
         exe 'h '.expand('<cword>')
     else
         call CocAction('doHover')

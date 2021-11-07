@@ -29,7 +29,6 @@ set title
 set updatetime=50
 let &titlestring=system('echo `basename $(pwd)` \| %t - vi')
 
-au FileType html setlocal ts=2 sts=2 sw=2
 au FileType vim set foldmethod=marker
 au BufReadPost quickfix nnoremap <buffer> <cr> <cr>
 au InsertLeave * set nolist relativenumber
