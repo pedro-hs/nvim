@@ -113,7 +113,7 @@ if exists('MINIMAL')
     endfunction
     " }}}
 
-    nmap <leader>n :call ToggleNetrw()<cr>
+    nmap <silent><leader>n :call ToggleNetrw()<cr>
 else
     let g:loaded_netrw              = 1
     let g:loaded_netrwPlugin        = 1

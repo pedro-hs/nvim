@@ -3,6 +3,6 @@ source $HOME/.config/nvim/src/maps.vim
 source $HOME/.config/nvim/src/complements.vim
 source $HOME/.config/nvim/src/integrations.vim
 if !exists('MINIMAL')
-    source $HOME/.config/nvim/src/extra/plugins.vim
-    source $HOME/.config/nvim/src/extra/extra.vim
+    source $HOME/.config/nvim/src/plugins.vim
+    source $HOME/.config/nvim/src/extra.vim
 endif
