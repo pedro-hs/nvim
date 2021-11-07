@@ -1,6 +1,5 @@
 call plug#begin()
-Plug 'rhysd/clever-f.vim' " TODO
-Plug 'rhysd/conflict-marker.vim' " TODO
+Plug 'rhysd/conflict-marker.vim'
 Plug 'lambdalisue/fern.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
@@ -167,7 +166,7 @@ call ThemeColors()
 
 
 " Vim Current Word
-hi CurrentWord ctermfg=15 ctermbg=2 guifg=#d3ebe9 guibg=#2aa889
+hi CurrentWord ctermfg=15 ctermbg=4 guifg=#d3ebe9 guibg=#195466
 hi CurrentWordTwins ctermfg=15 ctermbg=4 guifg=#d3ebe9 guibg=#195466
 " end
 

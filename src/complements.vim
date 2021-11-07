@@ -242,7 +242,7 @@ vnoremap <silent> * :call setreg("/", substitute(<SID>GetSelectedText(), '\_s\+'
 fun! ToggleComment()
     " {{{
     let l:commentstring = GetCommentString()
-    if match(getline("."), "^\\s*" . l:commentstring[0]) == 0
+    if match(getline('.'), "^\\s*" . l:commentstring[0]) == 0
         call Uncomment()
     else
         call Comment()
@@ -298,9 +298,33 @@ fun! DirColors()
     hi FoldColumn   ctermfg=none ctermbg=none
     hi Folded       ctermfg=none ctermbg=none
 endfun
+" }}}
 
 if exists('MINIMAL')
     call DirColors()
 endif
+" end
+
+
+" Highlight Yank
+fun! HighlightYank() abort
+    " {{{
+    let [begin_line, end_line, begin_column, end_column] = [line("'["), line("']"), col("'["), col("']")]
+    if begin_line == end_line
+        let yank_index = [[begin_line, begin_column, end_column - begin_column + 1]]
+    else
+        let yank_index = [[begin_line, begin_column, col([begin_line, '$']) - begin_column]] + range(begin_line + 1, end_line - 1) + [[end_line, 1, end_column]]
+    endif
+    for chunk in range(0, len(yank_index), 8)
+        call matchaddpos('Search', yank_index[chunk:chunk + 7])
+    endfor
+    redraw!
+    call timer_start(300, {t_id -> clearmatches()})
+endfun
 " }}}
+
+augroup HiYank
+    autocmd!
+    autocmd TextYankPost * if v:event.operator ==# 'y' | call HighlightYank() | endif
+augroup END
 " end

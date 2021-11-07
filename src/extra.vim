@@ -56,7 +56,6 @@ hi link semshiUnresolved ALEWarning
 let g:coc_global_extensions = [
             \  'coc-tsserver',
             \  'coc-python',
-            \  'coc-yank',
             \]
 
 nmap <leader>cd <Plug>(coc-definition)
