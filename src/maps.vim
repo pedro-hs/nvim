@@ -83,7 +83,6 @@ vnoremap <leader>k                  $h
 vnoremap <leader>o                  %
 vnoremap <leader>a                  $A
 vnoremap <leader>i                  0I
-vnoremap <leader>rr                 :s/\%V\%V//g<left><left><left><left><left><left>
 " end
 
 

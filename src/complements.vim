@@ -221,7 +221,7 @@ au TermLeave * let &scrolloff=999-&scrolloff
 " end
 
 
-" Visual Search
+" Visual Replace
 fun! s:GetSelectedText()
     " {{{
     let l:old_register = getreg('"')
@@ -234,6 +234,7 @@ fun! s:GetSelectedText()
 endfun
 " }}}
 
+vnoremap <leader>rr                 :s/\%V\%V//g<left><left><left><left><left><left>
 vnoremap <silent> * :call setreg("/", substitute(<SID>GetSelectedText(), '\_s\+', '\\_s\\+', 'g'))<cr>nN
 " end
 
@@ -295,6 +296,8 @@ fun! DirColors()
     hi ColorColumn ctermbg=8 guibg=#11151c
     hi VertSplit cterm=none
     hi CursorLine cterm=none
+    hi FoldColumn   ctermfg=none ctermbg=none
+    hi Folded       ctermfg=none ctermbg=none
 endfun
 
 if exists('MINIMAL')
@@ -302,4 +305,3 @@ if exists('MINIMAL')
 endif
 " }}}
 " end
-

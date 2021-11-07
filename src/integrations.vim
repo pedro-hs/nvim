@@ -15,7 +15,9 @@ fun! ToggleHex()
         let b:isHex=0
         %!xxd -r
         syntax on
-        call ThemeColors()
+        if exists('MINIMAL')
+            call ThemeColors()
+        endif
     endif
 endfun
 " }}}
@@ -113,7 +115,7 @@ if exists('MINIMAL')
     endfunction
     " }}}
 
-    nmap <silent><leader>n :call ToggleNetrw()<cr>
+    nnoremap <silent><leader>n :call ToggleNetrw()<cr>
 else
     let g:loaded_netrw              = 1
     let g:loaded_netrwPlugin        = 1
