@@ -3,7 +3,7 @@ Plug 'rhysd/conflict-marker.vim'
 Plug 'lambdalisue/fern.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'Yggdroot/indentLine' " TODO
+Plug 'Yggdroot/indentLine'
 Plug 'cohama/lexima.vim' " TODO
 Plug 'ap/vim-buftabline' " TODO
 Plug 'airblade/vim-gitgutter'
@@ -48,11 +48,6 @@ hi TabLineFill  guifg=bg
 " end
 
 
-" Clever F
-let g:clever_f_mark_char_color = 'PmenuSel'
-" end
-
-
 " Sandwich
 let g:sandwich_no_default_key_mappings = 1
 let g:operator_sandwich_no_default_key_mappings = 1
@@ -66,13 +61,15 @@ let g:sandwich#recipes = [
             \ {'buns': ['{ ', ' }'], 'nesting': 1, 'match_syntax': 1, 'input': ['}'] },
             \ {'buns': ['< ', ' >'], 'nesting': 1, 'match_syntax': 1, 'input': ['>'] },
             \ ]
-silent! nmap <unique> ca <Plug>(operator-sandwich-add)
-silent! xmap <unique> ca <Plug>(operator-sandwich-add)
-silent! omap <unique> ca <Plug>(operator-sandwich-g@)
+
 nmap cr <Plug>(operator-sandwich-replace)<Plug>(operator-sandwich-release-count)<Plug>(textobj-sandwich-query-a)
 xmap cr <Plug>(operator-sandwich-replace)
 nmap cd <Plug>(operator-sandwich-delete)<Plug>(operator-sandwich-release-count)<Plug>(textobj-sandwich-query-a)
 xmap cd <Plug>(operator-sandwich-delete)
+
+silent! nmap <unique> ca <Plug>(operator-sandwich-add)
+silent! xmap <unique> ca <Plug>(operator-sandwich-add)
+silent! omap <unique> ca <Plug>(operator-sandwich-g@)
 " end
 
 
@@ -120,9 +117,6 @@ nnoremap <leader>hn :ConflictMarkerNone<cr>
 
 
 " Git Gutter & Conflict Marker
-nnoremap ]c :ConflictMarkerNextHunk<cr>:GitGutterNextHunk<cr>:echo ''<cr>
-nnoremap [c :ConflictMarkerPrevHunk<cr>:GitGutterPrevHunk<cr>:echo ''<cr>
-
 fun! DisablePluginsOnMerge()
     " {{{
     if filereadable(expand('%:p')) && match(readfile(expand('%:p')), g:conflict_marker_begin) != -1
@@ -136,6 +130,9 @@ fun! DisablePluginsOnMerge()
     endif
 endfun
 " }}}
+
+nnoremap ]c :ConflictMarkerNextHunk<cr>:GitGutterNextHunk<cr>:echo ''<cr>
+nnoremap [c :ConflictMarkerPrevHunk<cr>:GitGutterPrevHunk<cr>:echo ''<cr>
 
 augroup DisablePluginsOnMerge
     au!
@@ -170,8 +167,6 @@ call ThemeColors()
 " Fern
 let g:fern#disable_default_mappings = 1
 
-noremap <silent> <Leader>n :Fern . -drawer -right -reveal=% -toggle -width=35<cr>
-
 fun! InitFern() abort
     " {{{
     nmap <buffer><expr>
@@ -197,6 +192,8 @@ fun! InitFern() abort
     nmap <buffer> n <Plug>(fern-action-diff:select)
 endfun
 " }}}
+
+noremap <silent> <Leader>n :Fern . -drawer -right -reveal=% -toggle -width=35<cr>
 
 augroup FernCustom
     au!
