@@ -275,10 +275,17 @@ endfun
 fun! Uncomment()
     " {{{
     let l:commentstring = GetCommentString()
-    call setline('.', substitute(getline('.'), l:commentstring[0] . ' ', '', 'g'))
-
+    if match(getline('.'), "^\\s*" . l:commentstring[0] . ' ') == 0
+        call setline('.', substitute(getline('.'), l:commentstring[0] . ' ', '', ''))
+    else
+        call setline('.', substitute(getline('.'), l:commentstring[0], '', ''))
+    endif
     if len(l:commentstring) == 2
-        call setline('.', substitute(getline('.'), ' ' . l:commentstring[1], '', 'g'))
+        if match(getline('.'), "^\\s*" . ' ' . l:commentstring[1]) == 0
+            call setline('.', substitute(getline('.'), ' ' . l:commentstring[1], '', ''))
+        else
+            call setline('.', substitute(getline('.'), l:commentstring[1], '', ''))
+        endif
     endif
 endfun
 " }}}
@@ -300,9 +307,7 @@ fun! DirColors()
 endfun
 " }}}
 
-if exists('MINIMAL')
-    call DirColors()
-endif
+call DirColors()
 " end
 
 
