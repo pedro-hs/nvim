@@ -26,7 +26,6 @@ set foldmethod=manual
 set noshowmode
 set listchars+=tab:--,space:`
 set title
-set updatetime=50
 let &titlestring=system('echo `basename $(pwd)` \| %t - vi')
 
 au FileType vim set foldmethod=marker

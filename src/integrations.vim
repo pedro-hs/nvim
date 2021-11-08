@@ -95,12 +95,12 @@ if exists('MINIMAL')
 
     function! ToggleNetrw()
         " {{{
-        if exists("t:expl_buf_num")
+        if exists('t:expl_buf_num')
             let expl_win_num = bufwinnr(t:expl_buf_num)
             let cur_win_num = winnr()
             if expl_win_num != -1
                 while expl_win_num != cur_win_num
-                    exec "wincmd w"
+                    wincmd w
                     let cur_win_num = winnr()
                 endwhile
                 hide
@@ -110,7 +110,7 @@ if exists('MINIMAL')
             vsplit
             Explore
             vertical resize 35
-            let t:expl_buf_num = bufnr("%")
+            let t:expl_buf_num = bufnr('%')
         endif
     endfunction
     " }}}

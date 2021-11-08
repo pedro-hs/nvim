@@ -1,4 +1,4 @@
-call plug#begin()
+ call plug#begin()
 Plug 'rhysd/conflict-marker.vim'
 Plug 'lambdalisue/fern.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -6,7 +6,6 @@ Plug 'junegunn/fzf.vim'
 Plug 'Yggdroot/indentLine' " TODO
 Plug 'cohama/lexima.vim' " TODO
 Plug 'ap/vim-buftabline' " TODO
-Plug 'dominikduda/vim_current_word' " TODO
 Plug 'airblade/vim-gitgutter'
 Plug 'whatyouhide/vim-gotham'
 Plug 'sheerun/vim-polyglot'
@@ -163,12 +162,6 @@ endfun
 call ThemeColors()
 " }}}
 "  end
-
-
-" Vim Current Word
-hi CurrentWord ctermfg=15 ctermbg=4 guifg=#d3ebe9 guibg=#195466
-hi CurrentWordTwins ctermfg=15 ctermbg=4 guifg=#d3ebe9 guibg=#195466
-" end
 
 
 " Fern

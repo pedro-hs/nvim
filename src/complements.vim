@@ -293,9 +293,9 @@ vnoremap <silent><leader>b :call ToggleComment()<cr>
 fun! DirColors()
     " {{{
     set fillchars+=vert:\⠀
-    hi ColorColumn ctermbg=8 guibg=#11151c
-    hi VertSplit cterm=none
-    hi CursorLine cterm=none
+    hi ColorColumn  ctermbg=8 guibg=#11151c
+    hi VertSplit    cterm=none
+    hi CursorLine   cterm=none
     hi FoldColumn   ctermfg=none ctermbg=none
     hi Folded       ctermfg=none ctermbg=none
 endfun
@@ -325,5 +325,43 @@ endfun
 augroup HiYank
     autocmd!
     autocmd TextYankPost * if v:event.operator ==# 'y' | call HighlightYank() | endif
+augroup END
+" end
+
+
+" Highlight Current Word
+fun! ExistMatchId(id)
+    " {{{
+  for match in getmatches()
+    if get(match, 'id', '-1') == a:id
+      return 1
+    end
+  endfor
+  return 0
+endfun
+" }}}
+
+fun! AddWordHighlight()
+    " {{{
+    call RemoveWordHighlight()
+    call matchadd('Pmenu', '\k*\%#\k*', 0, 666)
+    call matchadd('DiffChange', '\%(\k*\%#\k*\)\@!\<\V'.substitute(expand('<cword>'), '\\', '\\\\', 'g').'\m\>', 0, 999)
+endfun
+" }}}
+
+fun! RemoveWordHighlight()
+    " {{{
+    for id in [666, 999]
+        if ExistMatchId(id)
+            call matchdelete(id)
+        endif
+    endfor
+endfun
+" }}}
+
+augroup HighlightWord
+    au!
+    au CursorHold * :call AddWordHighlight()
+    au CursorMoved,InsertEnter * :call RemoveWordHighlight()
 augroup END
 " end
