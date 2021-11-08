@@ -275,17 +275,11 @@ endfun
 fun! Uncomment()
     " {{{
     let l:commentstring = GetCommentString()
-    if match(getline('.'), "^\\s*" . l:commentstring[0] . ' ') == 0
-        call setline('.', substitute(getline('.'), l:commentstring[0] . ' ', '', ''))
-    else
-        call setline('.', substitute(getline('.'), l:commentstring[0], '', ''))
-    endif
+    let l:comment = match(getline('.'), "^\\s*" . l:commentstring[0] . ' ') == 0 ? l:commentstring[0] . ' ' : l:commentstring[0]
+    call setline('.', substitute(getline('.'), l:comment, '', ''))
     if len(l:commentstring) == 2
-        if match(getline('.'), "^\\s*" . ' ' . l:commentstring[1]) == 0
-            call setline('.', substitute(getline('.'), ' ' . l:commentstring[1], '', ''))
-        else
-            call setline('.', substitute(getline('.'), l:commentstring[1], '', ''))
-        endif
+        let l:comment = match(getline('.'), "^\\s*" . ' ' . l:commentstring[1]) == 0 ? ' ' . l:commentstring[1] : l:commentstring[1]
+        call setline('.', substitute(getline('.'), ' ' . l:comment, '', ''))
     endif
 endfun
 " }}}
