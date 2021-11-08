@@ -28,11 +28,16 @@ set listchars+=tab:--,space:`
 set title
 let &titlestring=system('echo `basename $(pwd)` \| %t - vi')
 
-au FileType vim set foldmethod=marker
-au BufReadPost quickfix nnoremap <buffer> <cr> <cr>
-au InsertLeave * set nolist relativenumber
-au InsertEnter * set list norelativenumber
-au FocusGained,CursorHold * silent! checktime
+
+augroup Init
+    au!
+    au FileType vim set foldmethod=marker
+    au BufReadPost quickfix nnoremap <buffer> <cr> <cr>
+    au InsertLeave * set nolist relativenumber
+    au InsertEnter * set list norelativenumber
+    au FocusGained,CursorHold * silent! checktime
+augroup END
+
 
 let mapleader = 'z'
 let g:omni_sql_no_default_maps = 1

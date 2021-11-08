@@ -137,7 +137,10 @@ fun! DisablePluginsOnMerge()
 endfun
 " }}}
 
-au BufEnter * :call DisablePluginsOnMerge()
+augroup DisablePluginsOnMerge
+    au!
+    au BufEnter * :call DisablePluginsOnMerge()
+augroup END
 " end
 
 

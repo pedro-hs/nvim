@@ -24,10 +24,13 @@ fun! ToggleAutosave()
 endfun
 " }}}
 
-au TextChanged,InsertLeave * call Autosave()
-
 nnoremap <silent><leader>xs :call ToggleAutosave()<cr>
 nnoremap <silent><leader>p :call ToggleAutosave()<cr>a<space><esc>p`[:call ToggleAutosave()<cr>:w<cr>
+
+augroup Autosave
+    au!
+    au TextChanged,InsertLeave * call Autosave()
+augroup END
 " end
 
 
@@ -208,7 +211,10 @@ tnoremap <silent><leader>n <c-\><c-n>:call NewTerminal()<cr>
 tnoremap <silent><leader>i <c-\><c-n>
 tnoremap <silent><c-d> <c-\><c-n>:call RemoveTerminalBuffers()<cr>:bwipeout!<cr>
 
-au BufWinEnter,WinEnter term://* startinsert
+augroup Terminal
+    au!
+    au BufWinEnter,WinEnter term://* startinsert
+augroup END
 " end
 
 
@@ -216,8 +222,12 @@ au BufWinEnter,WinEnter term://* startinsert
 set scrolloff=5
 nnoremap <silent><leader>c :let &scrolloff=999-&scrolloff<cr>:set scrolloff?<cr>
 let &scrolloff=999-&scrolloff
-au TermEnter * setlocal scrolloff=0
-au TermLeave * let &scrolloff=999-&scrolloff
+
+augroup Scroll
+    au!
+    au TermEnter * setlocal scrolloff=0
+    au TermLeave * let &scrolloff=999-&scrolloff
+augroup END
 " end
 
 
@@ -322,9 +332,9 @@ fun! HighlightYank() abort
 endfun
 " }}}
 
-augroup HiYank
-    autocmd!
-    autocmd TextYankPost * if v:event.operator ==# 'y' | call HighlightYank() | endif
+augroup HighlightYank
+    au!
+    au TextYankPost * if v:event.operator ==# 'y' | call HighlightYank() | endif
 augroup END
 " end
 
@@ -344,8 +354,8 @@ endfun
 fun! AddWordHighlight()
     " {{{
     call RemoveWordHighlight()
-    call matchadd('Pmenu', '\k*\%#\k*', 0, 666)
-    call matchadd('DiffChange', '\%(\k*\%#\k*\)\@!\<\V'.substitute(expand('<cword>'), '\\', '\\\\', 'g').'\m\>', 0, 999)
+    call matchadd('Pmenu', '\k*\%#\k*', -3, 666)
+    call matchadd('DiffChange', '\%(\k*\%#\k*\)\@!\<\V'.substitute(expand('<cword>'), '\\', '\\\\', 'g').'\m\>', -2, 999)
 endfun
 " }}}
 

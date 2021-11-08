@@ -1,4 +1,8 @@
-au FileType html setlocal ts=2 sts=2 sw=2
+augroup HtmlCustom
+    au!
+    au FileType html setlocal ts=2 sts=2 sw=2
+augroup END
+
 
 " Hexadecimal
 fun! ToggleHex()
@@ -83,7 +87,10 @@ fun! OpenFiles()
 endfun
 " }}}
 
-au BufEnter *.png,*.jpg,*.jpeg,*.pdf :silent! call OpenFiles()
+augroup OpenFiles
+    au!
+    au BufEnter *.png,*.jpg,*.jpeg,*.pdf :silent! call OpenFiles()
+augroup END
 " end
 
 
