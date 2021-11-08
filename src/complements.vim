@@ -308,6 +308,8 @@ fun! DirColors()
     hi CursorLine   cterm=none
     hi FoldColumn   ctermfg=none ctermbg=none
     hi Folded       ctermfg=none ctermbg=none
+    hi Pmenu        ctermbg=4 guibg=DarkBlue ctermfg=159 guifg=Cyan
+    hi DiffChange   ctermbg=4 guibg=DarkBlue ctermfg=159 guifg=Cyan
 endfun
 " }}}
 
@@ -342,12 +344,12 @@ augroup END
 " Highlight Current Word
 fun! ExistMatchId(id)
     " {{{
-  for match in getmatches()
-    if get(match, 'id', '-1') == a:id
-      return 1
-    end
-  endfor
-  return 0
+    for match in getmatches()
+        if get(match, 'id', '-1') == a:id
+            return 1
+        endif
+    endfor
+    return 0
 endfun
 " }}}
 
@@ -369,6 +371,7 @@ fun! RemoveWordHighlight()
 endfun
 " }}}
 
+set updatetime=300
 augroup HighlightWord
     au!
     au CursorHold * :call AddWordHighlight()
