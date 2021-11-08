@@ -1,5 +1,5 @@
 ### EXECUTE WITHOUT PLUGINS (run install.sh isn't necessary)
-# vim file.txt --cmd "let MINIMAL=1"
+# vim file.txt --cmd "let MIN=1"
 
 ### RUN
 # cd ~/.config

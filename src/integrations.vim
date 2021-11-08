@@ -19,7 +19,7 @@ fun! ToggleHex()
         let b:isHex=0
         %!xxd -r
         syntax on
-        if exists('MINIMAL')
+        if exists('MIN')
             call ThemeColors()
         endif
     endif
@@ -95,7 +95,7 @@ augroup END
 
 
 " Netrw
-if exists('MINIMAL')
+if exists('MIN')
     let g:netrw_banner = 0
     let g:netrw_liststyle = 3
     let g:netrw_browse_split = 4
