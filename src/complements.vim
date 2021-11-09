@@ -42,23 +42,25 @@ endfun
 " }}}
 
 " {{{
+let g:whitespace = ' '
+let g:largews = repeat(' ', 5)
 let g:basedir = system("`echo basename $(pwd)` | tr -d '\n'")
 let g:currentmode = {
             \  'n':  'Normal',   'no': 'Pending',  'v':  'Visual',   'V':  'V·Line',     "\<C-V>": 'V·Block',  's':  'Select',  'S':'S·Line',
-            \  '^S': 'S·Block',  'i':  'Insert',   'R':  'Replace',  'Rv': 'V·Replace',  'c':      'Command',  'cv': 'Vim Ex',
+            \  '^S': 'S·Block',  'i':  'Insert',   'R':  'Replace',  'Rv': 'V·Replace',  'c':      'Command',  'cv': 'Vim.Ex',
             \  'ce': 'Ex',       'r':  'Prompt',   'rm': 'More',     'r?': 'Confirm',    '!':      'Shell',    't':  'Terminal'
             \}
 
 set laststatus=2
-set statusline=%1*⠀⠀                                " color
-set statusline+=%{toupper(g:currentmode[mode()])}   " mode
-set statusline+=%=                                  " divider
-set statusline+=%{g:autosave_on?'on':'off'}⠀⠀⠀⠀⠀    " auto-save
-set statusline+=%l/%L⠀⠀⠀⠀⠀                          " lines
-set statusline+=%v⠀⠀⠀⠀⠀                             " column
-set statusline+=%m⠀                                 " edit-status
-set statusline+=%f⠀⠀⠀⠀⠀                             " file
-set statusline+=[%{g:basedir}]⠀⠀⠀⠀⠀                 " project
+set statusline=%1*                                                  " remove-color
+set statusline+=%{g:whitespace}%{toupper(g:currentmode[mode()])}    " mode
+set statusline+=%=                                                  " space-between
+set statusline+=%{g:autosave_on?'on':'off'}%{g:largews}             " auto-save
+set statusline+=%l/%L%{g:largews}                                   " lines
+set statusline+=%v%{g:largews}                                      " column
+set statusline+=%m%{g:whitespace}                                   " file-status
+set statusline+=%f%{g:largews}                                      " file-name
+set statusline+=[%{g:basedir}]%{g:largews}                          " project
 " }}}
 " end
 
@@ -122,7 +124,7 @@ nnoremap <leader>ra :silent! ReplaceAll %s///<left><left><c-r>"<right>
 " end
 
 
-" Terminal (depends vim current word and fern)
+" Terminal (depends fern)
 let g:windows = []
 let g:buffers = []
 
@@ -133,7 +135,6 @@ fun! ToggleTerminal()
     endif
     call RemoveTerminalBuffers()
     if len(g:windows) == 0
-        let g:vim_current_word#enabled = 0
         if len(g:buffers) == 0
             split | term
             call add(g:buffers, bufnr('$'))
@@ -160,7 +161,6 @@ fun! ToggleTerminal()
                 hide
             endif
         endfor
-        let g:vim_current_word#enabled = 1
         set laststatus=2
     endif
 endfun
