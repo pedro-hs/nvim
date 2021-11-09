@@ -1,4 +1,4 @@
- call plug#begin()
+call plug#begin()
 Plug 'rhysd/conflict-marker.vim'
 Plug 'lambdalisue/fern.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
