@@ -73,6 +73,8 @@ endfun
 
 set statusline+=%{GitBranch()}
 
+call add(g:centermode_ignore, '_diff_')
+
 nnoremap <silent> <leader>df :let g:revision_version=0<cr>:call ToggleGitDiff()<cr>
 nnoremap <silent> <leader>dl :call GitRevision()<cr>
 nnoremap <silent> <leader>dh :call GitRevision(1)<cr>
@@ -121,6 +123,9 @@ if exists('MIN')
         endif
     endfunction
     " }}}
+
+    call add(g:terminal_ignore, 'fern')
+    call add(g:centermode_ignore, 'fern')
 
     nnoremap <silent><leader>n :call ToggleNetrw()<cr>
 else

@@ -60,12 +60,16 @@ set statusline+=[%{g:basedir}]%{g:largews}                          " project
 " end
 
 
-" Center Mode (depends git diff)
+" Center Mode
+let g:centermode_ignore = []
+
 fun! ToggleCenterMode()
     " {{{
-    if bufwinnr('_diff_') > 0
-        return
-    endif
+    for bufname in g:centermode_ignore
+        if bufwinnr(bufname) > 0
+            return
+        endif
+    endfor
     if bufwinnr('_center_') > 0
         exe bufnr('_center_') . 'bd'
         setlocal noequalalways! cursorline
@@ -119,15 +123,18 @@ nnoremap <leader>ra :silent! ReplaceAll %s///<left><left><c-r>"<right>
 " end
 
 
-" Terminal (depends fern)
+" Terminal
 let g:windows = []
 let g:buffers = []
+let g:terminal_ignore = []
 
 fun! ToggleTerminal()
     " {{{
-    if exists('b:fern')
-        return
-    endif
+    for bufname in g:terminal_ignore
+        if bufwinnr(bufname) > 0
+            return
+        endif
+    endfor
     call RemoveTerminalBuffers()
     if len(g:windows) == 0
         if len(g:buffers) == 0

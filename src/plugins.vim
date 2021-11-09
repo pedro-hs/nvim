@@ -195,6 +195,10 @@ endfun
 
 noremap <silent> <Leader>n :Fern . -drawer -right -reveal=% -toggle -width=35<cr>
 
+call add(g:terminal_ignore, 'fern')
+call add(g:centermode_ignore, 'fern')
+call add(g:indentLine_fileTypeExclude, 'fern')
+
 augroup FernCustom
     au!
     au FileType fern setlocal norelativenumber | setlocal nonumber | call HideStatusLine() | call InitFern()
