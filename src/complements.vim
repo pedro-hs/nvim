@@ -1,18 +1,13 @@
-" Autosave (depends ale)
+" Autosave
 let g:autosave_on = 1
 
 fun! Autosave()
     " {{{
     if empty(&buftype) && g:autosave_on == 1
         try
-            silent ALEFix
             silent write
         catch
-            try
-                silent write
-            catch
-                echo
-            endtry
+            echo
         endtry
     endif
 endfun

@@ -43,6 +43,28 @@ endfun
 " }}}
 
 set statusline+=%{LintStatus()}
+
+fun! AutosaveAle()
+    " {{{
+    if empty(&buftype) && g:autosave_on == 1
+        try
+            silent ALEFix
+            silent write
+        catch
+            try
+                silent write
+            catch
+                echo
+            endtry
+        endtry
+    endif
+endfun
+" }}}
+
+augroup Autosave
+    au!
+    au TextChanged,InsertLeave * call AutosaveAle()
+augroup END
 " end
 
 
