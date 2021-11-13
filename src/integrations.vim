@@ -19,9 +19,7 @@ fun! ToggleHex()
         let b:isHex=0
         %!xxd -r
         syntax on
-        if exists('MIN')
-            call ThemeColors()
-        endif
+        call ThemeColors()
     endif
 endfun
 " }}}
@@ -97,41 +95,40 @@ augroup END
 
 
 " Netrw
-if exists('MIN')
-    let g:netrw_banner = 0
-    let g:netrw_liststyle = 3
-    let g:netrw_browse_split = 4
+" let g:netrw_banner = 0
+" let g:netrw_liststyle = 3
+" let g:netrw_browse_split = 4
+"
+" function! ToggleNetrw()
+    " {{{
+    " if exists('t:expl_buf_num')
+        " let expl_win_num = bufwinnr(t:expl_buf_num)
+        " let cur_win_num = winnr()
+        " if expl_win_num != -1
+            " while expl_win_num != cur_win_num
+                " wincmd w
+                " let cur_win_num = winnr()
+            " endwhile
+            " hide
+        " endif
+        " unlet t:expl_buf_num
+    " else
+        " vsplit
+        " Explore
+        " vertical resize 35
+        " let t:expl_buf_num = bufnr('%')
+    " endif
+" endfunction
+" }}}
+"
+" call add(g:terminal_ignore, 'fern')
+" call add(g:centermode_ignore, 'fern')
+"
+" nnoremap <silent><leader>n <Nop>
+" nnoremap <silent><leader>n :call ToggleNetrw()<cr>
 
-    function! ToggleNetrw()
-        " {{{
-        if exists('t:expl_buf_num')
-            let expl_win_num = bufwinnr(t:expl_buf_num)
-            let cur_win_num = winnr()
-            if expl_win_num != -1
-                while expl_win_num != cur_win_num
-                    wincmd w
-                    let cur_win_num = winnr()
-                endwhile
-                hide
-            endif
-            unlet t:expl_buf_num
-        else
-            vsplit
-            Explore
-            vertical resize 35
-            let t:expl_buf_num = bufnr('%')
-        endif
-    endfunction
-    " }}}
-
-    call add(g:terminal_ignore, 'fern')
-    call add(g:centermode_ignore, 'fern')
-
-    nnoremap <silent><leader>n :call ToggleNetrw()<cr>
-else
-    let g:loaded_netrw              = 1
-    let g:loaded_netrwPlugin        = 1
-    let g:loaded_netrwSettings      = 1
-    let g:loaded_netrwFileHandlers  = 1
-endif
+let g:loaded_netrw              = 1
+let g:loaded_netrwPlugin        = 1
+let g:loaded_netrwSettings      = 1
+let g:loaded_netrwFileHandlers  = 1
 " end

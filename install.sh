@@ -1,7 +1,4 @@
-### EXECUTE WITHOUT PLUGINS (run install.sh isn't necessary)
-# vim file.txt --cmd "let MIN=1"
-
-### RUN
+## RUN
 # cd ~/.config
 # sudo rm -rf nvim
 # git clone https://github.com/pedro-hs/nvim.git
