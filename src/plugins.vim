@@ -183,6 +183,7 @@ fun! InitFern() abort
     nmap <buffer> a <Plug>(fern-action-new-path)
     nmap <buffer> d <Plug>(fern-action-remove)
     nmap <buffer> r <Plug>(fern-action-move)
+    nmap <buffer> y <Plug>(fern-action-copy)
     nmap <buffer> . <Plug>(fern-action-hidden:toggle)
     nmap <buffer> b <Plug>(fern-action-focus:parent)
     nmap <buffer><nowait> < <Plug>(fern-action-leave)
