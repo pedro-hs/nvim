@@ -172,13 +172,13 @@ fun! InitFern() abort
     nmap <buffer><expr>
         \ <Plug>(fern-open-expand-collapse)
         \ fern#smart#leaf(
-        \   "\<Plug>(fern-action-open:select)",
+        \   "\<Plug>(fern-action-open)",
         \   "\<Plug>(fern-action-expand)",
         \   "\<Plug>(fern-action-collapse)",
         \ )
 
     nmap <buffer> x <Plug>(fern-action-collapse)
-    nmap <buffer> o <Plug>(fern-open-expand-collapse)
+    nmap <silent><buffer> o <Plug>(fern-open-expand-collapse):call CloseFern()<cr>
     nmap <buffer> O <Plug>(fern-action-open:vsplit)
     nmap <buffer> a <Plug>(fern-action-new-path)
     nmap <buffer> d <Plug>(fern-action-remove)
@@ -192,6 +192,12 @@ fun! InitFern() abort
     nmap <buffer> n <Plug>(fern-action-diff:select)
 endfun
 " }}}
+
+fun! CloseFern()
+    if &filetype != 'fern'
+        FernDo close
+    endif
+endfun
 
 noremap <silent> <Leader>n :Fern . -drawer -right -reveal=% -toggle -width=35<cr>
 

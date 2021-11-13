@@ -20,6 +20,3 @@ sudo npm install --global prettier neovim
 ### AFTER INSTALL
 # ALE (comment in autoload/ale/fix.vim)
 # execute 'echoerr ''The file was changed before fixing finished'''
-
-# NERDTREE (change in plugged/nerdtree/lib/nerdtree/flag_set.vim)
-# return '(' . flagstring . ') '
