@@ -169,6 +169,11 @@ call ThemeColors()
 " Fern
 let g:fern#disable_default_mappings = 1
 
+let g:loaded_netrw              = 1
+let g:loaded_netrwPlugin        = 1
+let g:loaded_netrwSettings      = 1
+let g:loaded_netrwFileHandlers  = 1
+
 fun! InitFern() abort
     " {{{
     nmap <buffer><expr>
