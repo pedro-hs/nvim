@@ -3,7 +3,6 @@ Plug 'rhysd/conflict-marker.vim'
 Plug 'lambdalisue/fern.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'Yggdroot/indentLine'
 Plug 'cohama/lexima.vim' " TODO
 Plug 'ap/vim-buftabline' " TODO
 Plug 'airblade/vim-gitgutter'
@@ -157,6 +156,9 @@ fun! ThemeColors()
     hi DiffAdd      ctermbg=23 ctermfg=255  guifg=#ffffff guibg=#5ba369
     hi DiffDelete   ctermbg=158 ctermfg=158 guifg=#9e4141 guibg=#9e4141
     hi Visual       ctermbg=236 guibg=#3d425b
+    hi ColorColumn  ctermbg=10 guibg=#091f2e
+    hi CursorLine   ctermbg=10 guibg=#091f2e
+    hi CursorColumn ctermfg=7 ctermbg=12 guifg=#99d1ce guibg=#0a3749
 endfun
 
 call ThemeColors()

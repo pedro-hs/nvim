@@ -37,6 +37,7 @@ nnoremap #                          #n
 nnoremap <leader>o                  %
 nnoremap <leader>j                  ^
 nnoremap <leader>k                  $
+nnoremap <leader>l                  :set cursorcolumn!<cr>
 " end
 
 

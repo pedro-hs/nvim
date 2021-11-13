@@ -305,9 +305,10 @@ vnoremap <silent><leader>b :call ToggleComment()<cr>
 fun! DirColors()
     " {{{
     set fillchars+=vert:\⠀
-    hi ColorColumn  ctermbg=8 guibg=#11151c
+    hi ColorColumn  ctermbg=10 guibg=#091f2e
+    hi CursorLine   ctermbg=10 guibg=#091f2e
+    hi CursorColumn ctermfg=7 ctermbg=12 guifg=#99d1ce guibg=#0a3749
     hi VertSplit    cterm=none
-    hi CursorLine   cterm=none
     hi FoldColumn   ctermfg=none ctermbg=none
     hi Folded       ctermfg=none ctermbg=none
     hi Pmenu        ctermbg=4 guibg=DarkBlue ctermfg=159 guifg=Cyan
