@@ -26,7 +26,6 @@ set foldmethod=manual
 set noshowmode
 set listchars+=tab:--,space:`
 set title
-let &titlestring=system('echo `basename $(pwd)` \| %t - vi')
 
 
 augroup Init

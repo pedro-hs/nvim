@@ -96,8 +96,8 @@ fun! CloseFile()
 endfun
 " }}}
 
-nnoremap <silent> <c-x> :call CloseFile()<cr>
-nnoremap <silent> <leader>a :call ToggleCenterMode()<cr>
+nnoremap <silent>gb    :call CloseFile()<cr>
+nnoremap <silent>gc    :call ToggleCenterMode()<cr>
 " end
 
 
@@ -119,7 +119,7 @@ fun! ReplaceAll(command)
 endfun
 " }}}
 
-nnoremap <leader>ra :silent! ReplaceAll %s///<left><left><c-r>"<right>
+nnoremap <leader>gr :silent! ReplaceAll %s///<left><left><c-r>"<right>
 " end
 
 
@@ -202,8 +202,6 @@ endfun
 
 nnoremap <silent><leader>m :call ToggleTerminal()<cr>
 
-inoremap <silent><leader>m <c-\><c-n>:call ToggleTerminal()<cr>
-
 tnoremap <silent><leader>m <c-\><c-n>:call ToggleTerminal()<cr><esc>
 tnoremap <silent><c-k> <c-\><c-n>:exe 'wincmd k'<cr>
 tnoremap <silent><c-l> <c-\><c-n>:exe 'wincmd l'<cr>
@@ -211,7 +209,7 @@ tnoremap <silent><c-h> <c-\><c-n>:exe 'wincmd h'<cr>
 tnoremap <silent><c-j> <c-\><c-n>:exe 'wincmd h'<cr>
 tnoremap <silent><leader>n <c-\><c-n>:call NewTerminal()<cr>
 tnoremap <silent><leader>i <c-\><c-n>
-tnoremap <silent><c-d> <c-\><c-n>:call RemoveTerminalBuffers()<cr>:bwipeout!<cr>:call ToggleTerminal()<cr>
+tnoremap <silent><c-d> <c-\><c-n>:call RemoveTerminalBuffers()<cr>:bwipeout!<cr>
 
 augroup Terminal
     au!
@@ -385,20 +383,23 @@ augroup END
 " Set Options
 fun! SET__IGNORECASE()
     " {{{
-    set ignorecase! ignorecase?
+    silent set ignorecase! ignorecase?
+    echo ''
 endfun
 " }}}
 
 fun! SET__SCROLL()
     " {{{
     let &scrolloff=999-&scrolloff
-    set scrolloff?
+    silent set scrolloff?
+    echo ''
 endfun
 " }}}
 
 fun! SET__CURSORCOLUMN()
     " {{{
-    set cursorcolumn!
+    silent set cursorcolumn!
+    echo ''
 endfun
 " }}}
 

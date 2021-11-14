@@ -1,7 +1,14 @@
+" Others
 augroup HtmlCustom
     au!
     au FileType html setlocal ts=2 sts=2 sw=2
 augroup END
+
+let &titlestring=system('echo `basename $(pwd)` \| %t - vi')
+
+nnoremap <silent><leader>xp         :call system('xclip -i -selection clipboard', expand('%'))<cr>
+nnoremap <silent><leader>xr         :source ~/.config/nvim/init.vim<cr>:echo 'vimrc updated'<cr>
+" end
 
 
 " Hexadecimal
@@ -73,9 +80,9 @@ set statusline+=%{GitBranch()}
 
 call add(g:centermode_ignore, '_diff_')
 
-nnoremap <silent> <leader>df :let g:revision_version=0<cr>:call ToggleGitDiff()<cr>
-nnoremap <silent> <leader>dl :call GitRevision()<cr>
-nnoremap <silent> <leader>dh :call GitRevision(1)<cr>
+nnoremap <silent><leader>xf     :let g:revision_version=0<cr>:call ToggleGitDiff()<cr>
+nnoremap <silent><leader>xk     :call GitRevision()<cr>
+nnoremap <silent><leader>xj     :call GitRevision(1)<cr>
 " end
 
 

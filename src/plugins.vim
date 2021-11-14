@@ -26,15 +26,15 @@ colorscheme gotham
 
 
 " Fzf
-vnoremap <silent> <leader>ss y:Ag <c-r>"<cr>
+vnoremap <silent> <leader>fs y:Ag <c-r>"<cr>
 
-nnoremap <silent> <leader>ss yiw:Ag <c-r>"<cr>
-nnoremap <silent> <leader>sd :Files<cr>
-nnoremap <silent> <leader>sc :GFiles?<cr>
-nnoremap <silent> <leader>sf :Ag<cr>
+nnoremap <silent> <leader>fs yiw:Ag <c-r>"<cr>
+nnoremap <silent> <leader>ff :Files<cr>
+nnoremap <silent> <leader>fg :GFiles?<cr>
+nnoremap <silent> <leader>fc :Ag<cr>
 
 let $FZF_DEFAULT_COMMAND = 'ag -g ""'
-let $FZF_DEFAULT_OPTS = '-m --bind ctrl-a:select-all,ctrl-d:deselect-all'
+let $FZF_DEFAULT_OPTS = '-m --bind ctrl-a:select-all,ctrl-u:deselect-all'
 " end
 
 
@@ -107,11 +107,11 @@ hi ConflictMarkerSeparator guifg=#272c42
 hi ConflictMarkerOurs      ctermfg=159   ctermbg=23 guifg=#b3c3cc guibg=#384851
 hi ConflictMarkerTheirs    ctermbg=236   guibg=#3d425b
 
-nnoremap <leader>ho :ConflictMarkerOurselves<cr>
-nnoremap <leader>ht :ConflictMarkerThemselves<cr>
-nnoremap <leader>hb :ConflictMarkerBoth<cr>
-nnoremap <leader>hB :ConflictMarkerBoth!<cr>
-nnoremap <leader>hn :ConflictMarkerNone<cr>
+nnoremap <leader>xo :ConflictMarkerOurselves<cr>
+nnoremap <leader>xt :ConflictMarkerThemselves<cr>
+nnoremap <leader>xb :ConflictMarkerBoth<cr>
+nnoremap <leader>xB :ConflictMarkerBoth!<cr>
+nnoremap <leader>xn :ConflictMarkerNone<cr>
 " end
 
 

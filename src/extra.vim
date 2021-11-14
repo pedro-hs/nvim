@@ -61,6 +61,9 @@ fun! AutosaveAle()
 endfun
 " }}}
 
+nnoremap <silent><leader>xs     <nop>
+nnoremap <silent><leader>xs     :call AutosaveAle()<cr>
+
 augroup Autosave
     au!
     au TextChanged,InsertLeave * call AutosaveAle()
