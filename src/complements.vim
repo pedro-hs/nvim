@@ -211,7 +211,7 @@ tnoremap <silent><c-h> <c-\><c-n>:exe 'wincmd h'<cr>
 tnoremap <silent><c-j> <c-\><c-n>:exe 'wincmd h'<cr>
 tnoremap <silent><leader>n <c-\><c-n>:call NewTerminal()<cr>
 tnoremap <silent><leader>i <c-\><c-n>
-tnoremap <silent><c-d> <c-\><c-n>:call RemoveTerminalBuffers()<cr>:bwipeout!<cr>
+tnoremap <silent><c-d> <c-\><c-n>:call RemoveTerminalBuffers()<cr>:bwipeout!<cr>:call ToggleTerminal()<cr>
 
 augroup Terminal
     au!
@@ -222,7 +222,6 @@ augroup END
 
 " Scroll
 set scrolloff=5
-nnoremap <silent><leader>c :let &scrolloff=999-&scrolloff<cr>:set scrolloff?<cr>
 let &scrolloff=999-&scrolloff
 
 augroup Scroll
@@ -380,4 +379,28 @@ augroup HighlightWord
     au CursorHold * :call AddWordHighlight()
     au CursorMoved,InsertEnter * :call RemoveWordHighlight()
 augroup END
+" end
+
+
+" Set Options
+fun! SET__IGNORECASE()
+    " {{{
+    set ignorecase! ignorecase?
+endfun
+" }}}
+
+fun! SET__SCROLL()
+    " {{{
+    let &scrolloff=999-&scrolloff
+    set scrolloff?
+endfun
+" }}}
+
+fun! SET__CURSORCOLUMN()
+    " {{{
+    set cursorcolumn!
+endfun
+" }}}
+
+nnoremap <leader>t :call SET__
 " end

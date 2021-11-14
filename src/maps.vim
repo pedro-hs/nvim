@@ -37,7 +37,6 @@ nnoremap #                          #n
 nnoremap <leader>o                  %
 nnoremap <leader>j                  ^
 nnoremap <leader>k                  $
-nnoremap <leader>l                  :set cursorcolumn!<cr>
 " end
 
 
@@ -56,7 +55,6 @@ nnoremap <leader>zm                 zm
 nnoremap <leader>zr                 zr
 nnoremap <leader>/                  /\<\><left><left>
 nnoremap <leader>xa                 <esc>ggVG
-nnoremap <leader>xc                 :set ignorecase! ignorecase?<cr>
 nnoremap <silent><leader>xr         :source ~/.config/nvim/init.vim<cr>:echo 'vimrc updated'<cr>
 nnoremap <silent><leader>xp         :call system('xclip -i -selection clipboard', expand('%'))<cr>
 nnoremap <silent><leader>w          :w<cr>
