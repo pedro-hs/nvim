@@ -34,7 +34,7 @@ nnoremap <silent> <leader>fg :GFiles?<cr>
 nnoremap <silent> <leader>fc :Ag<cr>
 
 let $FZF_DEFAULT_COMMAND = 'ag -g ""'
-let $FZF_DEFAULT_OPTS = '-m --bind ctrl-a:select-all,ctrl-u:deselect-all'
+let $FZF_DEFAULT_OPTS = '-m --bind ctrl-a:select-all,ctrl-o:deselect-all'
 " end
 
 
@@ -130,8 +130,8 @@ fun! DisablePluginsOnMerge()
 endfun
 " }}}
 
-nnoremap ]c :ConflictMarkerNextHunk<cr>:GitGutterNextHunk<cr>:echo ''<cr>
-nnoremap [c :ConflictMarkerPrevHunk<cr>:GitGutterPrevHunk<cr>:echo ''<cr>
+nnoremap gj :ConflictMarkerNextHunk<cr>:GitGutterNextHunk<cr>:echo ''<cr>
+nnoremap gk :ConflictMarkerPrevHunk<cr>:GitGutterPrevHunk<cr>:echo ''<cr>
 
 augroup DisablePluginsOnMerge
     au!

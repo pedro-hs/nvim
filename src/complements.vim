@@ -19,7 +19,7 @@ fun! ToggleAutosave()
 endfun
 " }}}
 
-nnoremap <silent><leader>xs :call ToggleAutosave()<cr>
+nnoremap <silent>ms :call ToggleAutosave()<cr>
 nnoremap <silent><leader>p :call ToggleAutosave()<cr>a<space><esc>p`[:call ToggleAutosave()<cr>:w<cr>
 
 augroup Autosave
@@ -96,8 +96,8 @@ fun! CloseFile()
 endfun
 " }}}
 
-nnoremap <silent>gb    :call CloseFile()<cr>
-nnoremap <silent>gc    :call ToggleCenterMode()<cr>
+nnoremap <silent><c-n> :call CloseFile()<cr>
+nnoremap <silent>mc    :call ToggleCenterMode()<cr>
 " end
 
 
@@ -293,27 +293,8 @@ fun! Uncomment()
 endfun
 " }}}
 
-nnoremap <silent><leader>b :call ToggleComment()<cr>
-vnoremap <silent><leader>b :call ToggleComment()<cr>
-" end
-
-
-" Dir Colors
-fun! DirColors()
-    " {{{
-    set fillchars+=vert:\⠀
-    hi ColorColumn  ctermbg=10 guibg=#091f2e
-    hi CursorLine   ctermbg=10 guibg=#091f2e
-    hi CursorColumn ctermfg=7 ctermbg=12 guifg=#99d1ce guibg=#0a3749
-    hi VertSplit    cterm=none
-    hi FoldColumn   ctermfg=none ctermbg=none
-    hi Folded       ctermfg=none ctermbg=none
-    hi Pmenu        ctermbg=4 guibg=DarkBlue ctermfg=159 guifg=Cyan
-    hi DiffChange   ctermbg=4 guibg=DarkBlue ctermfg=159 guifg=Cyan
-endfun
-" }}}
-
-call DirColors()
+nnoremap <silent>ms :call ToggleComment()<cr>
+vnoremap <silent>ms :call ToggleComment()<cr>
 " end
 
 
@@ -330,13 +311,14 @@ fun! HighlightYank() abort
         call matchaddpos('Search', yank_index[chunk:chunk + 7])
     endfor
     redraw!
-    call timer_start(300, {t_id -> clearmatches()})
+    call timer_start(200, {timer_id -> clearmatches()})
 endfun
 " }}}
 
 augroup HighlightYank
     au!
     au TextYankPost * if v:event.operator ==# 'y' | call HighlightYank() | endif
+    au TermLeave * call clearmatches()
 augroup END
 " end
 
@@ -375,7 +357,7 @@ set updatetime=300
 augroup HighlightWord
     au!
     au CursorHold * :call AddWordHighlight()
-    au CursorMoved,InsertEnter * :call RemoveWordHighlight()
+    au CursorMoved,InsertEnter,TermEnter * :call RemoveWordHighlight()
 augroup END
 " end
 

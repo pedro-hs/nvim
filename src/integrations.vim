@@ -80,9 +80,9 @@ set statusline+=%{GitBranch()}
 
 call add(g:centermode_ignore, '_diff_')
 
-nnoremap <silent><leader>xf     :let g:revision_version=0<cr>:call ToggleGitDiff()<cr>
-nnoremap <silent><leader>xk     :call GitRevision()<cr>
-nnoremap <silent><leader>xj     :call GitRevision(1)<cr>
+nnoremap <silent><leader>df     :let g:revision_version=0<cr>:call ToggleGitDiff()<cr>
+nnoremap <silent><leader>dj     :call GitRevision(1)<cr>
+nnoremap <silent><leader>dk     :call GitRevision()<cr>
 " end
 
 
