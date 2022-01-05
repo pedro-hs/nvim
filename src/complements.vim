@@ -19,7 +19,7 @@ fun! ToggleAutosave()
 endfun
 " }}}
 
-nnoremap <silent>ms :call ToggleAutosave()<cr>
+nnoremap <silent>ma :call ToggleAutosave()<cr>
 nnoremap <silent><leader>p :call ToggleAutosave()<cr>a<space><esc>p`[:call ToggleAutosave()<cr>:w<cr>
 
 augroup Autosave

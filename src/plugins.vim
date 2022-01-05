@@ -1,10 +1,11 @@
 call plug#begin()
+Plug 'APZelos/blamer.nvim'
 Plug 'rhysd/conflict-marker.vim'
 Plug 'lambdalisue/fern.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'cohama/lexima.vim' " TODO
-Plug 'ap/vim-buftabline' " TODO
+Plug 'cohama/lexima.vim'
+Plug 'ap/vim-buftabline'
 Plug 'airblade/vim-gitgutter'
 Plug 'whatyouhide/vim-gotham'
 Plug 'sheerun/vim-polyglot'
@@ -164,6 +165,13 @@ endfun
 call ThemeColors()
 " }}}
 "  end
+
+
+" Blamer
+let g:blamer_enabled              = 1
+let g:blamer_show_in_visual_modes = 0
+let g:blamer_delay                = 200
+" end
 
 
 " Fern
