@@ -213,7 +213,7 @@ tnoremap <silent><c-d> <c-\><c-n>:call RemoveTerminalBuffers()<cr>:bwipeout!<cr>
 
 augroup Terminal
     au!
-    au BufWinEnter,WinEnter term://* startinsert
+    au BufWinEnter,WinEnter term://* if mode() == 't' | startinsert | endif
 augroup END
 " end
 
