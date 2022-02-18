@@ -277,7 +277,9 @@ fun! Comment()
     let l:commentstring_end = l:commentstring_end != '' ? ' ' . l:commentstring_end : ''
     let l:line = getline('.')
     let l:whitespaces = match(l:line, '\S')
-    call setline('.', l:commentstring[0] . repeat(' ', l:whitespaces) . ' ' . trim(l:line) . l:commentstring_end)
+    if trim(l:line) != ''
+        call setline('.', l:commentstring[0] . repeat(' ', l:whitespaces) . ' ' . trim(l:line) . l:commentstring_end)
+    endif
 endfun
 " }}}
 
