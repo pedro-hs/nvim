@@ -81,6 +81,8 @@ vnoremap <leader>k                  $h
 vnoremap <leader>o                  %
 vnoremap <leader>a                  $A
 vnoremap <leader>i                  0I
+vnoremap <a-j>                      <c-d>
+vnoremap <a-k>                      <c-u>
 " end
 
 
