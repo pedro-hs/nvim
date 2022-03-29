@@ -90,6 +90,11 @@ fun! CloseFile()
         bwipeout!
         wincmd h
         call ToggleCenterMode()
+
+    elseif len(g:windows) > 0
+        call ToggleTerminal()
+        bwipeout!
+
     else
         bwipeout!
     endif
