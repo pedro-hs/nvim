@@ -94,6 +94,7 @@ fun! CloseFile()
     elseif len(g:windows) > 0
         call ToggleTerminal()
         bwipeout!
+        call ToggleTerminal()
 
     else
         bwipeout!
