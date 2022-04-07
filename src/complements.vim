@@ -86,6 +86,10 @@ endfun
 fun! CloseFile()
     " {{{
     if bufwinnr('_center_') > 0
+        if len(g:windows) > 0
+            call ToggleTerminal()
+        endif
+
         call ToggleCenterMode()
         bwipeout!
         wincmd h
@@ -94,7 +98,6 @@ fun! CloseFile()
     elseif len(g:windows) > 0
         call ToggleTerminal()
         bwipeout!
-        call ToggleTerminal()
 
     else
         bwipeout!
