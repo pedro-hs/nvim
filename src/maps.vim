@@ -49,6 +49,7 @@ nnoremap Q                          <esc>:%bd!<cr><esc>:q!<cr>
 nnoremap ga                         <esc>ggVG
 nnoremap gw                         :w<cr>
 
+nnoremap <a-;>                      ;
 nnoremap <silent>;                  <esc>:noh<cr>:echo ''<cr>
 
 nnoremap <leader>zm                 zm
