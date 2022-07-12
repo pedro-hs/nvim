@@ -230,12 +230,6 @@ augroup END
 " Scroll
 set scrolloff=5
 let &scrolloff=999-&scrolloff
-
-augroup Scroll
-    au!
-    au TermEnter * setlocal scrolloff=0
-    au TermLeave * let &scrolloff=999-&scrolloff
-augroup END
 " end
 
 
