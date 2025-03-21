@@ -358,7 +358,7 @@ fun! RemoveWordHighlight()
 endfun
 " }}}
 
-set updatetime=300
+set updatetime=250
 augroup HighlightWord
     au!
     au CursorHold * :call AddWordHighlight()
@@ -391,4 +391,18 @@ endfun
 " }}}
 
 nnoremap <leader>t :call SET__
+" end
+
+" Toggle Color Scheme
+fun! TooggleColorscheme()
+    if g:colors_name == 'gotham'
+        colorscheme morning
+        return
+    endif
+    if g:colors_name == 'morning'
+        colorscheme gotham
+        return
+    endif
+endfun
+nnoremap <leader>w                 :call TooggleColorscheme()<cr>
 " end

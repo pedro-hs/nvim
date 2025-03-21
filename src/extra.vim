@@ -81,6 +81,7 @@ let g:coc_global_extensions = [
             \]
 
 nmap <leader>cd <Plug>(coc-definition)
+nmap <leader>ci <Plug>(coc-implementation)
 nmap <leader>cr <Plug>(coc-rename)
 nmap <silent> coc :CocCommand<cr>
 
